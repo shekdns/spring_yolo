@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.ync.mapper.TestMapper">
+	
+	
+	<sql id="criteria">
+		<trim prefix="(" suffix=") AND " prefixOverrides="OR">
+			<foreach item='type' collection="typeArr">
+				<trim prefix="OR">
+					<choose>
+						<when test="type == 'T'.toString()">
+							name like '%'||#{keyword}||'%'
+						</when>
+						<when test="type == 'C'.toString()">
+							artist like '%'||#{keyword}||'%'
+						</when>
+						<when test="type == 'W'.toString()">
+							album like '%'||#{keyword}||'%'
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+	</sql>
+	
+	<insert id="insert">
+		insert into tbl_test (test1, test2)
+		values (#{test1}, #{test2})
+	
+	</insert>
+	
+	<insert id="insertSelectKey">
+
+		<selectKey keyProperty="artist_idx" order="BEFORE"
+			resultType="int">
+			select seq_artist.nextval from dual
+		</selectKey>
+
+		insert into artist (artist_idx, artist_name , debut, type, gender, img_path)
+		values (#{artist_idx}, #{artist_name}, #{debut}, #{type}, #{gender}, #{img_path})
+	</insert>
+	
+	
+	
+	<update id="updateDB">
+		update chart
+		set 
+		name = #{name},
+		artist = #{artist},
+		album = #{album},
+		img_path = #{img_path},
+		updateDate = sysdate
+		where c_rank = #{c_rank}
+	</update>
+	
+	<delete id="clearDB">
+		truncate table chart
+	</delete>
+	
+	<select id="getList" resultType="kr.ync.domain.ChartVO">
+	<![CDATA[
+		select c_rank,
+			   name,
+			   artist,
+			   album,
+			   img_path,
+			   regdate,
+			   updatedate
+		from chart
+		where c_rank > 0 
+	]]>
+	</select>
+	
+	
+	<select id="getListWithPaging" resultType="kr.ync.domain.ChartVO">
+		<![CDATA[
+			SELECT c_rank,
+				   img_path,
+				   name,
+		           artist,
+		           album,
+		           regdate,
+		           updatedate
+		    FROM   (SELECT 
+		    			rownum rn,
+		    			c_rank,
+		    			img_path,
+		    			name,
+		    			artist,
+		    			album,
+		    			regdate,
+		    			updatedate
+		    	   FROM chart
+		    	   WHERE   
+		]]>
+		<include refid="criteria"></include>
+		
+		<![CDATA[
+			rownum <= #{pageNum} * #{amount}
+			)
+		WHERE rn > (#{pageNum} -1) * #{amount}
+		]]>
+	</select>
+	
+	<select id="getTotalCount" resultType="int">
+		select count(*) from chart where
+		
+		<include refid="criteria"></include>
+		<![CDATA[
+			c_rank > 0
+		]]>
+	</select>
+	
+
+</mapper>

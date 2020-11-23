@@ -1,0 +1,11 @@
+@charset "UTF-8";
+
+.button_center {
+
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.f_album_btn {
+	float: right;
+}

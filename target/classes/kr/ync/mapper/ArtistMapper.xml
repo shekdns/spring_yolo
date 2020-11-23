@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.ync.mapper.ArtistMapper">
+	
+	<sql id="criteria">
+		<trim prefix="(" suffix=") AND " prefixOverrides="OR">
+			<foreach item='type' collection="typeArr">
+				<trim prefix="OR">
+					<choose>
+						<when test="type == 'T'.toString()">
+							artist_name like '%'||#{keyword}||'%'
+						</when>
+						<when test="type == 'C'.toString()">
+							artist_type like '%'||#{keyword}||'%'
+						</when>
+						<when test="type == 'W'.toString()">
+							gender like '%'||#{keyword}||'%'
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+	</sql>
+	
+	<select id="getList" resultType="kr.ync.domain.ArtistVO">
+	<![CDATA[
+		select * from artist where artist_idx > 0 
+		]]>
+	</select>
+	
+	<select id="frontArtist" resultType="kr.ync.domain.ArtistVO">
+	<![CDATA[
+		select * from artist where rownum <= 12 
+		]]>
+	</select>
+	
+	
+	<insert id="insert">
+		insert into artist (artist_idx, artist_name, debut, artist_type, gender, artist_img_path)
+		values (seq_artist.nextval, #{artist_name}, #{debut}, #{artist_type}, #{gender}, #{artist_img_path})
+	</insert>
+	
+	<insert id="insertSelectKey">
+
+		<selectKey keyProperty="artist_idx" order="BEFORE"
+			resultType="int">
+			select seq_artist.nextval from dual
+		</selectKey>
+
+		insert into artist (artist_idx, artist_name, debut, artist_type, gender, artist_img_path)
+		values (#{artist_idx},
+		#{artist_name}, #{debut}, #{artist_type}, #{gender}, #{artist_img_path})
+	</insert>
+	
+	<select id="read" resultType="kr.ync.domain.ArtistVO">
+		select * from artist where artist_idx =	#{artist_idx}
+	</select>
+
+
+	<delete id="delete">
+		delete artist where artist_idx = #{artist_idx}
+	</delete>
+ 	
+ 	<update id="update">
+		update artist
+		set 
+		artist_name = #{artist_name},
+		debut=#{debut},
+		artist_type = #{artist_type},
+		gender = #{gender},
+		artist_img_path = #{artist_img_path}
+		where artist_idx =
+		#{artist_idx}
+	</update>
+
+	
+	
+	<select id="getListWithPaging" resultType="kr.ync.domain.ArtistVO">
+		<![CDATA[
+		SELECT	artist_idx,
+				artist_name,
+				debut,
+				artist_type,
+				gender,
+				artist_img_path
+		FROM	(SELECT /*+INDEX_DESC(artist XPK아티스트) */
+        				rownum rn,
+        				artist_idx,
+        				artist_name,
+        				debut,
+        				artist_type,
+        				gender,
+        				artist_img_path
+      			FROM	artist
+				WHERE 
+  		]]>
+		<include refid="criteria"></include> 
+      
+		<![CDATA[    
+      			rownum <= #{pageNum} * #{amount}
+      			)
+  		WHERE rn > (#{pageNum} -1) * #{amount}   
+		]]>
+	</select>
+	
+	<!-- 
+	<select id="getTotalCount" resultType="int">
+		<![CDATA[
+		select count(*) from tbl_board where 
+		bno > 0
+		]]>
+	</select>
+	 -->
+	<select id="getTotalCount" resultType="int">
+		select count(*) from artist where 
+		
+		<include refid="criteria"></include>
+		
+		<![CDATA[
+		artist_idx > 0
+		]]>
+	</select>
+	
+
+</mapper>

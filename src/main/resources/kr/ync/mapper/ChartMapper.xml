@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.ync.mapper.ChartMapper">
+	
+	
+	<sql id="criteria">
+		<trim prefix="(" suffix=") AND " prefixOverrides="OR">
+			<foreach item='type' collection="typeArr">
+				<trim prefix="OR">
+					<choose>
+						<when test="type == 'T'.toString()">
+							name like '%'||#{keyword}||'%'
+						</when>
+						<when test="type == 'C'.toString()">
+							artist like '%'||#{keyword}||'%'
+						</when>
+						<when test="type == 'W'.toString()">
+							album like '%'||#{keyword}||'%'
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+	</sql>
+	
+
+	<insert id="uploadDB">
+		insert into chart (idx, c_rank, name, artist, album, img_path, gnrcode)
+		values (seq_chart.nextval, #{c_rank}, #{name}, #{artist}, #{album}, #{img_path} , #{gnrcode})
+	</insert>
+	
+	<update id="updateDB">
+		update chart
+		set 
+		name = #{name},
+		artist = #{artist},
+		album = #{album},
+		img_path = #{img_path},
+		updateDate = sysdate
+		where c_rank = #{c_rank}
+		and gnrcode = #{gnrcode}
+	</update>
+	
+	<delete id="clearDB">
+		truncate table chart
+	</delete>
+	
+	<select id="getList" resultType="kr.ync.domain.ChartVO">
+	<![CDATA[
+		select c_rank,
+			   name,
+			   artist,
+			   album,
+			   img_path,
+			   regdate,
+			   updatedate,
+			   gnrcode
+		from chart
+		where c_rank > 0 
+	]]>
+	</select>
+	
+	
+	<select id="front_getList" resultType="kr.ync.domain.ChartVO" parameterType="map">
+	<![CDATA[
+		select c_rank,
+			   name,
+			   artist,
+			   album,
+			   img_path
+		from (SELECT /*+INDEX(chart XPK차트) */ 
+		    			c_rank,
+		    			img_path,
+		    			name,
+		    			artist,
+		    			album
+		    	   FROM chart
+			 	   WHERE gnrcode = #{gnrcode} 
+			  )
+	
+		
+	]]>
+	</select>
+	
+	
+	<select id="frontMainChart" resultType="kr.ync.domain.ChartVO">
+	<![CDATA[
+		select c_rank,
+			   name,
+			   artist,
+			   album,
+			   img_path,
+			   regdate,
+			   updatedate
+		from chart
+		where c_rank < 19
+		and gnrcode = 1 
+	]]>
+	</select>
+	
+	<select id="getListWithPaging" resultType="kr.ync.domain.ChartVO" parameterType="map">
+		<![CDATA[
+			SELECT c_rank,
+				   img_path,
+				   name,
+		           artist,
+		           album,
+		           regdate,
+		           updatedate,
+		           gnrcode
+		    FROM   (SELECT /*+INDEX(chart XPK차트) */ 
+		    			rownum rn,
+		    			c_rank,
+		    			img_path,
+		    			name,
+		    			artist,
+		    			album,
+		    			regdate,
+		    			updatedate,
+		    			gnrcode
+		    	   FROM chart
+		    	   WHERE 
+		]]>
+		<include refid="criteria"></include>
+		
+		<![CDATA[    
+      			rownum <= #{pageNum} * #{amount}
+      			and gnrcode = #{gnrcode}
+      			)
+  		WHERE rn > (#{pageNum} -1) * #{amount}
+		]]>
+	</select>
+	
+	<select id="getTotalCount" resultType="int" parameterType="map">
+		select count(*) from chart where
+		
+		<include refid="criteria"></include>
+		<![CDATA[
+			 c_rank > 0 and gnrcode = #{gnrcode}
+		]]>
+	</select>
+	
+
+</mapper>

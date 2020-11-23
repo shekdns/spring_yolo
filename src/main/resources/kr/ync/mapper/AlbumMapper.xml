@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.ync.mapper.AlbumMapper">
+
+	<sql id="criteria">
+		<trim prefix="(" suffix=") AND " prefixOverrides="OR">
+			<foreach item='type' collection="typeArr">
+				<trim prefix="OR">
+					<choose>
+						<when test="type == 'T'.toString()">
+							album_name like '%'||#{keyword}||'%'
+						</when>
+						<when test="type == 'C'.toString()">
+							artist_name like '%'||#{keyword}||'%'
+						</when>
+						<when test="type == 'W'.toString()">
+							genre like '%'||#{keyword}||'%'
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+	</sql>
+	
+	
+<resultMap type="kr.ync.domain.SongVO" id="SongVO">
+    <result column="song_name" property="song_name"/>
+    <result column="song_img_path" property="song_img_path"/>
+    <result column="mp3_path" property="mp3_path"/>
+    <result column="lyc_path" property="lyc_path"/>
+    <result column="song_idx" property="song_idx"/>
+    <result column="album_idx" property="album_idx"/>
+    <result column="genre" property="genre"/>
+    <result column="composition" property="composition"/>
+    <result column="lyrics" property="lyrics"/>
+</resultMap>
+ 
+<resultMap type="kr.ync.domain.AlbumVO" id="AlbumVO">
+    <result column="album_idx" property="album_idx"/>
+    <result column="album_name" property="album_name"/>
+    <result column="artist_name" property="artist_name"/>
+    <result column="album_img_path" property="album_img_path"/>
+    <result column="album_type" property="album_type"/>
+    <result column="genre" property="genre"/>
+    <collection property="song" resultMap="SongVO"/>
+</resultMap>
+
+
+	<insert id="insert">
+		INSERT INTO album (album_idx, album_name,
+		artist_name, album_img_path, genre, album_type, artist_idx)
+		VALUES
+		(seq_album.nextval, #{album_name}, #{artist_name}, #{album_img_path},
+		#{genre}, #{album_type}, #{artist_idx})
+	</insert>
+
+	<insert id="insertSelectKey">
+
+		<selectKey keyProperty="album_idx" order="BEFORE"
+			resultType="int">
+			select seq_album.nextval from dual
+		</selectKey>
+
+		INSERT INTO album (album_idx, album_name, artist_name, album_img_path,
+		genre, album_type, artist_idx)
+		VALUES (#{album_idx}, #{album_name},
+		#{artist_name}, #{album_img_path}, #{genre}, #{album_type}, #{artist_idx})
+	</insert>
+
+	<select id="read" resultType="kr.ync.domain.AlbumVO">
+		select * from album where album_idx = #{album_idx}
+	</select>
+		
+	  
+	<select id="frontAlbum_get"  resultMap="AlbumVO">
+		SELECT ab.album_idx,
+		       ab.album_name,
+		       ab.album_img_path,
+		       ab.artist_name,
+		       ab.album_type,
+		       ab.genre,
+		       so.song_idx,
+		       so.song_name,
+		       so.song_img_path,
+		       so.mp3_path,
+		       so.lyc_path,
+		       so.composition,
+		       so.lyrics
+		from   album ab,
+               song so
+			   where ab.album_idx = so.album_idx
+			   and ab.album_idx = #{ab.album_idx}
+	</select>
+	
+	<delete id="delete">
+		DELETE FROM album WHERE album_idx = #{album_idx}
+	</delete>
+
+	 	<update id="update">
+		update album
+		set 
+		album_name = #{album_name},
+		artist_idx=#{artist_idx},
+		artist_name = #{artist_name},
+		genre = #{genre},
+		album_img_path = #{album_img_path},
+		album_type = #{album_type},
+		regdate = sysdate
+		where album_idx = 
+		#{album_idx}
+	</update>
+
+
+	<select id="getList" resultType="kr.ync.domain.AlbumVO">
+
+		select *
+		from album
+		where
+		album_idx > 0 
+
+	</select>
+	
+	<select id="frontAlbum" resultType="kr.ync.domain.AlbumVO">		
+		<![CDATA[
+		select * from album where rownum <= 10
+		]]>
+
+	</select>
+
+	<select id="getListWithPaging"
+		resultType="kr.ync.domain.AlbumVO">
+		<![CDATA[
+	 		SELECT	album_idx,
+	 				album_img_path,
+	 				album_name,
+	 				artist_idx,
+	 				artist_name,
+	 				album_type,
+	 				genre
+	 		FROM	(SELECT /*+INDEX_DESC(album XPK앨범) */ 
+	      					rownum rn,
+	      					album_idx,
+	      					album_img_path,
+	      					album_name,
+	      					artist_idx,
+	      					artist_name,
+	      					album_type,
+	      					genre
+	    			FROM	album
+	    			WHERE 
+  		]]>
+		<include refid="criteria"></include> 
+      
+		<![CDATA[    
+      			rownum <= #{pageNum} * #{amount}
+      			)
+  		WHERE rn > (#{pageNum} -1) * #{amount}   
+		]]>
+	</select>
+	
+	
+		<select id="frontAlbum_getListWithPaging"
+		 resultMap="AlbumVO">
+		<![CDATA[
+	 		SELECT	album_idx,
+	 				album_name,
+       			    artist_name,
+       				album_img_path,
+				    album_type,
+				    song_name,
+				    song_img_path,
+				    mp3_path,
+				    lyc_path,
+				    song_idx
+	 		FROM	(SELECT /*+INDEX_DESC(album XPK앨범) */ 
+      					   rownum rn,
+      					   ab.album_idx,
+					       ab.album_name,
+					       ab.album_img_path,
+					       ab.artist_name,
+					       ab.album_type,
+					       so.song_name,
+					       so.song_img_path,
+					       so.mp3_path,
+					       so.lyc_path,
+					       so.song_idx
+					   	 from  album ab,
+						       song so
+						 where ab.album_idx = so.album_idx
+  		]]>
+		<include refid="criteria"></include> 
+      
+		<![CDATA[    
+      			and rownum <= #{pageNum} * #{amount}
+      			)
+  		WHERE rn > (#{pageNum} -1) * #{amount}  
+		]]>
+	</select>
+	
+	
+	<select id="getTotalCount" resultType="int">
+		select count(*) from album where 
+		
+		<include refid="criteria"></include>
+		
+		<![CDATA[
+		album_idx > 0
+		]]>
+	</select>
+	
+
+	<select id="getCountByBno" resultType="int">
+		<![CDATA[
+		SELECT count(rno) FROM tbl_reply WHERE bno = #{bno}
+		]]>
+	</select>
+
+</mapper>
