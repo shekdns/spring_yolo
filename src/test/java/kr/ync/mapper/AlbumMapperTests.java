@@ -175,6 +175,12 @@ public class AlbumMapperTests {
 //		log.info(album);
 //
 //	}
-//	
+
+	
+//	@Test
+//	public void testGetList() {
+//		
+//		mapper.front_artist_getList(47).forEach(album -> log.info("album 객채 내용 : " + album));
+//	}
 	
 }

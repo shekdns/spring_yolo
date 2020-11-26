@@ -85,6 +85,18 @@ public class ArtistServiceImpl implements ArtistService {
 		// TODO Auto-generated method stub
 		return mapper.frontArtist();
 	}
+
+	@Override
+	public List<ArtistVO> frontArtist_get(int artist_idx) {
+		// TODO Auto-generated method stub
+		return mapper.frontArtist_get(artist_idx);
+	}
+
+	@Override
+	public List<ArtistVO> frontArtist_get_member(int artist_idx) {
+		// TODO Auto-generated method stub
+		return mapper.frontArtist_get_member(artist_idx);
+	}
 	
 	
 }

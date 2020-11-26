@@ -14,70 +14,105 @@
 			</div>
 		</div>
 		<div class="row">
-		
-		 <c:forEach items="${album}" var="album">
-			<div class="col-sm-3">
-				<div class="iq-card  iq-mb-3">
-					<a class='move' href='<c:out value="${album.album_idx}"/>'><img src="/resources/upload/${album.album_img_path}"
-						class="card-img-top" alt="#"></a>
-					<div class="iq-card-body">
-						<h6 class="card-title"><a class='move' href='<c:out value="${album.album_idx}"/>'><c:out value="${album.album_name}" /></a></h6>
-						<h5 class="card-title"><a class='move2' href='<c:out value="${album.artist_idx}"/>'><c:out value="${album.artist_name}" /></a></h5>
-		                <h5>
-		                <c:out value="${album.album_type}"/>     
-		                   
-		                   <div class="f_album_btn">
-		                   <a href="javascript:void()" class="album-poster" data-switch="<c:out value="${album.song.album_idx}" />"><i class="las la-play-circle font-size-32"></i></a>
-		                   </div>
-		                      </h5>
+
+			<c:forEach items="${album}" var="album">
+				<div class="col-sm-3">
+					<div class="iq-card  iq-mb-3">
+
+						<c:if test="${empty album.album_img_path}">							
+								<a class='move' href='<c:out value="${album.album_idx}"/>'><img
+							src="/resources/vendor/bootstrap/images/noimage.png"
+							class="card-img-top" alt="#"></a>
+
+						</c:if>
+						
+						<c:if test="${not empty album.album_img_path}">
+						<a class='move' href='<c:out value="${album.album_idx}"/>'><img
+							src="/resources/upload/${album.album_img_path}"
+							class="card-img-top" alt="#"></a>
+						</c:if>
+
+						<div class="iq-card-body">
+							<h6 class="card-title">
+								<a class='move' href='<c:out value="${album.album_idx}"/>'><c:out
+										value="${album.album_name}" /></a>
+							</h6>
+							<h5 class="card-title">
+								<a class='move2' href='<c:out value="${album.artist_idx}"/>'><c:out
+										value="${album.artist_name}" /></a>
+							</h5>
+							<h5>
+								<c:if test="${not empty album.album_type}">		
+									<c:out value="${album.album_type}" />
+								</c:if>
+								<c:if test="${empty album.album_type}">		
+									테스트
+								</c:if>
+								<div class="f_album_btn">
+									<a href="javascript:void()" class="album-poster"
+										data-switch="<c:out value="${album.song.album_idx}" />"><i
+										class="las la-play-circle font-size-32"></i></a>
+								</div>
+							
+							</h5>
+						</div>
 					</div>
 				</div>
-			</div>
-		</c:forEach>
+			</c:forEach>
 
 
 		</div>
-			
-			<!--  Pagination 시작 -->
-					 <nav aria-label="...">
-					<ul class="pagination justify-content-center">
 
-						<c:if test="${pageMaker.prev}">
-							<li class="page-item disabled"><a
-								href="${pageMaker.startPage -1} class="page-link"">Previous</a></li>
-						</c:if>
+		<!--  Pagination 시작 -->
+		<nav aria-label="...">
+			<ul class="pagination justify-content-center">
 
-						<c:forEach var="num" begin="${pageMaker.startPage}"
-							end="${pageMaker.endPage}">
-							<li class="page-item  ${pageMaker.cri.pageNum == num ? "active":""} ">
-								<a href="${num}" class="page-link">${num}</a>
-							</li>
-						</c:forEach>
+				<c:if test="${pageMaker.prev}">
+					<li class="page-item disabled"><a
+						href="${pageMaker.startPage -1} class="page-link"">Previous</a></li>
+				</c:if>
 
-						<c:if test="${pageMaker.next}">
-							<li class="page-item next"><a
-								href="${pageMaker.endPage +1 }" class="page-link" >Next</a></li>
-						</c:if>
+				<c:forEach var="num" begin="${pageMaker.startPage}"
+					end="${pageMaker.endPage}">
+					<li class="page-item  ${pageMaker.cri.pageNum == num ? "active":""} ">
+						<a href="${num}" class="page-link">${num}</a>
+					</li>
+				</c:forEach>
 
-					</ul>
-					 </nav>
-					 
-			
-				
-			
-				
-				<!--  Pagination 끝 -->
+				<c:if test="${pageMaker.next}">
+					<li class="page-item next"><a href="${pageMaker.endPage +1 }"
+						class="page-link">Next</a></li>
+				</c:if>
 
-				<!-- 페이징 Form 시작 -->
-				<form id='actionForm' action="/front/album" method='get'>
-					<input type='hidden' name='pageNum'
-						value='${pageMaker.cri.pageNum}'> <input type='hidden'
-						name='amount' value='${pageMaker.cri.amount}'> <input
-						type='hidden' name='type'
-						value='<c:out value="${ pageMaker.cri.type }"/>'> <input
-						type='hidden' name='keyword'
-						value='<c:out value="${ pageMaker.cri.keyword }"/>'>
-				</form>
+			</ul>
+		</nav>
+
+
+
+
+
+		<!--  Pagination 끝 -->
+
+		<!-- 페이징 Form 시작 -->
+		<form id='actionForm' action="/front/album" method='get'>
+			<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
+			<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
+			<input type='hidden' name='type'
+				value='<c:out value="${ pageMaker.cri.type }"/>'> <input
+				type='hidden' name='keyword'
+				value='<c:out value="${ pageMaker.cri.keyword }"/>'>
+		</form>
+
+		<form id='actionForm2' action="/front/album" method='get'>
+			<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
+			<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
+			<input type='hidden' name='type'
+				value='<c:out value="${ pageMaker.cri.type }"/>'> <input
+				type='hidden' name='keyword'
+				value='<c:out value="${ pageMaker.cri.keyword }"/>'>
+		</form>
+
+
 
 
 
@@ -101,6 +136,7 @@
 
 					
 						var actionForm = $("#actionForm");
+						var actionForm2 = $("#actionForm2");
 
 						// 페이지 번호 클릭 이벤트
 						$(".page-item a").on(
@@ -134,14 +170,14 @@
 								"click",
 								function(e) {
 									e.preventDefault();
-									actionForm
+									actionForm2
 											.append("<input type='hidden' name='artist_idx' value='"
 													+ $(this).attr(
 															"href")
 													+ "'>");
-									actionForm.attr("action",
+									actionForm2.attr("action",
 											"/front/artist_get");
-									actionForm.submit();
+									actionForm2.submit();
 								});
 						
 						// 검색 버튼 클릭 이벤트

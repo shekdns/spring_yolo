@@ -139,4 +139,10 @@ public class ArtistMemberMapperTests {
 //
 //		log.info("DELETE COUNT: " + mapper.delete(39));
 //	}
+	
+	@Test
+	public void testfrontGetArtist_member() {
+		
+		mapper.front_getArtistMember(46).forEach(artist_member -> log.info("artist_member 객채 내용 : " + artist_member));
+	}
 }

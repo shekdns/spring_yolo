@@ -34,6 +34,11 @@ public interface SongService {
 	public List<SongVO> front_video();
 	
 	public List<SongVO> frontAlbum_get(int album_idx);
+	//음악 랜덤 10개 
+	public List<SongVO> front_SongRandom();
+	
+	//프론트 artist_get
+	public List<SongVO> frontArtist_get(int artist_idx);
 	
 
 }

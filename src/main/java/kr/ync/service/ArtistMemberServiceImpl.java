@@ -61,4 +61,10 @@ public class ArtistMemberServiceImpl implements ArtistMemberService{
 		return mapper.delete(artist_member_idx) == 1;
 	}
 
+	@Override
+	public List<ArtistMemberVO> front_getArtistMember(int artist_idx) {
+		// TODO Auto-generated method stub
+		return mapper.front_getArtistMember(artist_idx);
+	}
+
 }

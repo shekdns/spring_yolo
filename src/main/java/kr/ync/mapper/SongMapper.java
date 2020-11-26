@@ -36,6 +36,9 @@ public interface SongMapper {
 	
 	//프론트 앨범 조인
 	public List<SongVO> frontAlbum_get(int album_idx);
+	public List<SongVO> frontArtist_get(int artist_idx);
+	
+	public List<SongVO> front_SongRandom();
 	
 	
 	

@@ -15,7 +15,9 @@ import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
+@ContextConfiguration({ "file:src/main/webapp/WEB-INF/spring/root-context.xml",
+	"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml" , 
+	"file:src/main/webapp/WEB-INF/spring/security-context.xml" })
 @Log4j
 public class ArtistMapperTests {
 	
@@ -135,4 +137,19 @@ public class ArtistMapperTests {
 //		log.info("DELETE COUNT: " + mapper.delete(39));
 //	}
 	
+//	@Test
+//	public void frontArtistGetTest() {
+//		//47 볼빨간 사춘기
+//		List<ArtistVO> list = mapper.frontArtist_get(47);
+//		list.forEach(artist -> log.info(artist));
+//	}
+
+	@Test
+	public void frontArtistMemberGetTest() {
+		//46 방탄소년단
+		List<ArtistVO> list = mapper.frontArtist_get_member(46);
+		list.forEach(artist -> log.info(artist));
+		
+	}
+
 }

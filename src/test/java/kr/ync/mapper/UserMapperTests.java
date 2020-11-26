@@ -44,7 +44,7 @@ public class UserMapperTests {
 
 		log.info(user);
 		
-		user.getAuth().forEach(authVO -> log.info(authVO));
+		//user.getAuth().forEach(authVO -> log.info(authVO));
 
 	}
 	

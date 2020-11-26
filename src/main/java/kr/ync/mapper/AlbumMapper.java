@@ -38,4 +38,7 @@ public interface AlbumMapper {
 	public List<AlbumVO> frontAlbum_get(int album_idx);
 	
 	
+	public List<AlbumVO> front_artist_getList(int artist_idx); 
+	
+	
 }

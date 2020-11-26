@@ -79,7 +79,7 @@
 											<label class="font-weight-bold text-white" for="inputPhone_1">이메일</label>
 											<div>
 												<input type="text" class="form-control" id="id_email"
-													name="email" placeholder="eamil">
+													name="email" placeholder="email">
 											</div>
 										</div>
 										<div class="form-group">

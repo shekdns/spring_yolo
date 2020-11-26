@@ -56,12 +56,12 @@
 							<td><a class='move' href='<c:out value="${song.song_idx}"/>'><c:out value="${song.song_idx}" /></a></td>
 							
 							 <c:if test="${not empty song.song_img_path}">
-							<td width="150"><a href="/resources/upload/${song.song_img_path}" target="_blank">
-							<img src="/resources/upload/${song.song_img_path}" height='200' width='200'></a></td>
+							<td width="150" align="center"><a href="/resources/upload/${song.song_img_path}" target="_blank">
+							<img src="/resources/upload/${song.song_img_path}" height='50' width='50'></a></td>
 							</c:if>
 							<c:if test="${empty song.song_img_path}">
-							<td width="150"><a href="/resources/vendor/bootstrap/images/noimage.png" target="_blank">
-							<img src="/resources/vendor/bootstrap/images/noimage.png" height='200' width='200'></a></td>
+							<td width="150" align="center"><a href="/resources/vendor/bootstrap/images/noimage.png" target="_blank">
+							<img src="/resources/vendor/bootstrap/images/noimage.png" height='50' width='50'></a></td>
 							</c:if>
 							
 							<td><a class='move' href='<c:out value="${song.song_idx}"/>'><c:out value="${song.song_name}" /></a></td>

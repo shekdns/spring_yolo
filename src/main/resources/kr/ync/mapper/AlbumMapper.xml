@@ -42,6 +42,7 @@
     <result column="album_img_path" property="album_img_path"/>
     <result column="album_type" property="album_type"/>
     <result column="genre" property="genre"/>
+    <result column="artist_idx" property="artist_idx"/>
     <collection property="song" resultMap="SongVO"/>
 </resultMap>
 
@@ -110,6 +111,26 @@
 		#{album_idx}
 	</update>
 
+	<select id="front_artist_getList" resultType="kr.ync.domain.AlbumVO">
+		<![CDATA[
+		select album_idx,
+		       album_img_path,
+		       artist_name,
+		       artist_idx,
+		       album_name
+		from (select album_idx,
+		       album_img_path,
+		       album_name,
+		       artist_name,
+		       artist_idx
+		from album
+		where
+		artist_idx = #{artist_idx}
+		)
+		]]>
+	</select>
+
+
 
 	<select id="getList" resultType="kr.ync.domain.AlbumVO">
 
@@ -171,7 +192,8 @@
 				    song_img_path,
 				    mp3_path,
 				    lyc_path,
-				    song_idx
+				    song_idx,
+				    artist_idx
 	 		FROM	(SELECT /*+INDEX_DESC(album XPK앨범) */ 
       					   rownum rn,
       					   ab.album_idx,
@@ -179,6 +201,7 @@
 					       ab.album_img_path,
 					       ab.artist_name,
 					       ab.album_type,
+					       ab.artist_idx,
 					       so.song_name,
 					       so.song_img_path,
 					       so.mp3_path,

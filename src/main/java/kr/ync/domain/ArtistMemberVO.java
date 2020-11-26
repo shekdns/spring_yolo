@@ -11,5 +11,5 @@ public class ArtistMemberVO {
 	public String artist_name;
 	public String img_path;
 	public String gender;
-	public int age;
+	public String age;
 }

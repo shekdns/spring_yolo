@@ -6,13 +6,14 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.ync.domain.Criteria;
 import kr.ync.domain.PageDTO;
 import kr.ync.service.AlbumService;
+import kr.ync.service.ArtistMemberService;
 import kr.ync.service.ArtistService;
 import kr.ync.service.ChartService;
 import kr.ync.service.SongService;
@@ -34,6 +35,9 @@ public class FrontController {
 	
 	@Autowired
 	private ArtistService artist_service;
+	
+	@Autowired
+	private ArtistMemberService artist_member_service;
 	
 	
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
@@ -97,17 +101,38 @@ public class FrontController {
 	@GetMapping("/song_get")
 	public void song_get(Model model, @RequestParam("song_idx") int song_idx) {
 		model.addAttribute("song", song_service.get(song_idx));
+		model.addAttribute("random", song_service.front_SongRandom());
 	}
 	
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
 	@GetMapping("/artist")
-	public void artist() {
-	
+	public void artist(Criteria cri, Model model) {
+		
+		cri = new Criteria(cri.getPageNum(), 18);
+		int total = artist_service.getTotal(cri);
+		log.info("total = " + total);
+		
+		model.addAttribute("artist", artist_service.getListWithPaging(cri));
+		model.addAttribute("pageMaker", new PageDTO(cri, total));
 	}
 	
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
-	@GetMapping("/movie")
-	public void movie() {
+	@GetMapping("/artist_get")
+	public void artist_get(Model model, @RequestParam("artist_idx") int artist_idx) {
+		
+		//model.addAttribute("ab", artist_service.frontArtist_get(artist_idx)); //아티스트 조인
+		model.addAttribute("album", album_service.front_artist_getList(artist_idx));
+		//model.addAttribute("atm", artist_service.frontArtist_get_member(artist_idx)); // 아티스트 멤버 조인
+		model.addAttribute("atm", artist_member_service.front_getArtistMember(artist_idx));
+		model.addAttribute("artist" , artist_service.get(artist_idx)); // 아티스트만 들고오기 
+		model.addAttribute("song", song_service.frontArtist_get(artist_idx));
+		
+	}
+	
+	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+	@GetMapping("/video")
+	public void video() {
 		
 	}
 	

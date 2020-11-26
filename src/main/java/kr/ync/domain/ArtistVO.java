@@ -12,4 +12,8 @@ public class ArtistVO {
 	public String gender;
 	public String artist_img_path;
 	
+	public SongVO song;
+	public ArtistMemberVO atm;
+	public AlbumVO album;
+	
 }

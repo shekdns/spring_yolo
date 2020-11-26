@@ -25,4 +25,7 @@ public interface ArtistMemberService {
 			
 			// 글 삭제
 			public boolean artist_member_remove(int artist_member_idx);
+			
+			//프론트 아티스트
+			public List<ArtistMemberVO> front_getArtistMember(int artist_idx);
 }

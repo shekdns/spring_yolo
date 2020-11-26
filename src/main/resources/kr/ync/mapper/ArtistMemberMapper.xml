@@ -28,7 +28,14 @@
 		]]>
 	</select>
 		
+		
+	<select id="front_getArtistMember" resultType="kr.ync.domain.ArtistMemberVO">
+	<![CDATA[
+		select * from artist_member where artist_idx = #{artist_idx} 
+		]]>
 	
+	</select>
+	 
 	<insert id="insert">
 		insert into artist_member (artist_member_idx, member_name , artist_idx, img_path, gender, age, artist_name)
 		values (seq_artistmember.nextval, #{member_name}, #{artist_idx}, #{img_path}, #{gender}, #{age}, #{artist_name})

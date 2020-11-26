@@ -27,4 +27,6 @@ public interface ArtistMemberMapper {
 	
 	public int delete(int artist_member_idx);
 	
+	public List<ArtistMemberVO> front_getArtistMember(int artist_idx);
+	
 }

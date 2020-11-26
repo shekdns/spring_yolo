@@ -119,10 +119,18 @@
 											<div class="iq-thumb">
 												<div class="iq-music-overlay"></div>
 
-												<a class='move' href='<c:out value="${album.album_idx}"/>'><img
-													src="/resources/upload/${album.album_img_path}"
-													class="img-border-radius img-fluid w-100" alt=""></a>
+												<c:if test="${empty album.album_img_path}">
 
+													<img src="/resources/vendor/bootstrap/images/noimage.png"
+														class="img-border-radius img-fluid w-100" alt="">
+														
+
+												</c:if>
+												<c:if test="${not empty album.album_img_path}">
+													<a class='move' href='<c:out value="${album.album_idx}"/>'><img
+														src="/resources/upload/${album.album_img_path}"
+														class="img-border-radius img-fluid w-100" alt=""></a>
+												</c:if>
 											</div>
 											<div class="feature-list text-center">
 												<h6 class="font-weight-600 mb-0">
@@ -163,9 +171,14 @@
 											<div class="iq-thumb">
 												<div class="iq-music-overlay"></div>
 
+												<c:if test="${empty song.song_img_path}">
+													<img src="/resources/vendor/bootstrap/images/noimage.png"
+														class="img-border-radius img-fluid w-100" alt="">
+												</c:if>
+				                              <c:if test="${not empty song.song_img_path}">
 												<img src="/resources/upload/${song.song_img_path}"
 													class="img-border-radius img-fluid w-100" alt="">
-
+											  </c:if>
 											</div>
 											<div class="feature-list text-center">
 												<h6 class="font-weight-600  mb-0">
@@ -207,15 +220,22 @@
 										<div class="iq-card-body p-0">
 											<div class="iq-thumb">
 												<div class="iq-music-overlay"></div>
-
+											
+													<c:if test="${empty artist.artist_img_path}">
+													<img src="/resources/vendor/bootstrap/images/noimage.png"
+														class="img-border-radius img-fluid w-100" alt="">
+												</c:if>
+											
+											<c:if test="${not empty artist.artist_img_path}">
 												<img src="/resources/upload/${artist.artist_img_path}"
 													class="img-border-radius img-fluid w-100" alt="">
-
+												</c:if>
 
 											</div>
 											<div class="feature-list text-center">
 												<h6 class="font-weight-600  mb-0">
-													<a href="artist_info"><c:out
+													<a class='move2'
+														href='<c:out value="${artist.artist_idx}"/>'><c:out
 															value="${artist.artist_name}" /></a>
 												</h6>
 
@@ -346,7 +366,7 @@
 					value='<c:out value="${ pageMaker.cri.keyword }"/>'>
 			</form>
 
-			<form id='artistForm' action="/front/album" method='get'>
+			<form id='artistForm' action="/front/index" method='get'>
 				<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
 				<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
 				<input type='hidden' name='type'
@@ -535,7 +555,7 @@ $(document)
 
 			var albumForm = $("#albumForm");
 			var songForm = $("#songForm");
-		
+			var artistForm = $("#artistForm");
 			
 			// 상세보기 클릭 이벤트
 			
@@ -558,14 +578,14 @@ $(document)
 					"click",
 					function(e) {
 						e.preventDefault();
-						actionForm
+						artistForm
 								.append("<input type='hidden' name='artist_idx' value='"
 										+ $(this).attr(
 												"href")
 										+ "'>");
-						actionForm.attr("action",
+						artistForm.attr("action",
 								"/front/artist_get");
-						actionForm.submit();
+						artistForm.submit();
 					});
 
 			$(".move3")

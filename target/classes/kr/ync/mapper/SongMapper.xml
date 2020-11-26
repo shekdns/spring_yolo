@@ -27,26 +27,26 @@
 		select * from song where song_idx > 0 
 		]]>
 	</select>
-	
+
 	<select id="frontMain" resultType="kr.ync.domain.SongVO">
 		<![CDATA[
 		select * from song where song_idx between 21 and 26
 		]]>
 	</select>
-	
+
 	<select id="frontMain2" resultType="kr.ync.domain.SongVO">
 		<![CDATA[
 		select * from song where song_idx between 27 and 32
 		]]>
 	</select>
-	
+
 	<select id="front12" resultType="kr.ync.domain.SongVO">
 		<![CDATA[
 		select * from song where rownum <= 12
 		]]>
 	</select>
-	
-	
+
+
 	<select id="front_video" resultType="kr.ync.domain.SongVO">
 		<![CDATA[
 			select song_name,
@@ -56,17 +56,36 @@
 			where song_video is not null
 		]]>
 	</select>
+
+	<select id="front_SongRandom" resultType="kr.ync.domain.SongVO">
+		<![CDATA[
+		select * from(
+		select * from song
+		order by DBMS_RANDOM.RANDOM
+		) where rownum < 10
+		]]>
+	</select>
+
+	<select id="frontArtist_get" resultType="kr.ync.domain.SongVO">
+		<![CDATA[
+		select * from song 
+		where artist_idx = #{artist_idx}
+		]]>
 	
-	
+	</select>
+
 
 	<insert id="insert">
 		insert into song (song_idx, song_name, album_name,
 		artist_name, song_img_path, mp3_path, lyc_path, lyrics, composition,
 		album_idx, artist_idx, genre, song_video)
-		values (seq_song.nextval, #{song_name},
-		#{album_name}, #{artist_name}, #{song_img_path}, #{mp3_path}, #{lyc_path},
+		values (seq_song.nextval,
+		#{song_name},
+		#{album_name}, #{artist_name}, #{song_img_path},
+		#{mp3_path}, #{lyc_path},
 		#{lyrics},
-		#{composition} ,#{album_idx}, #{artist_idx}, #{genre}, #{song_video})
+		#{composition} ,#{album_idx},
+		#{artist_idx}, #{genre}, #{song_video})
 	</insert>
 
 	<insert id="insertSelectKey">
@@ -80,18 +99,22 @@
 		song_img_path, mp3_path, lyc_path, lyrics, composition,
 		album_idx,
 		artist_idx, genre, song_video)
-		values (#{song_idx}, #{song_name}, #{album_name},
-		#{artist_name}, #{song_img_path}, #{mp3_path}, #{lyc_path}, #{lyrics},
-		#{composition} ,#{album_idx}, #{artist_idx}, #{genre}, #{song_video})
+		values (#{song_idx}, #{song_name},
+		#{album_name},
+		#{artist_name}, #{song_img_path}, #{mp3_path},
+		#{lyc_path}, #{lyrics},
+		#{composition} ,#{album_idx}, #{artist_idx},
+		#{genre}, #{song_video})
 	</insert>
 
 	<select id="read" resultType="kr.ync.domain.SongVO">
 		select * from song where
-		song_idx = #{song_idx}
+		song_idx =
+		#{song_idx}
 	</select>
-	
+
 	<select id="frontAlbum_get" resultType="kr.ync.domain.SongVO">
-		select * from song where 
+		select * from song where
 		album_idx = #{album_idx}
 	</select>
 
@@ -104,12 +127,15 @@
 		update song
 		set
 		song_name = #{song_name},
-		album_name =#{album_name},
+		album_name
+		=#{album_name},
 		artist_name = #{artist_name},
-		song_img_path = #{song_img_path},
+		song_img_path =
+		#{song_img_path},
 		mp3_path = #{mp3_path},
 		lyc_path = #{lyc_path},
-		lyrics = #{lyrics},
+		lyrics
+		= #{lyrics},
 		composition = #{composition},
 		album_idx = #{album_idx},
 		artist_idx = #{artist_idx},
@@ -174,7 +200,7 @@
 		song_idx > 0
 		]]>
 	</select>
-	
-	
+
+
 
 </mapper>

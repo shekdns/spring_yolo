@@ -58,7 +58,7 @@
 					<c:forEach items="${chart}" var="chart">
 						<tr>
 							<td><c:out value="${chart.c_rank}" /></td>
-							<td><img src="${chart.img_path }" /></td>
+							<td><img src="${chart.img_path }" width="50" height="50" /></td>
 							<td><c:out value="${chart.name}" /></td>
 							<td><c:out value="${chart.artist}" /></td>
 							<td><c:out value="${chart.album}" /></td>

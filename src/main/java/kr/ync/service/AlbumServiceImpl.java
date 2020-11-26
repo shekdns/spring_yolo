@@ -94,4 +94,10 @@ public class AlbumServiceImpl implements AlbumService {
 		return album_mapper.frontAlbum_get(album_idx);
 	}
 
+	@Override
+	public List<AlbumVO> front_artist_getList(int artist_idx) {
+		// TODO Auto-generated method stub
+		return album_mapper.front_artist_getList(artist_idx);
+	}
+
 }

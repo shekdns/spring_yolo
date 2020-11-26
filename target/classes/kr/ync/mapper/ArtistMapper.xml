@@ -22,6 +22,95 @@
 		</trim>
 	</sql>
 	
+<resultMap type="kr.ync.domain.SongVO" id="SongVO">
+    <result column="song_name" property="song_name"/>
+    <result column="song_img_path" property="song_img_path"/>
+    <result column="mp3_path" property="mp3_path"/>
+    <result column="lyc_path" property="lyc_path"/>
+    <result column="song_idx" property="song_idx"/>
+    <result column="album_idx" property="album_idx"/>
+    <result column="genre" property="genre"/>
+    <result column="composition" property="composition"/>
+    <result column="lyrics" property="lyrics"/>
+</resultMap>
+
+<resultMap type="kr.ync.domain.AlbumVO" id="AlbumVO">
+    <result column="album_idx" property="album_idx"/>
+    <result column="album_name" property="album_name"/>
+    <result column="artist_name" property="artist_name"/>
+    <result column="album_img_path" property="album_img_path"/>
+    <result column="regdate" property="regdate"/>
+    <result column="genre" property="genre"/>
+    <result column="album_type" property="album_type"/>
+    <result column="artist_idx" property="artist_idx"/>
+     <collection property="song" resultMap="SongVO"/>
+</resultMap>
+
+<resultMap type="kr.ync.domain.ArtistMemberVO" id="ArtistMemberVO">
+    <result column="artist_member_idx" property="artist_member_idx"/>
+    <result column="member_name" property="member_name"/>
+    <result column="artist_idx" property="artist_idx"/>
+    <result column="img_path" property="img_path"/>
+    <result column="gender" property="gender"/>
+    <result column="age" property="age"/>
+    <result column="artist_name" property="artist_name"/>
+</resultMap>
+ 
+<resultMap type="kr.ync.domain.ArtistVO" id="ArtistVO">
+    <result column="artist_idx" property="artist_idx"/>
+    <result column="artist_name" property="artist_name"/>
+    <result column="debut" property="debut"/>
+    <result column="artist_img_path" property="artist_img_path"/>
+    <result column="artist_type" property="artist_type"/>
+    <result column="gender" property="gender"/>
+    <collection property="song" resultMap="SongVO"/>
+    <collection property="album" resultMap="AlbumVO"/>
+    <collection property="atm" resultMap="ArtistMemberVO"/>
+</resultMap>
+	
+	<select id="frontArtist_get_member" resultMap="ArtistVO">
+		select at.artist_img_path,
+		       at.artist_name,
+		       at.artist_type,
+		       at.gender,
+		       atm.member_name,
+		       atm.age,
+		       atm.img_path
+		from   artist at,
+		       artist_member atm
+		where  at.artist_idx = atm.artist_idx
+		and    at.artist_idx = #{at.artist_idx}
+	</select>
+	
+		
+	<select id="frontArtist_get"  resultMap="ArtistVO">
+		select at.artist_img_path,
+      		   at.artist_name,
+		       at.debut,
+		       at.gender,
+		       at.artist_type,
+		       ab.album_name,
+		       ab.album_img_path,
+		       ab.genre,
+		       ab.album_type,
+		       so.song_name,
+		       so.song_img_path,
+		       so.genre,
+		       so.song_video,
+		       so.mp3_path,
+		       so.lyc_path
+		from   artist at,
+		       album ab,
+		       song so
+		where  at.artist_idx = ab.artist_idx
+		and    ab.artist_idx = so.artist_idx
+		and    ab.album_idx = so.album_idx
+		and    at.artist_idx = #{at.artist_idx}
+			
+	</select>
+	
+		
+		
 	<select id="getList" resultType="kr.ync.domain.ArtistVO">
 	<![CDATA[
 		select * from artist where artist_idx > 0 
@@ -30,7 +119,7 @@
 	
 	<select id="frontArtist" resultType="kr.ync.domain.ArtistVO">
 	<![CDATA[
-		select * from artist where rownum <= 12 
+		select * from artist where rownum <= 6 
 		]]>
 	</select>
 	

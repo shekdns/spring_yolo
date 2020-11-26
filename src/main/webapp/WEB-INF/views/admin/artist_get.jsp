@@ -58,10 +58,21 @@
 				</div>
 
 				<div class="form-group">
-					<label>image</label> <a href="/resources/upload/${artist.artist_img_path}"
+					<label>image</label> 
+					<c:if test="${not empty artist.artist_img_path}">
+					<a href="/resources/upload/${artist.artist_img_path}"
 						target="_blank"> <img
 						src="/resources/upload/${artist.artist_img_path}" height='200'
 						width='200'></a>
+					</c:if>
+					
+						<c:if test="${empty artist.artist_img_path}">
+							<a href="/resources/vendor/bootstrap/images/noimage.png" target="_blank">
+							<img src="/resources/vendor/bootstrap/images/noimage.png" height='200' width='200'></a>
+					</c:if>
+				
+				
+				
 				</div>
 
 				<!-- 업로드 이미지나 파일을 출력 -->

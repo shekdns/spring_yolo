@@ -86,7 +86,40 @@
                      </div>
                      <div class="iq-card-body">
                         <ul class="list-unstyled row  feature-album iq-box-hover mb-0">
-                           
+                           	<c:forEach items="${random}" var="random">
+								<li class="col-lg-2 iq-music-box">
+									<div class="iq-card mb-0">
+										<div class="iq-card-body p-0">
+											<div class="iq-thumb">
+												<div class="iq-music-overlay"></div>
+													
+													
+										<c:if test="${not empty random.song_img_path}">
+											<a class='move2' href='<c:out value="${random.song_idx}"/>'><img
+													src="/resources/upload/${random.song_img_path}"
+													class="img-border-radius img-fluid w-100" alt=""></a>
+                                     	 </c:if>	
+                                     	 	<c:if test="${empty random.song_img_path}">
+											<img
+													src="/resources/vendor/bootstrap/images/noimage.png"
+													class="img-border-radius img-fluid w-100" alt="">
+                                     	 </c:if>	
+												
+
+											</div>
+											<div class="feature-list text-center">
+												<h6 class="font-weight-600 mb-0">
+													<a class='move2' href='<c:out value="${random.song_idx}"/>'><c:out
+															value="${random.song_name}" /></a>
+												</h6>
+												<p class="mb-0">
+													<c:out value="${random.artist_name}" />
+												</p>
+											</div>
+										</div>
+									</div>
+								</li>
+							</c:forEach>
                           
                           
                         </ul>
@@ -104,6 +137,17 @@
 				type='hidden' name='keyword'
 				value='<c:out value="${ pageMaker.cri.keyword }"/>'>
 		</form>
+		
+		<form id='actionForm2' action="/front/song_get" method='get'>
+			<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
+			<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
+			<input type='hidden' name='type'
+				value='<c:out value="${ pageMaker.cri.type }"/>'> <input
+				type='hidden' name='keyword'
+				value='<c:out value="${ pageMaker.cri.keyword }"/>'>
+		</form>
+		
+		
 	</div>
 </div>
 
@@ -174,7 +218,9 @@ $(document)
 
 		
 			var actionForm = $("#actionForm");
+			var actionForm2 = $("#actionForm2");
 
+			
 			// 페이지 번호 클릭 이벤트
 			$(".page-item a").on(
 					"click",
@@ -207,14 +253,14 @@ $(document)
 					"click",
 					function(e) {
 						e.preventDefault();
-						actionForm
-								.append("<input type='hidden' name='artist_idx' value='"
+						actionForm2
+								.append("<input type='hidden' name='song_idx' value='"
 										+ $(this).attr(
 												"href")
 										+ "'>");
-						actionForm.attr("action",
-								"/front/artist_get");
-						actionForm.submit();
+						actionForm2.attr("action",
+								"/front/song_get");
+						actionForm2.submit();
 					});
 			
 			// 검색 버튼 클릭 이벤트

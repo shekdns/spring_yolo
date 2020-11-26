@@ -186,7 +186,16 @@
        $("#login_btn").on("click", function(e){
             
             var p_id = $("#id").val();
-            
+			var p_pw = $("#pass").val();
+    		
+        if(p_id == "" || p_pw == ""){
+
+        	 alert("id 또는 pw를 입력해주세요 !! ");
+      		 window.history.back();
+
+        }else{  
+	
+
             $.ajax({
                url : '${pageContext.request.contextPath}/front/sign_in/authCheck?id='+p_id,
                type : 'GET',
@@ -210,7 +219,7 @@
 				}
 			});
 
-
+      	 }
       
          
        });

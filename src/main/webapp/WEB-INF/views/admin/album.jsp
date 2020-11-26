@@ -33,7 +33,7 @@
 				<table class="table table-striped table-bordered table-hover">
 					<thead>
 						<tr>
-							<th>번호</th>
+							<th width="50">번호</th>
 							<th>이미지</th>
 							<th>앨범이름</th>
 							<th>가수번호</th>
@@ -46,8 +46,17 @@
 					<c:forEach items="${album}" var="album">
 						<tr>
 							<td><c:out value="${album.album_idx}" /></td>
-							<td><a href="/resources/upload/${album.album_img_path}" target="_blank">
-							<img src="/resources/upload/${album.album_img_path}" height='200' width='200'"></a></td>
+							
+							<c:if test="${not empty album.album_img_path}">
+							<td align="center"><a href="/resources/upload/${album.album_img_path}" target="_blank">
+							<img src="/resources/upload/${album.album_img_path}" height='50' width='50'></a></td>
+							</c:if>
+							<c:if test="${empty album.album_img_path}">
+							<td width="150" align="center"><a href="/resources/vendor/bootstrap/images/noimage.png" target="_blank">
+							<img src="/resources/vendor/bootstrap/images/noimage.png" height='50' width='50'></a></td>
+							</c:if>
+							
+							
 							<td><a class='move' href='<c:out value="${album.album_idx}"/>'><c:out value="${album.album_name}" /></a></td>
 							<td><c:out value="${album.artist_idx}" /></td>
 							<td><c:out value="${album.artist_name}" /></td>

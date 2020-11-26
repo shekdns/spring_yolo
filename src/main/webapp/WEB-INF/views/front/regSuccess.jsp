@@ -8,7 +8,7 @@
 </head>
 <body>
 	<div style="margin: 100px;">
-		<a><img src="/resources/vendor/bootstrap/images/login/자기야3.jpg" style="height: 80px; margin-left: 10px;" /></a> <br>
+		<a><img src="/resources/vendor/bootstrap/images/logo2.jpg" style="height: 80px; margin-left: 10px;" /></a> <br>
 		<br>
 		<h3>안녕하세요, ${param.id} 님</h3>
 		<br>

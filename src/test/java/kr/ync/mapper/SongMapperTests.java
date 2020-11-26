@@ -156,10 +156,23 @@ public class SongMapperTests {
 //	}
 	
 //	프론트 메인 리스트
+//	@Test
+//	public void testGetFrontMain() {
+//
+//		mapper.frontMain().forEach(song -> log.info("프론트 : " + song));
+//	}
+	
+	//음악 겟 랜덤 10개
+//	@Test
+//	public void testGetRandom() {
+//		
+//		mapper.front_SongRandom().forEach(song -> log.info("랜덤 : " + song));
+//	}
+	
 	@Test
-	public void testGetFrontMain() {
-
-		mapper.frontMain().forEach(song -> log.info("프론트 : " + song));
+	public void testfrontArtist_get() {
+		
+		mapper.frontArtist_get(47).forEach(song -> log.info("프론트 : " + song));
 	}
 	
 	

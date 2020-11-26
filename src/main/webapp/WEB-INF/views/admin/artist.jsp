@@ -33,7 +33,7 @@
 				<table class="table table-striped table-bordered table-hover">
 					<thead>
 						<tr>
-							<th>번호</th>
+							<th width="50">번호</th>
 							<th>이미지</th>
 							<th>이름</th>
 							<th>데뷔날짜</th>
@@ -45,8 +45,18 @@
 					<c:forEach items="${artist}" var="artist">
 						<tr>
 							<td><c:out value="${artist.artist_idx}" /></td>
-							<td><a href="/resources/upload/${artist.artist_img_path}" target="_blank">
-							<img src="/resources/upload/${artist.artist_img_path}" height='200' width='200'"></a></td>
+							
+							<c:if test="${not empty artist.artist_img_path}">
+							<td align="center"><a href="/resources/upload/${artist.artist_img_path}" target="_blank">
+							<img src="/resources/upload/${artist.artist_img_path}" height='50' width="50"></a></td>
+							</c:if>
+							
+							<c:if test="${empty artist.artist_img_path}">
+							<td width="150" align="center"><a href="/resources/vendor/bootstrap/images/noimage.png" target="_blank">
+							<img src="/resources/vendor/bootstrap/images/noimage.png" height='50' width='50'></a></td>
+							</c:if>
+							
+							
 							<td><a class='move' href='<c:out value="${artist.artist_idx}"/>'><c:out value="${artist.artist_name}" /></a></td>
 							<td><c:out value="${artist.debut}" /></td>
 							<td><c:out value="${artist.artist_type}" /></td>

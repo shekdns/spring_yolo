@@ -8,13 +8,13 @@
 <%@include file="../includes/header.jsp"%>
 
 <script>
-//썸네일 파일명을 가져오는 함수
-function getThumbFileName(fullFilePath) {
-   var arrString = fullFilePath.split("/");
-   console.log(arrString);
-   arrString.splice(-1, 1, "s_" + arrString[arrString.length - 1]);
-   return arrString.join("/");
-}
+	//썸네일 파일명을 가져오는 함수
+	function getThumbFileName(fullFilePath) {
+		var arrString = fullFilePath.split("/");
+		console.log(arrString);
+		arrString.splice(-1, 1, "s_" + arrString[arrString.length - 1]);
+		return arrString.join("/");
+	}
 </script>
 <div class="row">
 	<div class="col-lg-12">
@@ -35,9 +35,8 @@ function getThumbFileName(fullFilePath) {
 					<div class="col-lg-6">
 
 						<div class="form-group">
-							<label>음악번호</label> <input class="form-control"
-								name='song_idx' value='<c:out value="${song.song_idx }"/>'
-								readonly="readonly">
+							<label>음악번호</label> <input class="form-control" name='song_idx'
+								value='<c:out value="${song.song_idx }"/>' readonly="readonly">
 						</div>
 
 						<div class="form-group">
@@ -46,8 +45,9 @@ function getThumbFileName(fullFilePath) {
 						</div>
 
 						<div class="form-group">
-							<label>가수 번호</label> <input class="form-control" name='artist_idx'
-								value='<c:out value="${song.artist_idx }"/>' readonly="readonly">
+							<label>가수 번호</label> <input class="form-control"
+								name='artist_idx' value='<c:out value="${song.artist_idx }"/>'
+								readonly="readonly">
 						</div>
 
 						<div class="form-group">
@@ -62,34 +62,47 @@ function getThumbFileName(fullFilePath) {
 
 
 						<div class="form-group">
-							<label>이미지</label> <a href="/resources/upload/${song.song_img_path}"
-								target="_blank"> <img
-								src="/resources/upload/${song.song_img_path}" height='200'
-								width='200'"></a>
+							<label>이미지</label> 
+							<c:if test="${not empty song.song_img_path}">
+							<a
+								href="/resources/upload/${song.song_img_path}" target="_blank">
+								<img src="/resources/upload/${song.song_img_path}" height='200'
+								width='200'>
+							</a>
+							</c:if>
+							<c:if test="${empty song.song_img_path}">
+								<a href="/resources/vendor/bootstrap/images/noimage.png"
+									target="_blank"> <img
+									src="/resources/vendor/bootstrap/images/noimage.png"
+									height='200' width='200'></a>
+							</c:if>
+
 						</div>
 
 
 					</div>
 					<div class="col-lg-6">
 						<div class="form-group">
-							<label>곡 이름</label> <input class="form-control"
-								name='song_name' value='<c:out value="${song.song_name }"/>'
+							<label>곡 이름</label> <input class="form-control" name='song_name'
+								value='<c:out value="${song.song_name }"/>' readonly="readonly">
+						</div>
+
+						<div class="form-group">
+							<label>앨범 이름</label> <input class="form-control"
+								name='album_name' value='<c:out value="${song.album_name }"/>'
 								readonly="readonly">
 						</div>
 
 						<div class="form-group">
-							<label>앨범 이름</label> <input class="form-control" name='album_name'
-								value='<c:out value="${song.album_name }"/>' readonly="readonly">
-						</div>
-
-						<div class="form-group">
-							<label>가수 이름</label> <input class="form-control" name='artist_name'
-								value='<c:out value="${song.artist_name }"/>' readonly="readonly">
+							<label>가수 이름</label> <input class="form-control"
+								name='artist_name' value='<c:out value="${song.artist_name }"/>'
+								readonly="readonly">
 						</div>
 
 						<div class="form-group">
 							<label>작곡</label> <input class="form-control" name='composition'
-								value='<c:out value="${song.composition }"/>' readonly="readonly">
+								value='<c:out value="${song.composition }"/>'
+								readonly="readonly">
 						</div>
 
 						<div class="form-group">
@@ -101,12 +114,12 @@ function getThumbFileName(fullFilePath) {
 							<label>가사파일</label> <input class="form-control" name='lyc_path'
 								value='<c:out value="${song.lyc_path }"/>' readonly="readonly">
 						</div>
-			
+
 						<div class="form-group">
 							<label>비디오</label> <input class="form-control" name='song_video'
 								value='<c:out value="${song.song_video }"/>' readonly="readonly">
 						</div>
-			
+
 					</div>
 
 					<!--  end panel-body -->
@@ -140,25 +153,24 @@ function getThumbFileName(fullFilePath) {
 <script type="text/javascript" src="/resources/js/reply.js"></script>
 
 <script type="text/javascript">
-$(document).ready(function() {
-  
-  var operForm = $("#operForm"); 
-  
-  $("button[data-oper='song_modify']").on("click", function(e){
-    
-    operForm.attr("action","/admin/song_modify").submit();
-    
-  });
-  
-    
-  $("button[data-oper='song']").on("click", function(e){
-    
-    operForm.find("#song_idx").remove();
-    operForm.attr("action","/admin/song")
-    operForm.submit();
-    
-  });  
-});
+	$(document).ready(function() {
+
+		var operForm = $("#operForm");
+
+		$("button[data-oper='song_modify']").on("click", function(e) {
+
+			operForm.attr("action", "/admin/song_modify").submit();
+
+		});
+
+		$("button[data-oper='song']").on("click", function(e) {
+
+			operForm.find("#song_idx").remove();
+			operForm.attr("action", "/admin/song")
+			operForm.submit();
+
+		});
+	});
 </script>
 
 

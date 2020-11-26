@@ -32,4 +32,10 @@ public interface ArtistMapper {
 	
 	public List<ArtistVO> frontArtist(); 
 	
+	
+	//front artsit_get 조인 3개
+	public List<ArtistVO> frontArtist_get(int artist_idx);
+	public List<ArtistVO> frontArtist_get_member(int artist_idx);
+
+	
 }

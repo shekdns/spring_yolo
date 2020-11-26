@@ -98,4 +98,16 @@ public class SongServiceImpl implements SongService {
 		return mapper.frontAlbum_get(album_idx);
 	}
 
+	@Override
+	public List<SongVO> front_SongRandom() {
+		// TODO Auto-generated method stub
+		return mapper.front_SongRandom();
+	}
+
+	@Override
+	public List<SongVO> frontArtist_get(int artist_idx) {
+		// TODO Auto-generated method stub
+		return mapper.frontArtist_get(artist_idx);
+	}
+
 }

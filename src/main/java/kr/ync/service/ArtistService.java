@@ -29,4 +29,7 @@ public interface ArtistService {
 	
 		//프론트
 		public List<ArtistVO> frontArtist();
+		public List<ArtistVO> frontArtist_get(int artist_idx);
+		public List<ArtistVO> frontArtist_get_member(int artist_idx);
+		
 }

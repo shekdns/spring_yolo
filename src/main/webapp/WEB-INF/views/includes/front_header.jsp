@@ -45,7 +45,8 @@
 	href="/resources/vendor/bootstrap/front_css/APlayer.min.css">
 <link rel="stylesheet"
 	href="/resources/vendor/bootstrap/front_css/aplyer.css">
-
+<link rel="stylesheet"
+	href="/resources/vendor/bootstrap/front_css/like_btn.css">
 
 </head>
 <body>
@@ -106,7 +107,7 @@
 								class="lar la-file-audio"></i><span>앨범</span></a></li>
 							<li><a href="/front/artist" class="iq-waves-effect collapsed"><i
 								class="la la-user"></i><span>아티스트</span></a></li>
-								<li><a href="/front/movie" class="iq-waves-effect collapsed"><i
+								<li><a href="/front/video" class="iq-waves-effect collapsed"><i
 								class="lab la-elementor iq-arrow-left"></i><span>영상</span></a></li>
 
 					</ul>
