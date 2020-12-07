@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.ync.mapper.ListMapper">
+
+	 <insert id="insert2" parameterType="map">
+		INSERT INTO list (list_idx, id, song_idx, album_idx)
+		VALUES
+		(seq_list.nextval, #{param1}, #{param2}, #{param3})
+	</insert> 
+	
+	<insert id="insert">
+		INSERT INTO list (list_idx, id, album_idx, song_idx)
+		VALUES
+		(seq_list.nextval, #{id}, #{album_idx}, #{song_idx})
+	</insert>
+	
+	
+	<resultMap type="kr.ync.domain.SongVO" id="SongVO">
+    <result column="song_name" property="song_name"/>
+    <result column="song_img_path" property="song_img_path"/>
+    <result column="mp3_path" property="mp3_path"/>
+    <result column="lyc_path" property="lyc_path"/>
+    <result column="song_idx" property="song_idx"/>
+    <result column="album_idx" property="album_idx"/>
+    <result column="genre" property="genre"/>
+    <result column="composition" property="composition"/>
+    <result column="lyrics" property="lyrics"/>
+</resultMap>
+ 
+<resultMap type="kr.ync.domain.AlbumVO" id="AlbumVO">
+    <result column="album_idx" property="album_idx"/>
+    <result column="album_name" property="album_name"/>
+    <result column="artist_name" property="artist_name"/>
+    <result column="album_img_path" property="album_img_path"/>
+    <result column="album_type" property="album_type"/>
+    <result column="genre" property="genre"/>
+    <result column="artist_idx" property="artist_idx"/>
+    <collection property="song" resultMap="SongVO"/>
+</resultMap>
+	
+	
+	
+		<select id="getList" resultType="kr.ync.domain.ListVO">
+	<![CDATA[
+	select li.list_idx,
+	       li.song_idx,
+	       so.song_name,
+	       so.album_name,
+	       so.song_img_path,
+	       so.mp3_path
+	from   list li,
+	       song so
+	where  li.song_idx = so.song_idx
+	and    li.id = #{li.id}
+	]]>
+	</select>
+	
+
+</mapper>

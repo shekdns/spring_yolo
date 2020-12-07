@@ -169,11 +169,37 @@ public class SongMapperTests {
 //		mapper.front_SongRandom().forEach(song -> log.info("랜덤 : " + song));
 //	}
 	
-	@Test
-	public void testfrontArtist_get() {
-		
-		mapper.frontArtist_get(47).forEach(song -> log.info("프론트 : " + song));
-	}
+//	@Test
+//	public void testfrontArtist_get() {
+//		
+//		mapper.frontArtist_get(47).forEach(song -> log.info("프론트 : " + song));
+//	}
 	
+
+//	@Test
+//	public void testGetListWithPaging() {
+//		
+//		Criteria cri = new Criteria();
+//		
+//		cri.setPageNum(2);
+//		cri.setAmount(2);
+//		
+//		List<SongVO> list = mapper.front_videoGetListPaging(cri);
+//		
+//		list.forEach(song -> log.info(song));
+//		
+//		
+//	}
+	
+	@Test
+	public void testGetTotalCount() {
+		
+		Criteria cri = new Criteria();
+		
+		int totalCnt = mapper.front_videoTotal(cri);
+		
+		log.info("totalCnt = " + totalCnt);
+		
+	}
 	
 }

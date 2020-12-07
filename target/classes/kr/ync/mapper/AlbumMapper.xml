@@ -80,6 +80,7 @@
 		       ab.artist_name,
 		       ab.album_type,
 		       ab.genre,
+		       ab.artist_idx,
 		       so.song_idx,
 		       so.song_name,
 		       so.song_img_path,

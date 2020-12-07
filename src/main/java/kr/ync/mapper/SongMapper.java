@@ -31,6 +31,7 @@ public interface SongMapper {
 	public List<SongVO> frontMain();
 	public List<SongVO> frontMain2();
 	public List<SongVO> front12();
+	
 	public List<SongVO> front_video();
 	
 	
@@ -39,6 +40,10 @@ public interface SongMapper {
 	public List<SongVO> frontArtist_get(int artist_idx);
 	
 	public List<SongVO> front_SongRandom();
+	
+	//비디오 페이지 
+	public List<SongVO> front_videoGetListPaging(Criteria cri);
+	public int front_videoTotal(Criteria cri);
 	
 	
 	

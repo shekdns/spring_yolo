@@ -230,7 +230,7 @@ $(".album-poster").on('click', function(e){
        ap.list.add([
         {
        name: '<c:out value="${song.song_name}" />',  //SONG NAME
-       artist: '<c:out value="${artist_name}" />', // ARTIST NAME
+       artist: '<c:out value="${song.artist_name}" />', // ARTIST NAME
        url: '/resources/upload/<c:out value="${song.mp3_path}" />',  //PATH NAME AND SONG URL
        cover: '/resources/upload/<c:out value="${song.song_img_path}" />',  //IMAGE
        lrc: '/resources/upload/<c:out value="${song.lyc_path}" />',

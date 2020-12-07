@@ -3,12 +3,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
+<meta name="_csrf_header" content="${_csrf.headerName}">
+<meta name="_csrf" content="${_csrf.token}">
+
 
 <%@include file="../includes/front_header.jsp"%>
 
 <div id="content-page" class="content-page">
 	<div class="container-fluid">
-
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="iq-card">
@@ -25,8 +27,8 @@
 									</c:if>
 
 									<c:if test="${not empty album.album_img_path}">
-									<img src="/resources/upload/${album.album_img_path}"
-										height='200' width='200' class="img-fluid w-100" alt="">
+										<img src="/resources/upload/${album.album_img_path}"
+											height='200' width='200' class="img-fluid w-100" alt="">
 									</c:if>
 
 								</div>
@@ -37,7 +39,10 @@
 											<h3>
 												<c:out value="${album.album_name}" />
 											</h3>
-											<span><c:out value="${album.artist_name}" /></span>
+											<span><a class="move"
+												href="<c:out value="${album.artist_idx}"/>"><c:out
+														value="${album.artist_name}" />
+														</a></span>
 											<p class="mb-0">
 												타입 :
 												<c:out value="${album.album_type}" />
@@ -46,10 +51,24 @@
 												장르 :
 												<c:out value="${album.genre}" />
 											</p>
+											<p>
+											<%-- 	<div class='like-wrapper'>
+														<a class="like-button" id="album_button"
+														data-album="<c:out value="${ablum.album_idx}" />"
+														data-id="${principal.username}"> <span class='like-icon'>
+															<div class='heart-animation-1'></div>
+															<div class='heart-animation-2'></div>
+														</span> Like
+														</a>
+													
+												</div> --%>
+											
+											</p>
 											<div class="d-flex align-items-center">
 												<a href="javascript:void()"
 													class="btn btn-primary iq-play mr-2" id="all_music"
-													data-switch="<c:out value="${ablum.album_idx}" />">전체
+													data-switch="<c:out value="${ablum.album_idx}" />"
+													>전체
 													듣기</a> <a href="javascript:void(0);"
 													class="btn btn-success iq-play mr-2" id="clear_music">전체
 													삭제</a>
@@ -58,10 +77,7 @@
 										<div class="music-right">
 											<div class="d-flex align-items-center">
 
-												<div class="iq-circle mr-2">
-													<a href="javascript:void();"><i
-														class="ri-heart-fill  text-primary"></i></a>
-												</div>
+											
 
 											</div>
 										</div>
@@ -103,19 +119,15 @@
 							<c:forEach items="${song}" var="song" varStatus="status">
 								<tr>
 									<th scope="row"><c:out value="${status.index + 1}" /></th>
-									<td>
-									
-									<c:if test="${empty song.song_img_path}">
+									<td><c:if test="${empty song.song_img_path}">
 
-										<img src="/resources/vendor/bootstrap/images/noimage.png"
-											height='50' width='50'>
+											<img src="/resources/vendor/bootstrap/images/noimage.png"
+												height='50' width='50'>
 
-									</c:if>
-									<c:if test="${not empty song.song_img_path}">
-									<img src="/resources/upload/${song.song_img_path}"
-										width="50" height="50" />
-									</c:if>
-										</td>
+										</c:if> <c:if test="${not empty song.song_img_path}">
+											<img src="/resources/upload/${song.song_img_path}" width="50"
+												height="50" />
+										</c:if></td>
 									<td><c:out value="${song.song_name}" /></td>
 									<td><c:out value="${song.artist_name}" /></td>
 									<td><c:out value="${song.album_name}" /></td>
@@ -123,7 +135,12 @@
 										data-switch="<c:out value="${song.song_idx}" />"> <i
 											class="las la-play-circle font-size-32"></i></a></td>
 									<td><div class='like-wrapper'>
-											<a class='like-button'> <span class='like-icon'>
+									
+											<a class='like-button' id="song_like"
+											data-song="<c:out value="${song.song_idx}" />"
+											data-id="${principal.username}"
+											data-album="<c:out value="${song.album_idx}" />"
+											> <span class='like-icon'>
 													<div class='heart-animation-1'></div>
 													<div class='heart-animation-2'></div>
 											</span> Like
@@ -179,7 +196,15 @@
 			type='hidden' name='keyword'
 			value='<c:out value="${ pageMaker.cri.keyword }"/>'>
 	</form>
-
+	
+	<form id='like' action="/front/album_get" method='get'>
+		<input type='hidden' name='id' value='${principal.username}'>
+	</form>
+	
+	<%-- <input type="hidden" name="${_csrf.parameterName}"
+                              value="${_csrf.token}" /> 
+	<input type="hidden" name="${_csrf.headerName}" value="${_csrf.headerName }" /> --%>
+	
 
 </div>
 
@@ -193,10 +218,6 @@
 </body>
 <script>
 
-$('a.like-button').on('click', function(e) {
-	  $(this).toggleClass('liked');
-	  
-});
 
 const ap = new APlayer({
 	container: document.getElementById('player'),
@@ -330,12 +351,12 @@ $(document)
 							function(e) {
 								e.preventDefault();
 								actionForm
-										.append("<input type='hidden' name='album_idx' value='"
+										.append("<input type='hidden' name='artist_idx' value='"
 												+ $(this).attr(
 														"href")
 												+ "'>");
 								actionForm.attr("action",
-										"/front/album_get");
+										"/front/artist_get");
 								actionForm.submit();
 							});
 			$(".move2")
@@ -377,6 +398,85 @@ $(document)
 					});
 		});
 
+
+
+//음악 좋아요 버튼  포스트 방식
+
+
+
+
+ $('#song_like').on('click', function(e) {
+		
+	 
+	   var csrfToken = $('input[name="${_csrf.parameterName}"]').val();
+	   var csrfToken2 = $('input[name="${_csrf.headerName}"]').val();
+
+
+	 var dataAlbum = $(this).attr('data-album');
+	  var dataSong = $(this).attr('data-song');
+	  var dataId = $(this).attr('data-id');
+	  console.log(dataId);
+	  console.log(dataAlbum);
+	  console.log(dataSong);
+	  //console.log(csrfToken);
+	  //console.log(csrfToken2);
+	  $(this).toggleClass('liked');
+
+	  var header = $("meta[name='_csrf_header']").attr('content');
+	  var token = $("meta[name='_csrf']").attr('content');
+	  console.log(header);
+	  console.log(token);
+		
+	 $.ajax({
+    		 url : '${pageContext.request.contextPath}/front/input_list',
+    	     type : 'POST',
+    		 data: JSON.stringify({ id : dataId, 
+        	 		 song_idx :  dataSong, 
+        	 		 album_idx : dataAlbum
+        	 	   }), 
+        	 	  contentType: 'application/json',
+        	 	  beforeSend: function(xhr){
+        	 	        xhr.setRequestHeader(header, token);
+        	 	    },
+					success : function(data) {							
+						alert("좋아요 완료");
+					},
+					error: function(){
+						console.log("실패");
+					} 
+
+			});   
+
+	  
+}); 
+
+
+//겟 방식
+/* $('#song_like').on('click', function(e) {
+	
+	  var dataAlbum = $(this).attr('data-album');
+	  var dataSong = $(this).attr('data-song');
+	  var dataId = $(this).attr('data-id');
+	  console.log(dataId);
+	  console.log(dataAlbum);
+	  console.log(dataSong);
+	  $(this).toggleClass('liked');
+		 
+	 $.ajax({                                                            
+    		 url : '${pageContext.request.contextPath}/front/input_list?id='+dataId+'&song_idx='+dataSong+'&album_idx='+dataAlbum,
+    	     type : 'GET',
+    	      
+					success : function(data) {							
+						alert("좋아요 완료");
+					},
+					 error : function() {
+					console.log("실패");
+					}
+
+			});   
+
+	  
+}); */
 
 
 

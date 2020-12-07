@@ -132,8 +132,12 @@ public class FrontController {
 	
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
 	@GetMapping("/video")
-	public void video() {
+	public void video(Criteria cri, Model model) {
+		cri = new Criteria(cri.getPageNum(), 9);
+		int total = song_service.front_videoTotal(cri);
 		
+		model.addAttribute("song", song_service.front_videoGetListPaging(cri));
+		model.addAttribute("pageMaker", new PageDTO(cri, total));
 	}
 	
 	

@@ -36,7 +36,7 @@
 
 	<select id="frontMain2" resultType="kr.ync.domain.SongVO">
 		<![CDATA[
-		select * from song where song_idx between 27 and 32
+		select * from song where song_idx between 27 and 33
 		]]>
 	</select>
 
@@ -188,6 +188,63 @@
   		WHERE rn > (#{pageNum} -1) * #{amount}   
 		]]>
 	</select>
+	
+	
+	<select id="front_videoGetListPaging" resultType="kr.ync.domain.SongVO">
+		<![CDATA[
+		SELECT	song_idx,
+				song_name,
+				album_name,
+				artist_name,
+				song_img_path,
+				mp3_path,
+				lyc_path,
+				lyrics,
+				composition,
+				album_idx,
+				artist_idx,
+				genre,
+				song_video
+		FROM	(SELECT /*+INDEX_DESC(song XPK음악) */
+        				rownum rn,
+        				song_idx,
+						song_name,
+						album_name,
+						artist_name,
+						song_img_path,
+						mp3_path,
+						lyc_path,
+						lyrics,
+						composition,
+						album_idx,
+						artist_idx,
+						genre,
+						song_video
+      			FROM	song
+				WHERE   song_video is not null   
+  		]]>
+		<include refid="criteria"></include> 
+      
+		<![CDATA[    
+      		and	rownum <= #{pageNum} * #{amount}
+      			)
+  		WHERE rn > (#{pageNum} -1) * #{amount}   
+		]]>
+	</select>
+	
+	
+	
+	
+	<select id="front_videoTotal" resultType="int">
+		select count(*) from song where
+
+		<include refid="criteria"></include>
+		
+		<![CDATA[
+		song_video is not null
+		]]>
+	</select>
+	
 
 	<!-- <select id="getTotalCount" resultType="int"> <![CDATA[ select count(*) 
 		from tbl_board where bno > 0 ]]> </select> -->

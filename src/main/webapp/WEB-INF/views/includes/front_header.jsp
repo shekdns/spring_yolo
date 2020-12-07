@@ -185,7 +185,8 @@
 												<span class="text-white font-size-12">접속중</span>
 											</div>
 											
-										<c:if test="${principal.username ne 'admin'}">
+										<%-- <c:if test="${principal.username ne 'admin'}"> --%>
+											<sec:authorize access="hasRole('ROLE_USER')">
 											<a href="/front/myPage"
 												class="iq-sub-card iq-bg-primary-hover">
 												<div class="media align-items-center">
@@ -221,9 +222,10 @@
 													</div>
 												</div>
 											</a>
-										</c:if>
+										</sec:authorize>
 											
-											<c:if test="${principal.username eq 'admin'}">
+											<%-- <c:if test="${principal.username eq 'admin'}"> --%>
+											<sec:authorize access="hasRole('ROLE_ADMIN')">
 											<a href="/admin/chart"
 												class="iq-sub-card iq-bg-primary-hover">
 												<div class="media align-items-center">
@@ -236,11 +238,11 @@
 													</div>
 												</div>
 											</a>
-											</c:if>
+											</sec:authorize>
 										
 									
 											<div class="d-inline-block w-100 text-center p-3">
-												<a class="bg-primary iq-sign-btn" href="/customLogout"
+												<a class="bg-primary iq-sign-btn" href="/logout"
 													role="button">Sign out<i class="ri-login-box-line ml-2"></i></a>
 											</div>
 

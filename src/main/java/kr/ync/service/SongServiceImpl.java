@@ -110,4 +110,16 @@ public class SongServiceImpl implements SongService {
 		return mapper.frontArtist_get(artist_idx);
 	}
 
+	@Override
+	public List<SongVO> front_videoGetListPaging(Criteria cri) {
+		// TODO Auto-generated method stub
+		return mapper.front_videoGetListPaging(cri);
+	}
+
+	@Override
+	public int front_videoTotal(Criteria cri) {
+		// TODO Auto-generated method stub
+		return mapper.front_videoTotal(cri);
+	}
+
 }

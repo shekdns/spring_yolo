@@ -165,9 +165,7 @@
 													"/front/album_get");
 											actionForm.submit();
 										});
-						$(".move2")
-						.on(
-								"click",
+						$(".move2").on(	"click",
 								function(e) {
 									e.preventDefault();
 									actionForm2

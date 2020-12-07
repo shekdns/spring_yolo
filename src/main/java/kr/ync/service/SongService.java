@@ -40,5 +40,8 @@ public interface SongService {
 	//프론트 artist_get
 	public List<SongVO> frontArtist_get(int artist_idx);
 	
+	//비디오 페이지 
+	public List<SongVO> front_videoGetListPaging(Criteria cri);
+	public int front_videoTotal(Criteria cri);
 
 }
