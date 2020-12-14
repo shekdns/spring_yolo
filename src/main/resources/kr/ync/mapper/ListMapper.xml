@@ -15,45 +15,62 @@
 	</insert>
 	
 	
-	<resultMap type="kr.ync.domain.SongVO" id="SongVO">
+ <resultMap type="kr.ync.domain.SongVO" id="SongVO">
     <result column="song_name" property="song_name"/>
     <result column="song_img_path" property="song_img_path"/>
     <result column="mp3_path" property="mp3_path"/>
     <result column="lyc_path" property="lyc_path"/>
     <result column="song_idx" property="song_idx"/>
+    <result column="album_name" property="album_name"/>
     <result column="album_idx" property="album_idx"/>
-    <result column="genre" property="genre"/>
-    <result column="composition" property="composition"/>
-    <result column="lyrics" property="lyrics"/>
+    <result column="artist_name" property="artist_name"/>
 </resultMap>
  
-<resultMap type="kr.ync.domain.AlbumVO" id="AlbumVO">
+<resultMap type="kr.ync.domain.ListVO" id="ListVO">
+    <result column="list_idx" property="list_idx"/>
+    <result column="id" property="id"/>
+    <result column="like_count" property="like_count"/>
     <result column="album_idx" property="album_idx"/>
-    <result column="album_name" property="album_name"/>
-    <result column="artist_name" property="artist_name"/>
-    <result column="album_img_path" property="album_img_path"/>
-    <result column="album_type" property="album_type"/>
-    <result column="genre" property="genre"/>
-    <result column="artist_idx" property="artist_idx"/>
+    <result column="song_idx" property="song_idx"/>
     <collection property="song" resultMap="SongVO"/>
 </resultMap>
 	
-	
-	
-		<select id="getList" resultType="kr.ync.domain.ListVO">
+		<select id="getList" resultMap="ListVO">
 	<![CDATA[
-	select li.list_idx,
-	       li.song_idx,
-	       so.song_name,
-	       so.album_name,
-	       so.song_img_path,
-	       so.mp3_path
-	from   list li,
-	       song so
-	where  li.song_idx = so.song_idx
-	and    li.id = #{li.id}
+				select 
+			           li.list_idx,
+				       li.song_idx,
+				       so.song_name,
+				       so.album_name,
+				       so.song_img_path,
+				       so.mp3_path,
+				       so.artist_name,
+				       so.lyc_path
+				from   list li,
+				       song so
+				where  li.song_idx = so.song_idx
+				and    li.id = #{li.id}
+				order  by li.list_idx desc
 	]]>
+	</select> 
+	
+	<select id="checkList" parameterType="Map" resultType="int">
+		select count(*) from list where id = #{id} and song_idx = #{song_idx}
 	</select>
+	
+	<select id="checkList2"  resultType="kr.ync.domain.ListVO">
+		select song_idx from list where id = #{id}
+	</select>
+		
+	<select id="showList" resultType="kr.ync.domain.ListVO">
+		select id,
+			   song_idx
+		from list
+	</select>
+
+	<delete id="like_delete"> 
+	delete from list where id = #{id} and song_idx = #{song_idx}
+	</delete>
 	
 
 </mapper>

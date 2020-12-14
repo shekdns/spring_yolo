@@ -147,8 +147,7 @@
 										<input type="text" class="text search-input"
 											placeholder="Search Here.."> <a class="search-link"
 											href="#"><i class="ri-search-line text-black"></i></a> <a
-											class="search-audio" href="#"><i
-											class="las la-microphone text-black"></i></a>
+											class="search-audio" href="#"></a>
 									</form>
 								</div>
 							</li>
@@ -187,7 +186,7 @@
 											
 										<%-- <c:if test="${principal.username ne 'admin'}"> --%>
 											<sec:authorize access="hasRole('ROLE_USER')">
-											<a href="/front/myPage"
+									<!-- 		<a href="/front/myPage"
 												class="iq-sub-card iq-bg-primary-hover">
 												<div class="media align-items-center">
 													<div class="rounded iq-card-icon iq-bg-primary">
@@ -209,9 +208,9 @@
 
 													</div>
 												</div>
-											</a> 
-											<a href="/front/myList"
-												class="iq-sub-card iq-bg-primary-hover">
+											</a> --> 
+											<a href='<c:out value="${principal.username}"/>'
+												class="iq-sub-card iq-bg-primary-hover" id="move4">
 												<div class="media align-items-center">
 													<div class="rounded iq-card-icon iq-bg-primary">
 														<i class="ri-account-box-line"></i>

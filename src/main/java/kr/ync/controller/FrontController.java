@@ -16,6 +16,7 @@ import kr.ync.service.AlbumService;
 import kr.ync.service.ArtistMemberService;
 import kr.ync.service.ArtistService;
 import kr.ync.service.ChartService;
+import kr.ync.service.ListService;
 import kr.ync.service.SongService;
 import lombok.extern.log4j.Log4j;
 
@@ -38,6 +39,9 @@ public class FrontController {
 	
 	@Autowired
 	private ArtistMemberService artist_member_service;
+	
+	@Autowired
+	private ListService list_service;
 	
 	
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
@@ -80,6 +84,7 @@ public class FrontController {
 		model.addAttribute("album", album_service.frontAlbum_get(album_idx));
 		//model.addAttribute("album", album_service.get(album_idx));
 		model.addAttribute("song", song_service.frontAlbum_get(album_idx));
+		model.addAttribute("list", list_service.showList());
 	
 	}
 	
@@ -102,6 +107,7 @@ public class FrontController {
 	public void song_get(Model model, @RequestParam("song_idx") int song_idx) {
 		model.addAttribute("song", song_service.get(song_idx));
 		model.addAttribute("random", song_service.front_SongRandom());
+		model.addAttribute("list", list_service.showList());
 	}
 	
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
@@ -126,6 +132,7 @@ public class FrontController {
 		model.addAttribute("atm", artist_member_service.front_getArtistMember(artist_idx));
 		model.addAttribute("artist" , artist_service.get(artist_idx)); // 아티스트만 들고오기 
 		model.addAttribute("song", song_service.frontArtist_get(artist_idx));
+		model.addAttribute("list", list_service.showList());
 		
 	}
 	
@@ -139,15 +146,6 @@ public class FrontController {
 		model.addAttribute("song", song_service.front_videoGetListPaging(cri));
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
 	}
-	
-	
-	
-	
-//	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
-//	@GetMapping("/index2")
-//	public String index2() {
-//		return "front/index2";
-//	}
 	
 
 	

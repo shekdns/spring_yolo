@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
+    
+    <form id='actionForm' action="/front/index" method='get'>
+				
+			</form>
+    
     <div id="player">
     </div>
 
@@ -64,4 +69,37 @@
 .
    <!-- Custom JavaScript -->
    <script src="/resources/vendor/bootstrap/front_js/custom.js"></script>
+   
+   <script>
+   $(document)
+   .ready(
+   		function() {
+   			var result = '<c:out value="${result}"/>';
+
+   			// replaceState(data, title [, url ]) 히스토리를 수정
+   			history.replaceState({}, null, null);
+   			var actionForm = $("#actionForm");
+   			
+   			$("#move4")
+   			.on(
+   					"click",
+   					function(e) {
+   						e.preventDefault();
+   						actionForm
+   								.append("<input type='hidden' name='id' value='"
+   										+ $(this).attr(
+   												"href")
+   										+ "'>");
+   						actionForm.attr("action",
+   								"/front/myList");
+   						actionForm.submit();
+   					});
+
+   			
+   			
+   			
+   		});
+
+
+   </script>
 

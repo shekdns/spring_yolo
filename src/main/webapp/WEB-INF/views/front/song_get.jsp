@@ -2,7 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
+<meta name="_csrf_header" content="${_csrf.headerName}">
+<meta name="_csrf" content="${_csrf.token}">
 
 <%@include file="../includes/front_header.jsp"%>
 
@@ -26,7 +27,9 @@
 										<h3>
 											<c:out value="${song.song_name}" />
 										</h3>
-										<span><c:out value="${song.artist_name}" /></span>
+										<span><a class='move2'
+												href='<c:out value="${song.artist_idx}"/>'> <c:out
+													value="${song.artist_name}" /></a></span>
 										<p>
 											장르 :
 											<c:out value="${song.genre}" />
@@ -55,17 +58,49 @@
 												data-switch="<c:out value="${song.song_idx}" />">듣기</a>
 
 										</div>
-									</div>
-									<div class="music-right">
-										<div class="d-flex align-items-center">
-
-											<div class="iq-circle mr-2">
-												<a href="javascript:void();"><i
-													class="ri-heart-fill  text-primary"></i></a>
-											</div>
+									
+										<p>
+										<c:set var="flag" value="false" />
+										<c:forEach items="${list}" var="list">
+											<c:if test="${list.id == principal.username && list.song_idx == song.song_idx}">
+										   		<c:set var="flag" value="true" />
+											</c:if>
+										</c:forEach>	
+										
+										<c:choose>
+											   <c:when test="${flag}">
+											     	<div class='like-wrapper'>									
+											<a class='like-button liked' id="song_delete"
+											data-song="<c:out value="${song.song_idx}" />"
+											data-id="${principal.username}"
+											data-album="<c:out value="${song.album_idx}" />"
+											> <span class='like-icon'>
+													<div class='heart-animation-1'></div>
+													<div class='heart-animation-2'></div>
+											</span> Like
+											</a>
 
 										</div>
+											   </c:when>
+											   <c:otherwise>
+											     	<div class='like-wrapper'>									
+											<a class='like-button' id="song_like"
+											data-song="<c:out value="${song.song_idx}" />"
+											data-id="${principal.username}"
+											data-album="<c:out value="${song.album_idx}" />"
+											> <span class='like-icon'>
+													<div class='heart-animation-1'></div>
+													<div class='heart-animation-2'></div>
+											</span> Like
+											</a>
+
+										</div>
+											   </c:otherwise>
+											</c:choose>
+									
+									
 									</div>
+												
 								</div>
 							</div>
 						</div>
@@ -254,12 +289,12 @@ $(document)
 					function(e) {
 						e.preventDefault();
 						actionForm2
-								.append("<input type='hidden' name='song_idx' value='"
+								.append("<input type='hidden' name='artist_idx' value='"
 										+ $(this).attr(
 												"href")
 										+ "'>");
 						actionForm2.attr("action",
-								"/front/song_get");
+								"/front/artist_get");
 						actionForm2.submit();
 					});
 			
@@ -286,6 +321,110 @@ $(document)
 						searchForm.submit();
 					});
 		});
+
+$('.like-button').on('click', function(e) {
+	
+	 
+	   var csrfToken = $('input[name="${_csrf.parameterName}"]').val();
+	   var csrfToken2 = $('input[name="${_csrf.headerName}"]').val();
+
+
+	 var dataAlbum = $(this).attr('data-album');
+	  var dataSong = $(this).attr('data-song');
+	  var dataId = $(this).attr('data-id');
+	  console.log(dataId);
+	  console.log(dataAlbum);
+	  console.log(dataSong);
+	  //console.log(csrfToken);
+	  //console.log(csrfToken2);
+	  $(this).toggleClass('liked');
+
+	  var header = $("meta[name='_csrf_header']").attr('content');
+	  var token = $("meta[name='_csrf']").attr('content');
+	  console.log(header);
+	  console.log(token);
+
+			$.ajax({
+					url:'${pageContext.request.contextPath}/front/checkList',
+					type : "POST",
+					 data: JSON.stringify({ id : dataId, 
+	        	 		 song_idx :  dataSong, 
+	        	 		 album_idx : dataAlbum
+	        	 	   }), 
+	        	 	  contentType: 'application/json',
+	        	 	  beforeSend: function(xhr){
+	        	 	        xhr.setRequestHeader(header, token);
+	        	 	    },
+				    success : function(data){
+				    	 console.log(data);
+				    	 if(data == 2){
+								alert("좋아요~");
+			                 }else{
+								alert("좋아요 해제 ㅠㅠ");
+			                 }
+							
+					 },
+					  error : function() {
+								console.log("실패");
+						  }
+
+				});	  	 
+			
+			   
+
+	  
+}); 
+
+//좋아요 해제
+$('.like-button liked').on('click', function(e) {
+		
+	   var csrfToken = $('input[name="${_csrf.parameterName}"]').val();
+	   var csrfToken2 = $('input[name="${_csrf.headerName}"]').val();
+
+
+	 var dataAlbum = $(this).attr('data-album');
+	  var dataSong = $(this).attr('data-song');
+	  var dataId = $(this).attr('data-id');
+	  console.log(dataId);
+	  console.log(dataAlbum);
+	  console.log(dataSong);
+	  //console.log(csrfToken);
+	  //console.log(csrfToken2);
+	  $(this).toggleClass('liked');
+
+	  var header = $("meta[name='_csrf_header']").attr('content');
+	  var token = $("meta[name='_csrf']").attr('content');
+	  console.log(header);
+	  console.log(token);
+
+	  $.ajax({
+			url:'${pageContext.request.contextPath}/front/checkList',
+			type : "POST",
+			 data: JSON.stringify({ id : dataId, 
+	 		 song_idx :  dataSong, 
+	 		 album_idx : dataAlbum
+	 	   }), 
+	 	  contentType: 'application/json',
+	 	  beforeSend: function(xhr){
+	 	        xhr.setRequestHeader(header, token);
+	 	    },
+		    success : function(data){
+		    	 console.log(data);
+				 if(data == 2){
+						alert("좋아요~");
+              }else{
+             	 alert("좋아요 해제 ㅠㅠ");
+	             }
+					
+			 },
+			  error : function() {
+						console.log("실패");
+				  }
+
+		});	  	 
+
+	  
+}); 
 
 
 

@@ -16,7 +16,7 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class ListMapperTests {
 
-	private int[] songArr = { 29, 31, 32 ,33 ,34 };   //29
+	private int[] songArr = { 29, 30, 32 ,33 ,34 ,1};   //29
 	private int[] albumArr = {49 ,2 ,3 ,22 ,23};	//49 
 	
 	@Autowired
@@ -33,18 +33,34 @@ public class ListMapperTests {
 //	
 //	}
 	
+//	@Test
+//	public void testInsert() {
+//		
+//		ListVO list = new ListVO();
+//		
+//		list.setId("shekdns");
+//		list.setAlbum_idx(albumArr[0]);
+//		list.setSong_idx(songArr[5]);
+//		mapper.insert(list);
+//	}
+	
+//	@Test
+//	public void testDelete() {
+//
+//		log.info("DELETE COUNT: " + mapper.like_delete("shekdns", songArr[1]));
+//	}
+	
+//	@Test
+//	public void testListCheck() {
+//		
+//		log.info("CheckCount : " + mapper.checkList("shekdns", 29));
+//	}
+	
 	@Test
-	public void testInsert() {
+	public void testGetList() {
 		
-		ListVO list = new ListVO();
-		
-		list.setId("shekdns");
-		list.setAlbum_idx(albumArr[0]);
-		list.setSong_idx(songArr[0]);
-		mapper.insert(list);
+		mapper.getList("shekdns").forEach(list -> log.info("list 객채 내용 : " + list));
 	}
-	
-	
 	
 	
 }

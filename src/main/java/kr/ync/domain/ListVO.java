@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class ListVO {
 	
+	public int list_idx;
 	public String id;
 	public int like_count;
 	public int album_idx;

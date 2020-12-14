@@ -190,6 +190,7 @@ $(document)
 			var albumForm = $("#albumForm");
 			var songForm = $("#songForm");
 			var artistForm = $("#artistForm");
+			var actionForm = $("#actionForm");
 			
 			// 상세보기 클릭 이벤트
 			
@@ -236,6 +237,8 @@ $(document)
 								"/front/song_get");
 						songForm.submit();
 					});
+
+			
 
 			
 			

@@ -1,5 +1,7 @@
 package kr.ync.service;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +37,40 @@ public class ListServiceImpl implements ListService{
 		mapper = listSqlSession.getMapper(ListMapper.class);
 		
 		return mapper.insert2(id, song_idx, album_idx);
+	}
+
+	@Override
+	public List<ListVO> showList() {
+		// TODO Auto-generated method stub
+		return mapper.showList();
+	}
+
+
+	@Override
+	public int like_delete(ListVO list) {
+		// TODO Auto-generated method stub
+		mapper = listSqlSession.getMapper(ListMapper.class);
+		return mapper.like_delete(list);
+	}
+
+	@Override
+	public int checkList(ListVO list) {
+		// TODO Auto-generated method stub
+		mapper = listSqlSession.getMapper(ListMapper.class);
+		return mapper.checkList(list);
+	}
+
+	@Override
+	public List<ListVO> checkList2(ListVO list) {
+		// TODO Auto-generated method stub
+		mapper = listSqlSession.getMapper(ListMapper.class);
+		return mapper.checkList2(list);
+	}
+
+	@Override
+	public List<ListVO> getList(String id) {
+		// TODO Auto-generated method stub
+		return mapper.getList(id);
 	}
 
 }

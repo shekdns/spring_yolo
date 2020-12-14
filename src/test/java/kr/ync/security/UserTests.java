@@ -28,7 +28,7 @@ public class UserTests {
 
 		String sql = "insert into member(id, pass, name, email, auth) values (?,?,?,?,?)";
 
-		//for (int i = 0; i < 3; i++) {
+		for (int i = 1; i < 4; i++) {
 
 			Connection con = null;
 			PreparedStatement pstmt = null;
@@ -37,7 +37,7 @@ public class UserTests {
 				con = ds.getConnection();
 				pstmt = con.prepareStatement(sql);
 
-				pstmt.setString(2, pwencoder.encode("admin"));
+				pstmt.setString(2, pwencoder.encode("pass" + i));
 
 //				if (i < 80) {
 //
@@ -53,10 +53,10 @@ public class UserTests {
 //
 //				} else {
 
-					pstmt.setString(1, "admin");
-					pstmt.setString(3, "관리자");
-					pstmt.setString(4, "admin@naver.com");
-					pstmt.setString(5, "ROLE_ADMIN");
+					pstmt.setString(1, "user" + i);
+					pstmt.setString(3, "유저" + i);
+					pstmt.setString(4, "user"+i+"@naver.com");
+					pstmt.setString(5, "ROLE_USER");
 
 				
 
@@ -82,4 +82,5 @@ public class UserTests {
 		//} // end for
 	}
 	
+}
 }

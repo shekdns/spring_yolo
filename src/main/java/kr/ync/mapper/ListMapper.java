@@ -12,7 +12,17 @@ public interface ListMapper {
 	//POST
 	public int insert(ListVO list);
 	
-	public List<ListVO> getList();
+	public List<ListVO> getList(String id);
+	
+	//public int checkList(String id, int song_idx);
+	public int checkList(ListVO list);
+	
+	public  List<ListVO> checkList2(ListVO list);
+	
+	//public int like_delete(String id, int song_idx);
+	public int like_delete(ListVO list);
+	
+	public List<ListVO> showList();
 	
 	
 	

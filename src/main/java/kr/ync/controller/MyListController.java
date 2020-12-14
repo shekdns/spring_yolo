@@ -1,8 +1,11 @@
 package kr.ync.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
+
+import kr.ync.domain.Criteria;
 import kr.ync.domain.ListVO;
 import kr.ync.service.ListService;
 import lombok.extern.log4j.Log4j;
@@ -27,41 +33,43 @@ public class MyListController {
 	
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
 	@GetMapping("/myList")
-	public void myList() {
+	public void myList(Model model, @RequestParam("id") String id) {
 		
-
+		model.addAttribute("list", list_service.getList(id));
+		model.addAttribute("s_list", list_service.showList());
+	
 	}
-	
-//	@RequestMapping(value = "/input_list", method = RequestMethod.GET)
-//	@ResponseBody
-//	public String input_list(@RequestParam("id") String id, @RequestParam("song_idx") int song_idx, 
-//			@RequestParam("album_idx") int album_idx) {
-//		
-//		//좋아요 -> 마이리스트 
-//		list_service.list_like(id, song_idx, album_idx);
-//		
-//		
-//		return "redirect:/";  
-//	}
-	
-
-	@RequestMapping(value = "/input_list", method = RequestMethod.POST )
+		
+	@RequestMapping(value = "/checkList", method = RequestMethod.POST)
 	@ResponseBody
-	public String input_list(@RequestBody ListVO list) {
-		
-		String msg = "";
-		
-		int result = list_service.list_input(list);
-		
-		if(result > 0 ) {
-			msg = "성공";
-			log.info(msg);
-		}else {
-			msg = "실패";
-			log.info(msg);
+	public String checkList(@RequestBody ListVO list) {
+
+		List<ListVO> count = list_service.checkList2(list);
+				
+		boolean flag = false;
+		int result = 0;
+		// List 내 song_idx랑 post로 받은 song_idx랑 비교
+		for(ListVO vo : count){
+		   if(list.getSong_idx() == vo.getSong_idx()){
+		      flag = true;
+		   }
 		}
+		// 있을 경우 삭제 없을경우 넣기
+		if(flag){
+		   list_service.like_delete(list);
+		   result = 1;
+		}else{
+		   list_service.list_input(list);
+		   result = 2;
+		}
+
+		Gson gson = new Gson();
+
+		//return new Gson().toJson(flag);
+		return new Gson().toJson(result);
 		
-		return "redirect:/";  
+				
 	}
+
 	
 }
