@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.ync.mapper.Album_ReplyMapper">
+
+	<insert id="insert">
+		INSERT INTO album_reply (album_reply_idx, reply, replyer, album_idx)
+		VALUES (seq_album_reply.nextval, #{reply}, #{replyer}, #{album_idx})
+	</insert>
+
+	<select id="read" resultType="kr.ync.domain.Album_ReplyVO">
+		SELECT * FROM album_reply WHERE album_reply_idx = #{album_reply_idx}
+	</select>
+
+	<delete id="delete">
+		DELETE FROM album_reply WHERE album_reply_idx = #{album_reply_idx}
+	</delete>
+
+	<update id="update">
+		UPDATE album_reply SET	reply = #{reply},
+								updatedate = sysdate 
+		WHERE album_reply_idx = #{album_reply_idx}
+		
+		<!-- 
+		UPDATE tbl_reply SET
+		<set>
+	      <if test="reply != null">reply=#{reply},</if>
+	    </set>
+	    updatedate = sysdate
+	    WHERE rno = #{rno}
+	    -->
+	</update>
+
+
+	<select id="getList" resultType="kr.ync.domain.Album_ReplyVO">
+
+		select album_reply_idx, reply, replyer, replyDate, updateDate , album_idx
+		from   album_reply
+		where  album_idx = #{album_idx}
+		order by album_reply_idx DESC
+
+	</select>
+
+	<select id="getListWithPaging" resultType="kr.ync.domain.Album_ReplyVO">
+		<![CDATA[
+	 		SELECT	album_reply_idx,
+	 				reply,
+	 				replyer,
+	 				replyDate,
+	 				updateDate,
+	 				album_idx
+	 		FROM	(SELECT /*+INDEX_DESC(album_reply XPK앨범댓글) */ 
+	      					rownum rn,
+	      					album_reply_idx,
+	      					reply,
+	      					replyer,
+	      					replyDate,
+	      					updateDate,
+	      					album_idx
+	    			FROM	album_reply
+	    			WHERE	album_idx =  #{album_idx}
+	    			AND		album_reply_idx > 0
+	    			AND		rownum <= #{cri.pageNum} * #{cri.amount}
+	   				)
+	   		WHERE	rn > (#{cri.pageNum} -1) * #{cri.amount}
+		]]>
+	</select>
+
+	<select id="getCountByBno" resultType="int">
+		<![CDATA[
+		SELECT count(album_reply_idx) FROM album_reply WHERE album_idx = #{album_idx}
+		]]>
+	</select>
+
+</mapper>

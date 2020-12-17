@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.ync.mapper.Song_ReplyMapper">
+
+	<insert id="insert">
+		INSERT INTO song_reply (song_reply_idx, reply, replyer, song_idx)
+		VALUES (seq_song_reply.nextval, #{reply}, #{replyer}, #{song_idx})
+	</insert>
+
+	<select id="read" resultType="kr.ync.domain.Song_ReplyVO">
+		SELECT * FROM song_reply WHERE song_reply_idx = #{song_reply_idx}
+	</select>
+
+	<delete id="delete">
+		DELETE FROM song_reply WHERE song_reply_idx = #{song_reply_idx}
+	</delete>
+
+	<update id="update">
+		UPDATE song_reply SET	reply = #{reply},
+								updatedate = sysdate 
+		WHERE song_reply_idx = #{song_reply_idx}
+		
+		<!-- 
+		UPDATE tbl_reply SET
+		<set>
+	      <if test="reply != null">reply=#{reply},</if>
+	    </set>
+	    updatedate = sysdate
+	    WHERE rno = #{rno}
+	    -->
+	</update>
+
+
+	<select id="getList" resultType="kr.ync.domain.Song_ReplyVO">
+
+		select song_reply_idx, reply, replyer, replyDate, updateDate , song_idx
+		from   song_reply
+		where  song_idx = #{song_idx}
+		order by song_reply_idx DESC
+
+	</select>
+
+	<select id="getListWithPaging" resultType="kr.ync.domain.Song_ReplyVO">
+		<![CDATA[
+	 		SELECT	song_reply_idx,
+	 				reply,
+	 				replyer,
+	 				replyDate,
+	 				updateDate,
+	 				song_idx
+	 		FROM	(SELECT /*+INDEX_DESC(song_reply XPK음악댓글) */ 
+	      					rownum rn,
+	      					song_reply_idx,
+	      					reply,
+	      					replyer,
+	      					replyDate,
+	      					updateDate,
+	      					song_idx
+	    			FROM	song_reply
+	    			WHERE	song_idx =  #{song_idx}
+	    			AND		song_reply_idx > 0
+	    			AND		rownum <= #{cri.pageNum} * #{cri.amount}
+	   				)
+	   		WHERE	rn > (#{cri.pageNum} -1) * #{cri.amount}
+		]]>
+	</select>
+
+	<select id="getCountByBno" resultType="int">
+		<![CDATA[
+		SELECT count(song_reply_idx) FROM song_reply WHERE song_idx = #{song_idx}
+		]]>
+	</select>
+
+</mapper>

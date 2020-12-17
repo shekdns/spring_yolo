@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.ync.mapper.Artist_ReplyMapper">
+
+	<insert id="insert">
+		INSERT INTO artist_reply (artist_reply_idx, reply, replyer, artist_idx)
+		VALUES (seq_artist_reply.nextval, #{reply}, #{replyer}, #{artist_idx})
+	</insert>
+
+	<select id="read" resultType="kr.ync.domain.Artist_ReplyVO">
+		SELECT * FROM artist_reply WHERE artist_reply_idx =	#{artist_reply_idx}
+	</select>
+
+	<delete id="delete">
+		DELETE FROM artist_reply WHERE artist_reply_idx = #{artist_reply_idx}
+	</delete>
+
+	<update id="update">
+		UPDATE artist_reply SET	reply = #{reply},
+								updatedate = sysdate 
+		WHERE artist_reply_idx = #{artist_reply_idx}
+		
+		<!-- 
+		UPDATE tbl_reply SET
+		<set>
+	      <if test="reply != null">reply=#{reply},</if>
+	    </set>
+	    updatedate = sysdate
+	    WHERE rno = #{rno}
+	    -->
+	</update>
+
+
+	<select id="getList" resultType="kr.ync.domain.Artist_ReplyVO">
+
+		select artist_reply_idx, reply, replyer, replyDate, updateDate , artist_idx
+		from   artist_reply
+		where  artist_idx = #{artist_idx}
+		order by artist_reply_idx DESC
+
+	</select>
+
+	<select id="getListWithPaging" resultType="kr.ync.domain.Artist_ReplyVO">
+		<![CDATA[
+	 		SELECT	artist_reply_idx,
+	 				reply,
+	 				replyer,
+	 				replyDate,
+	 				updateDate,
+	 				artist_idx
+	 		FROM	(SELECT /*+INDEX_DESC(artist_reply XPK가수댓글) */ 
+	      					rownum rn,
+	      					artist_reply_idx,
+	      					reply,
+	      					replyer,
+	      					replyDate,
+	      					updateDate,
+	      					artist_idx
+	    			FROM	artist_reply
+	    			WHERE	artist_idx =  #{artist_idx}
+	    			AND		artist_reply_idx > 0
+	    			AND		rownum <= #{cri.pageNum} * #{cri.amount}
+	   				)
+	   		WHERE	rn > (#{cri.pageNum} -1) * #{cri.amount}
+		]]>
+	</select>
+
+	<select id="getCountByBno" resultType="int">
+		<![CDATA[
+		SELECT count(artist_reply_idx) FROM artist_reply WHERE artist_idx = #{artist_idx}
+		]]>
+	</select>
+
+</mapper>
