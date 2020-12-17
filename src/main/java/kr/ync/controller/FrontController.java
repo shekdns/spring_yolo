@@ -81,8 +81,8 @@ public class FrontController {
 	@GetMapping("/album_get")
 	public void album_get(Model model, @RequestParam("album_idx") int album_idx) {
 		
-		model.addAttribute("album", album_service.frontAlbum_get(album_idx));
-		//model.addAttribute("album", album_service.get(album_idx));
+		//model.addAttribute("album", album_service.frontAlbum_get(album_idx));
+		model.addAttribute("album", album_service.get(album_idx));
 		model.addAttribute("song", song_service.frontAlbum_get(album_idx));
 		model.addAttribute("list", list_service.showList());
 	

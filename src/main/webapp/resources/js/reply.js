@@ -14,7 +14,7 @@ var replyService = (function() {
 
 		$.ajax({
 			type : 'post',
-			url : '/replies/new',
+			url : '/artist_replies/new',
 			data : JSON.stringify(reply), // JavaScript 값이나 객체를 JSON 문자열로 변환
 			contentType : "application/json; charset=utf-8",
 			success : function(result, status, xhr) { // (Anything data(서버에서 받은 data), String textStatus, jqXHR jqXHR )
@@ -35,10 +35,10 @@ var replyService = (function() {
 	function getList(param, callback, error) {
 		console.log("getList reply..............");
 		
-		var bno = param.bno;
+		var artist_idx = param.artist_idx;
 		var page = param.page || 1; // param.page 가 null 이면 1로 설정 
 		
-		$.getJSON("/replies/pages/" + bno + "/" + page + ".json", function(data) {
+		$.getJSON("/artist_replies/pages/" + artist_idx + "/" + page + ".json", function(data) {
 			if (callback) {
 				//callback(data); // 댓글 목록만 가져오는 경우 
 	            callback(data.replyCnt, data.list); //댓글 숫자와 목록을 가져오는 경우
@@ -52,15 +52,15 @@ var replyService = (function() {
 	}
 	
 	// 댓글 삭제. security 적용 후
-	function remove(rno, replyer, callback, error) {
+	function remove(artist_reply_idx, replyer, callback, error) {
 		  
 		console.log("--------------------------------------");  
-		console.log(JSON.stringify({rno:rno, replyer:replyer}));  
+		console.log(JSON.stringify({artist_reply_idx:artist_reply_idx, replyer:replyer}));  
 		    
 		$.ajax({
 			type : 'delete',
-			url : '/replies/' + rno,
-			data:  JSON.stringify({rno:rno, replyer:replyer}),
+			url : '/artist_replies/' + artist_reply_idx,
+			data:  JSON.stringify({artist_reply_idx:artist_reply_idx, replyer:replyer}),
 			contentType: "application/json; charset=utf-8",
 			success : function(deleteResult, status, xhr) {
 				if (callback) {
@@ -78,11 +78,11 @@ var replyService = (function() {
 	// 댓글 수정
 	function update(reply, callback, error) {
 
-		console.log("RNO: " + reply.rno);
+		console.log("artist_reply_idx: " + reply.rno);
 
 		$.ajax({
 			type : 'put',
-			url : '/replies/' + reply.rno,
+			url : '/artist_replies/' + reply.rno,
 			data : JSON.stringify(reply), // JavaScript 값이나 객체를 JSON 문자열로 변환
 			contentType : "application/json; charset=utf-8",
 			success : function(result, status, xhr) {
@@ -99,9 +99,9 @@ var replyService = (function() {
 	}
 	
 	// 댓글 조회
-	function get(rno, callback, error) {
+	function get(artist_reply_idx, callback, error) {
 
-		$.get("/replies/" + rno + ".json", function(result) {
+		$.get("/artist_replies/" + artist_reply_idx + ".json", function(result) {
 			if (callback) {
 				callback(result);
 			}

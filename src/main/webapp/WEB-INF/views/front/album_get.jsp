@@ -15,7 +15,7 @@
 			<div class="col-lg-12">
 				<div class="iq-card">
 					<div class="iq-card-body">
-						<c:forEach items="${album}" var="album">
+						
 							<div class="row">
 								<div class="col-lg-3">
 
@@ -86,7 +86,7 @@
 									</div>
 								</div>
 							</div>
-						</c:forEach>
+						
 					</div>
 				</div>
 			</div>
@@ -236,6 +236,93 @@
 		<input type='hidden' name='id' value='${principal.username}'>
 	</form>
 	
+	
+	<div class="col-sm-12">
+				<div class="iq-card">
+					<div class="iq-card-body">
+						<div class='row'>
+
+						  <div class="col-lg-12">
+						
+						    <!-- /.panel -->
+						    <div class="panel panel-default">
+						      
+						      <div class="panel-heading" style="margin-bottom:50px;">
+						        <i class="fa fa-comments fa-fw"></i> Reply
+						        <sec:authorize access="isAuthenticated()">
+						           <button id='addReplyBtn' class='btn btn-success btn-xs pull-right'>New Reply</button>
+						        </sec:authorize>
+						      </div>      
+						      <p>
+						     
+						      
+						      <!-- /.panel-heading -->
+						      <div class="panel-body">        
+						      
+						         <!-- 댓글 목록 출력 부분 -->
+						        <ul class="chat">
+						
+						        </ul>
+						        <!-- ./ end ul -->
+						      </div>
+						      <!-- /.panel .chat-panel -->
+						
+						  	 <div class="panel-footer"></div>
+							 </div>
+						
+						      
+						  </div>
+						  <!-- ./ end row -->
+						</div>
+						
+						
+				  
+					</div>
+					
+					
+					
+					
+				</div>
+		</div>
+		
+								   <!-- 댓글 Modal -->
+				   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				      <div class="modal-dialog">
+				         <div class="modal-content" style="margin-top:100px;">
+				            <div class="modal-header">
+				               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				               <h4 class="modal-title" id="myModalLabel">REPLY MODAL</h4>
+				            </div>
+				            <div class="modal-body">
+				               <div class="form-group">
+				                      <label>Reply</label> 
+				                      <input class="form-control" name='reply' value='New Reply!!!!'>
+				               </div>      
+				               <div class="form-group">
+				                  <label>Replyer</label> 
+				                  <input class="form-control" name='replyer' value='replyer'>
+				               </div>
+				               <div class="form-group">
+				                  <label>Reply Date</label> 
+				                  <input class="form-control" name='replyDate' value='2018-01-01 13:13'>
+				               </div>
+				            </div>
+				            
+				            <div class="modal-footer">
+				               <button id='modalModBtn' type="button" class="btn btn-warning">Modify</button>
+				               <button id='modalRemoveBtn' type="button" class="btn btn-danger">Remove</button>
+				               <button id='modalRegisterBtn' type="button" class="btn btn-success">Register</button>
+				               <button id='modalCloseBtn' type="button" class="btn btn-default">Close</button>
+				            </div>
+				         </div>
+				         <!-- /.modal-content -->
+				      </div>
+				        <!-- /.modal-dialog -->
+				   </div>
+				   <!-- /댓글 modal -->
+	
+	
+	
 	<%-- <input type="hidden" name="${_csrf.parameterName}"
                               value="${_csrf.token}" /> 
 	<input type="hidden" name="${_csrf.headerName}" value="${_csrf.headerName }" /> --%>
@@ -243,13 +330,269 @@
 
 </div>
 
-
-
-
-
-
-
+<script type="text/javascript" src="/resources/js/reply2.js"></script>
 <%@include file="../includes/front_footer.jsp"%>
+<script type="text/javascript">
+$(document).ready(function () {
+     
+   var album_idxValue = '<c:out value="${album.album_idx}"/>';
+   var replyUL = $(".chat");
+   
+   showList(1);
+   
+   // 댓글 목록을 출력하는 함수
+   function showList(page){
+      
+      // console.log("show list " + page);
+       
+      replyService.getList({album_idx:album_idxValue, page: page|| 1 }, function(replyCnt, list) {
+         
+          // console.log("replyCnt: "+ replyCnt );
+          // console.log("list: " + list);
+          // console.log(list);
+          
+         if(page == -1){
+            pageNum = Math.ceil(replyCnt/10.0);
+            showList(pageNum);
+            return;
+         }
+          
+         var str="";
+        
+         if(list == null || list.length == 0){
+            replyUL.html("");
+            return;
+         }
+        
+         for (var i = 0, len = list.length || 0; i < len; i++) {
+            str +="<li class='left clearfix' data-album_reply_idx='"+list[i].album_reply_idx+"'>";
+            str +="  <div><div class='header'><strong class='primary-font'>["
+               + list[i].album_reply_idx+"] "+list[i].replyer+"</strong>"; 
+            str +="    <small class='pull-right text-muted'>"
+               + replyService.displayTime(list[i].replyDate)+"</small></div>";
+            str +="    <p>"+list[i].reply+"</p></div></li>";
+         }
+        
+         replyUL.html(str);
+        
+         showReplyPage(replyCnt);
+
+    
+      });//end function
+        
+   }//end showList
+
+   // 댓글 페이징 처리
+   var pageNum = 1;
+    var replyPageFooter = $(".panel-footer");
+    
+    function showReplyPage(replyCnt){
+      
+      var endNum = Math.ceil(pageNum / 10.0) * 10;  
+      var startNum = endNum - 9; 
+      
+      var prev = startNum != 1;
+      var next = false;
+      
+      if(endNum * 10 >= replyCnt){
+        endNum = Math.ceil(replyCnt/10.0);
+      }
+      
+      if(endNum * 10 < replyCnt){
+        next = true;
+      }
+      
+      var str = "<ul class='pagination pull-right'>";
+      
+      if(prev){
+        str+= "<li class='page-item'><a class='page-link' href='"+(startNum -1)+"'>Previous</a></li>";
+      }
+      
+      for(var i = startNum ; i <= endNum; i++){
+        
+        var active = pageNum == i? "active":"";
+        
+        str+= "<li class='page-item "+active+" '><a class='page-link' href='"+i+"'>"+i+"</a></li>";
+      }
+      
+      if(next){
+        str+= "<li class='page-item'><a class='page-link' href='"+(endNum + 1)+"'>Next</a></li>";
+      }
+      
+      str += "</ul></div>";
+      
+      console.log(str);
+      
+      replyPageFooter.html(str);
+    }
+     
+    replyPageFooter.on("click","li a", function(e){
+       e.preventDefault();
+       console.log("page click");
+       
+       var targetPageNum = $(this).attr("href");
+       
+       console.log("targetPageNum: " + targetPageNum);
+       
+       pageNum = targetPageNum;
+       
+       showList(pageNum);
+     });
+    // 댓글 페이징 처리 끝
+    
+    
+   /* 댓글 modal 창 동작 부분*/
+   var modal = $(".modal");
+    var modalInputReply = modal.find("input[name='reply']");
+    var modalInputReplyer = modal.find("input[name='replyer']");
+    var modalInputReplyDate = modal.find("input[name='replyDate']");
+    var modalModBtn = $("#modalModBtn");
+    var modalRemoveBtn = $("#modalRemoveBtn");
+    var modalRegisterBtn = $("#modalRegisterBtn");
+
+    // 댓글 인증 부분 추가
+   var replyer = null;
+    
+    <sec:authorize access="isAuthenticated()">
+       var replyer = '<sec:authentication property="principal.username"/>';   
+   </sec:authorize>
+ 
+   const csrfHeaderName ="${_csrf.headerName}"; 
+   const csrfTokenValue="${_csrf.token}";
+    
+    $("#modalCloseBtn").on("click", function(e){
+       modal.modal('hide');
+    });
+    
+    $("#addReplyBtn").on("click", function(e){
+      modal.find("input").val("");
+      modal.find("input[name='replyer']").val(replyer);
+      modalInputReplyDate.closest("div").hide();
+      modal.find("button[id !='modalCloseBtn']").hide();
+      
+      modalRegisterBtn.show();
+      $(".modal").modal("show");
+    });
+
+    // Ajax Spring Security Header
+    $(document).ajaxSend(function(e, xhr, options) { 
+      xhr.setRequestHeader(csrfHeaderName, csrfTokenValue); 
+   });
+   
+    // 댓글 등록
+   modalRegisterBtn.on("click",function(e){
+      
+      var reply = {
+         reply: modalInputReply.val(),
+            replyer:modalInputReplyer.val(),
+            album_idx:album_idxValue
+      };
+      
+      replyService.add(reply, function(result){
+        
+        alert(result);
+        
+        modal.find("input").val("");
+        modal.modal("hide");
+        
+        showList(1);
+      });
+      
+    });
+    
+   //댓글 조회 클릭 이벤트 처리 
+    $(".chat").on("click", "li", function(e){
+      
+      var album_reply_idx = $(this).data("album_reply_idx");
+      console.log(album_reply_idx);
+      
+      replyService.get(album_reply_idx, function(reply){
+   
+         modalInputReply.val(reply.reply);
+         modalInputReplyer.val(reply.replyer);
+         modalInputReplyDate.val(replyService.displayTime( reply.replyDate)).attr("readonly","readonly");
+         modal.data("album_reply_idx", reply.album_reply_idx);
+         
+         modal.find("button[id !='modalCloseBtn']").hide();
+         modalModBtn.show();
+         modalRemoveBtn.show();
+         
+         $(".modal").modal("show");
+      });
+   });
+   
+    // 댓글 수정 이벤트. security 적용 후
+   modalModBtn.on("click", function(e){
+      
+      var originalReplyer = modalInputReplyer.val();
+      
+      var reply = {
+            rno:modal.data("album_reply_idx"), 
+            reply: modalInputReply.val(),
+            replyer: originalReplyer
+            };
+     
+      if(!replyer){
+         alert("로그인후 수정이 가능합니다.");
+         modal.modal("hide");
+         return;
+      }
+
+      console.log("Original Replyer: " + originalReplyer);
+      
+      if(replyer  != originalReplyer){
+         alert("자신이 작성한 댓글만 수정이 가능합니다.");
+         modal.modal("hide");
+         return;
+      }
+        
+      replyService.update(reply, function(result){
+         alert(result);
+         modal.modal("hide");
+         showList(pageNum);
+      });
+   });
+
+   // 댓글 삭제 부분. security 적용 후
+   modalRemoveBtn.on("click", function (e){
+          
+      var album_reply_idx = modal.data("album_reply_idx");
+
+      console.log("album_reply_idx: " + album_reply_idx);
+      console.log("REPLYER: " + replyer);
+           
+      if(!replyer){
+         alert("로그인후 삭제가 가능합니다.");
+         modal.modal("hide");
+         return;
+      }
+           
+      var originalReplyer = modalInputReplyer.val();
+           
+      console.log("Original Replyer: " + originalReplyer);
+           
+      if(replyer !== originalReplyer){
+              
+         alert("자신이 작성한 댓글만 삭제가 가능합니다.");
+         modal.modal("hide");
+         return;
+      }
+           
+      replyService.remove(album_reply_idx, originalReplyer, function(result){
+                 
+         alert(result);
+         modal.modal("hide");
+         showList(pageNum);
+      });
+   });
+   
+   /* 댓글 modal 창 동작 부분*/
+   
+});
+</script>
+
+
+
 </body>
 <script>
 
@@ -314,7 +657,7 @@ $(".btn-primary").on('click', function(e){
 	$("#player").addClass('showPlayer');
 
 
-	<c:forEach items="${album}" var="album">
+	
 	if(data1 == "<c:out value="${ablum.album_idx}" />"){
 
 	/* dataSwitchId = $(this).attr('data-switch');*/
@@ -336,8 +679,7 @@ $(".btn-primary").on('click', function(e){
 	ap.list.switch(data1); //this is static id but i use dynamic
 	ap.play();
 	}
-	</c:forEach>
-
+	
 	// click to slideUp player see
 	$("#player").addClass('showPlayer');
 

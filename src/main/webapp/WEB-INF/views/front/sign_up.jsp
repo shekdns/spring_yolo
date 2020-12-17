@@ -185,7 +185,8 @@
 	// 비밀번호 정규식
 	var pwJ = /^[A-Za-z0-9]{4,12}$/; 
 	// 이름 정규식
-	var nameJ = /^[가-힣]{2,6}$/;
+	 //var nameJ = /^[가-힣]{2,4}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/; 
+	var nameJ = /^[가-힣a-zA-Z]+$/;
 	// 이메일 검사 정규식
 	var mailJ = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 	
@@ -281,7 +282,7 @@
 					name_isFalse = 0;
 				}else if(!nameJ.test(name)){
 				   //위의 값이 0 
-					$("#name_check").text("이름을 확인해주세요 :p");
+					$("#name_check").text("이름은 한글 또는 영문으로 해주세요 :p");
 					$("#name_check").css("color", "red");
 					$("#success").attr("disabled", true);
 					name_isFalse = 0;		

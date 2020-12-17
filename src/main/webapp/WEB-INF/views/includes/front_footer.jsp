@@ -15,7 +15,7 @@
    <!-- Optional JavaScript -->
    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
    <script src="/resources/vendor/bootstrap/front_js/popper.min.js"></script>
-  	  <script src="/resources/vendor/bootstrap/front_js/jquery.min.js"></script>
+   <script src="/resources/vendor/bootstrap/front_js/jquery.min.js"></script>
    <script src="/resources/vendor/bootstrap/front_js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js">  </script>
    <!-- <script  src="/resources/vendor/bootstrap/front_js/aplayer.js"></script> --> 
