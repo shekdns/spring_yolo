@@ -214,7 +214,7 @@
 						console.log("1 = 중복o / 0 = 중복x : " + numJson);									
 						if (numJson == 1) {
 							// 1 : 이메일가 중복되는 문구
-							alert("회원님의 이메일로 새로운 비밀번호가 전송되었습니다.");
+							alert("회원님의 이메일로 아이디가 전송되었습니다.");
 							$.ajax({
 							url : '${pageContext.request.contextPath}/front/find_user/searchId?name='+id_name+'&email='+id_email,
 							type : 'GET'

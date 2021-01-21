@@ -36,6 +36,14 @@
 		( #{id}, #{pass}, #{name}, #{email})
 	</insert>
 	
+	 <update id="pass_update">
+		update member
+		set 
+		pass = #{pass}
+		where id = #{id}
+	</update>
+	
+	
 	<select id="checkOverId" parameterType="String" resultType="int">
 		select count(*) from member where id = #{id}
 	</select>

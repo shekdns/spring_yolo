@@ -17,6 +17,10 @@ public interface UserMapper {
 	//이메일 
 	public int checkOverEmail(String email);
 	
+	public int pass_update(UserVO user);
+	
+	//public int pass_update(String pass, String id);
+	
 	//이메일 인증 키 생성
 	public int getKey(String id, String user_key);
 	//이메일 인증기 체인지

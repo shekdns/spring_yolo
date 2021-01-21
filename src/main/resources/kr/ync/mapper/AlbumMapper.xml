@@ -98,7 +98,7 @@
 		DELETE FROM album WHERE album_idx = #{album_idx}
 	</delete>
 
-	 	<update id="update">
+	 <update id="update">
 		update album
 		set 
 		album_name = #{album_name},

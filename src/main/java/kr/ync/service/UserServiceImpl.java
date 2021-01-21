@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserVO read(String id) {
 		// TODO Auto-generated method stub
-		return null;
+		return mapper.read(id);
 	}
 
 	@Override
@@ -93,6 +93,23 @@ public class UserServiceImpl implements UserService {
 		mapper = userSqlSession.getMapper(UserMapper.class);
 		
 		return mapper.auth_check(id);
+	}
+
+//	@Override
+//	public int pass_update(String pass, String id) {
+//		// TODO Auto-generated method stub
+//		
+//		String new_pass = pwencoder.encode(pass); 
+//		
+//		return mapper.pass_update(new_pass, id);
+//	}
+
+	@Override
+	public int pass_update(UserVO user) {
+		// TODO Auto-generated method stub
+		
+		user.setPass(pwencoder.encode(user.getPass()));
+		return mapper.pass_update(user);
 	}
 
 	

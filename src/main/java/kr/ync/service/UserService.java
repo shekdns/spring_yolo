@@ -20,6 +20,8 @@ public interface UserService {
 	
 	public String auth_check(String id);
 	
+	public int pass_update(UserVO user);
 	
+	//public int pass_update(String pass, String id);
 }
 

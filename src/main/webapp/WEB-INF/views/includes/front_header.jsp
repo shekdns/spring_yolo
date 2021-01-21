@@ -142,26 +142,49 @@
 					
 						<ul class="navbar-nav ml-auto navbar-list">
 							<li class="nav-item nav-icon">
-								<div class="iq-search-bar">
-									<form action="#" class="searchbox">
+								
+								 <!-- <div class="iq-search-bar">
+									<form action="/front/search" class="searchbox" method="get">
+										
 										<input type="text" class="text search-input"
-											placeholder="Search Here.."> <a class="search-link"
-											href="#"><i class="ri-search-line text-black"></i></a> <a
-											class="search-audio" href="#"></a>
+											placeholder="Search Here.."> 
+
+											
 									</form>
-								</div>
+								</div>  -->
+								
+							<div class="iq-search-bar">
+									<form id='searchForm' action="/front/search" method='get'>
+							<select name='type'>
+								<option value=""
+									<c:out value="${pageMaker.cri.type == null?'selected':''}"/>>--</option>
+								<option value="T"
+									<c:out value="${pageMaker.cri.type eq 'T'?'selected':''}"/>>앨범</option>
+								<option value="C"
+									<c:out value="${pageMaker.cri.type eq 'C'?'selected':''}"/>>가수</option>
+								<option value="W"
+									<c:out value="${pageMaker.cri.type eq 'W'?'selected':''}"/>>곡</option>
+							</select> 
+							
+								
+								<input type="text" name='keyword' class="search-input"
+											placeholder="Search Here.." value='<c:out value="${pageMaker.cri.keyword}"/>' />  
+								
+								<input
+								type='hidden' name='type'
+								value='<c:out value="${pageMaker.cri.type}"/>' />
+								
+								<input
+								type='hidden' name='pageNum'
+								value='<c:out value="${pageMaker.cri.pageNum}"/>' /> <input
+								type='hidden' name='amount'
+								value='<c:out value="1"/>' />
+								<button class="btn btn-success mb-1">Search</button>
+						</form>
+								</div> 
+							
 							</li>
-							<li class="nav-item nav-icon search-content"><a href="#"
-								class="search-toggle iq-waves-effect text-gray rounded"><span
-									class="ripple rippleEffect "></span> <i
-									class="ri-search-line text-black"></i> </a>
-								<form action="#" class="search-box p-0">
-									<input type="text" class="text search-input"
-										placeholder="Type here to search..."> <a
-										class="search-link" href="#"><i
-										class="ri-search-line text-black"></i></a> <a class="search-audio"
-										href="#"><i class="las la-microphone text-black"></i></a>
-								</form></li>
+							
 
 							<li class="line-height pt-3"><a href="#"
 								class="search-toggle iq-waves-effect d-flex align-items-center">
@@ -219,6 +242,19 @@
 														<h6 class="mb-0 ">MyList</h6>
 
 													</div>
+												</div>
+											</a>
+											
+											<a href='<c:out value="${principal.username}"/>'
+												class="iq-sub-card iq-bg-primary-hover" id="move5">
+												<div class="media align-items-center">
+													<div class="rounded iq-card-icon iq-bg-primary">
+														<i class="ri-profile-line"></i>
+													</div>
+													<div class="media-body ml-3">
+                                   					 <h6 class="mb-0 ">MyPage</h6>
+                                   
+                                					 </div>
 												</div>
 											</a>
 										</sec:authorize>
