@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.ync.mapper.SearchMapper">
+
+	<sql id="criteria">
+		<trim prefix="(" suffix=") AND " prefixOverrides="OR">
+			<foreach item='type' collection="typeArr">
+				<trim prefix="OR">
+					<choose>
+						<when test="type == 'T'.toString()">
+							ab.album_name like '%'||#{keyword}||'%' 
+						</when>
+						<when test="type == 'C'.toString()">
+							at.artist_name like '%'||#{keyword}||'%'
+						</when>
+						<when test="type == 'W'.toString()">
+							so.song_name like '%'||#{keyword}||'%' 
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+	</sql>
+	
+	
+	<resultMap type="kr.ync.domain.SongVO" id="SongVO">
+    <result column="song_name" property="song_name"/>
+    <result column="song_img_path" property="song_img_path"/>
+    <result column="mp3_path" property="mp3_path"/>
+    <result column="lyc_path" property="lyc_path"/>
+    <result column="song_idx" property="song_idx"/>
+    <result column="album_idx" property="album_idx"/>
+    <result column="genre" property="genre"/>
+    <result column="artist_idx" property="artist_idx"/>
+    <result column="composition" property="composition"/>
+    <result column="song_video" property="song_video"/>
+    <result column="lyrics" property="lyrics"/>
+</resultMap>
+
+<resultMap type="kr.ync.domain.AlbumVO" id="AlbumVO">
+    <result column="album_idx" property="album_idx"/>
+    <result column="album_name" property="album_name"/>
+    <result column="artist_name" property="artist_name"/>
+    <result column="album_img_path" property="album_img_path"/>
+    <result column="regdate" property="regdate"/>
+    <result column="genre" property="genre"/>
+    <result column="album_type" property="album_type"/>
+    <result column="artist_idx" property="artist_idx"/>
+     <collection property="song" resultMap="SongVO"/>
+</resultMap>
+
+<resultMap type="kr.ync.domain.ArtistVO" id="ArtistVO">
+    <result column="artist_idx" property="artist_idx"/>
+    <result column="artist_name" property="artist_name"/>
+    <result column="debut" property="debut"/>
+    <result column="artist_img_path" property="artist_img_path"/>
+    <result column="artist_type" property="artist_type"/>
+    <result column="gender" property="gender"/>
+    <collection property="song" resultMap="SongVO"/>
+    <collection property="album" resultMap="AlbumVO"/>
+</resultMap>
+
+
+	<select id="search_list"
+		 resultMap="ArtistVO">
+		<![CDATA[
+	 		SELECT	artist_name,
+	 				artist_idx,
+			        gender,
+			        artist_img_path,
+			        album_idx,
+			        album_name,
+			        album_img_path,
+			        artist_type,
+			        debut,
+			        album_type,
+			        genre,
+			        song_idx,
+			        song_name,
+			        song_img_path,
+			        mp3_path,
+			        lyc_path,
+			        lyrics,
+			        composition,
+			        song_video
+	 		FROM	(SELECT   
+      					    rownum rn,
+      					    at.artist_name,
+      					    at.artist_idx,
+					        at.artist_img_path,
+					        at.artist_type,
+					        at.gender,
+					        at.debut,
+					        ab.album_idx,
+					        ab.album_name,
+					        ab.album_img_path,
+					        album_type,
+					        ab.genre,
+					        so.song_idx,
+					        so.song_name,
+					        so.song_img_path,
+					        so.mp3_path,
+					        so.lyc_path,
+					        so.lyrics,
+					        so.composition,
+					        so.song_video
+					   	 from  artist at,
+					   	 	   album ab,
+						       song so
+						 where  at.artist_idx = ab.artist_idx
+						 and    ab.artist_idx = so.artist_idx
+						 and
+  		]]>
+		<include refid="criteria"></include> 
+      		<![CDATA[    
+      			rownum <= #{pageNum} * #{amount}
+      			)
+  		WHERE rn > (#{pageNum} -1) * #{amount}   
+		]]>
+	</select>
+
+
+<select id="search_AlbumRandom" resultType="kr.ync.domain.AlbumVO">
+		<![CDATA[
+		select * from(
+		select * from album
+		order by DBMS_RANDOM.RANDOM
+		) where rownum < 10
+		]]>
+</select>
+
+<select id="search_ArtistRandom" resultType="kr.ync.domain.ArtistVO">
+		<![CDATA[
+		select * from(
+		select * from artist
+		order by DBMS_RANDOM.RANDOM
+		) where rownum < 10
+		]]>
+</select>
+
+
+</mapper>
+
+
