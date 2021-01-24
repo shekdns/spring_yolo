@@ -18,5 +18,7 @@
 *  Bootstrap4
 *  Aplyer
 *  Jsoup
+# DB
+![최종ERD](https://user-images.githubusercontent.com/15880534/105631550-59d06d80-5e92-11eb-9a8e-1cbdfb7a519f.PNG)
 
-
+#Front
