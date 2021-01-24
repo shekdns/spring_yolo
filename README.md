@@ -22,3 +22,4 @@
 ![최종ERD](https://user-images.githubusercontent.com/15880534/105631550-59d06d80-5e92-11eb-9a8e-1cbdfb7a519f.PNG)
 
 # Front
+![Screenshot 2021-01-17 at 16 26 53](https://user-images.githubusercontent.com/15880534/105631782-89cc4080-5e93-11eb-9eb5-f3574f0ed5fa.jpg)
