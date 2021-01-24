@@ -29,3 +29,27 @@
 <center><img src="https://user-images.githubusercontent.com/15880534/105632353-ffd1a700-5e95-11eb-910c-e2810a0751ac.jpg" ></center>
 
 # Web Route
+|Desc|Method|Route|What is?|
+|----|----|----|----|
+|index|GET|/|인덱스|
+|signIn|GET|/front/sign_in|로그인|
+|signUp|POST|/front/sign_up|회원가입|
+|logOut|GET|/logout|로그아웃|
+|Adim_chart|GET|/admin/chart|관리자차트목록|
+|chart_insert|GET|/admin/insert|음악 차트 넣기|
+|chart_update|GET|/admin/update|음악 차트 업데이트|
+|chart_clear|GET|/admin/clear|음악 차트 초기화|
+|Admin_artist|GET|/admin/artist|가수 관리 페이지|
+|Admin_artist_Member|GET|/admin/artist_member|가수 멤버 관리 페이지|
+|Admin_album|GET|/admin/album|앨범 관리 페이지|
+|Admin_song|GET|/admin/song|음악 관리 페이지|
+|Front_chart|GET|/front/chart|차트 페이지|
+|Front_album|GET|/front/album|앨범 페이지|
+|Front_song|GET|/front/song|음악 페이지|
+|Front_artist|GET|/front/artist|가수 페이지|
+|Front_video|GET|/front/video|영상 페이지|
+|Mypage|GET|/front/myPage|유저 페이지|
+|Mylist|GET|/front/myList|유저 개인 리스트|
+|checkList|POST|/front/checkList|좋아요 유무 판단|
+
+
