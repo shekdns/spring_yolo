@@ -5,6 +5,7 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+//앨범 댓글 페이지 DTO
 @Data
 @AllArgsConstructor
 public class Album_ReplyPageDTO {

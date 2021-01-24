@@ -14,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.ync.domain.AlbumVO;
-import kr.ync.domain.BoardVO;
 import kr.ync.domain.Criteria;
 import kr.ync.domain.PageDTO;
 import kr.ync.domain.SongVO;
@@ -42,6 +41,7 @@ public class SongController {
 	@Autowired
 	private ArtistService artist_service;
 
+	// 1. 음악 관리 페이지 메소드
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/song")
 	public void song(Criteria cri, Model model) {
@@ -52,6 +52,7 @@ public class SongController {
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
 	}
 
+	// 1. 음악 등록 페이지 메소드
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/song_register")
 	public void song_register(Model model) {
@@ -59,7 +60,8 @@ public class SongController {
 		model.addAttribute("artist", artist_service.getList());
 		model.addAttribute("album", album_service.getList());
 	}
-
+	
+	// 2. 음악 조회 / 수정 페이지 메소드
 	@GetMapping({ "/song_get", "/song_modify" })
 	public void get(@RequestParam("idx") int song_idx, @ModelAttribute("cri") Criteria cri, Model model) {
 
@@ -69,7 +71,8 @@ public class SongController {
 		model.addAttribute("artist", artist_service.getList());
 
 	}
-
+	
+	// 3. 음악 수정 메소드
 	@PostMapping("/song_modify")
 	public String modify(MultipartFile[] uploadFile, SongVO song, @ModelAttribute("cri") Criteria cri,
 			RedirectAttributes rttr, Model model) {
@@ -100,7 +103,8 @@ public class SongController {
 
 		return "redirect:/admin/song" + cri.getListLink();
 	}
-
+	
+	// 4. 음악 등록 메소드
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/song_register")
 	public String song_register(MultipartFile[] uploadFile, SongVO song, RedirectAttributes rttr) {
@@ -131,7 +135,8 @@ public class SongController {
 
 		return "redirect:/admin/song";
 	}
-
+	
+	// 5. 음악 삭제 메소드
 	@PostMapping("/song_remove")
 	public String remove(@RequestParam("song_idx") int song_idx, Criteria cri, RedirectAttributes rttr,
 			String writer) {

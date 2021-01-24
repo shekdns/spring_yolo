@@ -43,7 +43,7 @@ public class FrontController {
 	@Autowired
 	private ListService list_service;
 	
-	
+	// 1. 메인 페이지 메소드
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
 	@GetMapping("/index")
 	public void index(Model model) {
@@ -58,6 +58,7 @@ public class FrontController {
 	
 	}
 	
+	// 2. 차트 페이지 메소드
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
 	@GetMapping("/chart")
 	public void chart(Criteria cri, Model model, @RequestParam(value = "gnrcode" , required = false, defaultValue = "1") int gnrcode) {
@@ -66,7 +67,7 @@ public class FrontController {
 		model.addAttribute("chart" , chart_service.front_getList(cri));
 	}
 	
-	
+	// 3. 앨벰 페이지 메소드
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
 	@GetMapping("/album")
 	public void album(Criteria cri, Model model) {
@@ -77,18 +78,18 @@ public class FrontController {
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
 	}
 	
+	// 4. 앨범 상세 페이지 메소드
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
 	@GetMapping("/album_get")
 	public void album_get(Model model, @RequestParam("album_idx") int album_idx) {
 		
-		//model.addAttribute("album", album_service.frontAlbum_get(album_idx));
 		model.addAttribute("album", album_service.get(album_idx));
 		model.addAttribute("song", song_service.frontAlbum_get(album_idx));
 		model.addAttribute("list", list_service.showList());
 	
 	}
 	
-	
+	// 5. 음악 페이지 메소드
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
 	@GetMapping("/song")
 	public void song(Criteria cri, Model model) {
@@ -101,7 +102,8 @@ public class FrontController {
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
 		
 	}
-
+	
+	// 6. 음악 상세 페이지 메소드
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
 	@GetMapping("/song_get")
 	public void song_get(Model model, @RequestParam("song_idx") int song_idx) {
@@ -110,6 +112,7 @@ public class FrontController {
 		model.addAttribute("list", list_service.showList());
 	}
 	
+	// 7. 가수 페이지 메소드
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
 	@GetMapping("/artist")
 	public void artist(Criteria cri, Model model) {
@@ -122,13 +125,12 @@ public class FrontController {
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
 	}
 	
+	// 8. 가수 상세 페이지 메소드
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
 	@GetMapping("/artist_get")
 	public void artist_get(Model model, @RequestParam("artist_idx") int artist_idx) {
 		
-		//model.addAttribute("ab", artist_service.frontArtist_get(artist_idx)); //아티스트 조인
 		model.addAttribute("album", album_service.front_artist_getList(artist_idx));
-		//model.addAttribute("atm", artist_service.frontArtist_get_member(artist_idx)); // 아티스트 멤버 조인
 		model.addAttribute("atm", artist_member_service.front_getArtistMember(artist_idx));
 		model.addAttribute("artist" , artist_service.get(artist_idx)); // 아티스트만 들고오기 
 		model.addAttribute("song", song_service.frontArtist_get(artist_idx));

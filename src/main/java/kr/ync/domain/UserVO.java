@@ -4,6 +4,7 @@ import java.util.List;
 
 import lombok.Data;
 
+// UserVO
 @Data
 public class UserVO {
 	

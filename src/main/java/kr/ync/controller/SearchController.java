@@ -33,7 +33,7 @@ public class SearchController {
 	private SongService song_service;
 	
 	
-	
+	// 1. 검색 페이지 메소드
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
 	@GetMapping("/search")
 	public void search(Criteria cri, Model model) {

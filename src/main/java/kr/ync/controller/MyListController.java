@@ -31,6 +31,7 @@ public class MyListController {
 	private ListService list_service;
 	
 	
+	// 1. 마이 리스트 페이지 메소드
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
 	@GetMapping("/myList")
 	public void myList(Model model, @RequestParam("id") String id) {
@@ -39,7 +40,8 @@ public class MyListController {
 		model.addAttribute("s_list", list_service.showList());
 	
 	}
-		
+	
+	// 2. 좋아요 유/무 판단 메소드  
 	@RequestMapping(value = "/checkList", method = RequestMethod.POST)
 	@ResponseBody
 	public String checkList(@RequestBody ListVO list) {
@@ -65,7 +67,6 @@ public class MyListController {
 
 		Gson gson = new Gson();
 
-		//return new Gson().toJson(flag);
 		return new Gson().toJson(result);
 		
 				

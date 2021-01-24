@@ -40,56 +40,56 @@ public class ChartControllerTests {
 	
 	
 	
-//	@Test
-//	public void testChartList() throws Exception {
-//
-//		log.info(
-//				mockMvc.perform(MockMvcRequestBuilders.get("/admin/chart"))
-//				.andReturn()
-//				.getModelAndView()
-//				.getModelMap());
-//	}
+	@Test
+	public void testChartList() throws Exception {
+
+		log.info(
+				mockMvc.perform(MockMvcRequestBuilders.get("/admin/chart"))
+				.andReturn()
+				.getModelAndView()
+				.getModelMap());
+	}
 	
 	//어드민 권한 주석 하고 싫행  
-//	@Test
-//	public void testListPaging() throws Exception {
-//		log.info("===================================================================");
-//		log.info(mockMvc.perform(
-//				MockMvcRequestBuilders.get("/admin/chart")
-//				.param("pageNum", "2")
-//				.param("amount", "10"))
-//				.andReturn().getModelAndView().getModelMap());
-//		log.info("==================================================================");
-//	}
+	@Test
+	public void testListPaging() throws Exception {
+		log.info("===================================================================");
+		log.info(mockMvc.perform(
+				MockMvcRequestBuilders.get("/admin/chart")
+				.param("pageNum", "2")
+				.param("amount", "10"))
+				.andReturn().getModelAndView().getModelMap());
+		log.info("==================================================================");
+	}
 	
 	
-//	@Test
-//	public void testUpdateDB() throws Exception {
-//		
-//		String resultPage = mockMvc.perform(MockMvcRequestBuilders.get("/admin/update"))
-//				.andReturn().getModelAndView().getViewName();
-//			log.info(resultPage);
-//				
-//	}
+	@Test
+	public void testUpdateDB() throws Exception {
+		
+		String resultPage = mockMvc.perform(MockMvcRequestBuilders.get("/admin/update"))
+				.andReturn().getModelAndView().getViewName();
+			log.info(resultPage);
+				
+	}
 
 	
-	//
-//	@Test
-//	public void testClearDB() throws Exception {
-//		
-//		String resultPage = mockMvc.perform(MockMvcRequestBuilders.get("/admin/clear"))
-//				.andReturn().getModelAndView().getViewName();
-//			log.info(resultPage);
-//		
-//	}
-//	
 	
-//	@Test
-//	public void testUploadDB() throws Exception {
-//		String resultPage = mockMvc.perform(MockMvcRequestBuilders.get("/admin/upload"))
-//				.andReturn().getModelAndView().getViewName();
-//			log.info(resultPage);
-//		
-//	}
+	@Test
+	public void testClearDB() throws Exception {
+		
+		String resultPage = mockMvc.perform(MockMvcRequestBuilders.get("/admin/clear"))
+				.andReturn().getModelAndView().getViewName();
+			log.info(resultPage);
+		
+	}
+	
+	
+	@Test
+	public void testUploadDB() throws Exception {
+		String resultPage = mockMvc.perform(MockMvcRequestBuilders.get("/admin/upload"))
+				.andReturn().getModelAndView().getViewName();
+			log.info(resultPage);
+		
+	}
 	
 }

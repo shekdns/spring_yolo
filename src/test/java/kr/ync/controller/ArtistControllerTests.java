@@ -41,69 +41,69 @@ public class ArtistControllerTests {
 	}
 	
 	//리스트
-//	@Test
-//	public void testArtisttList() throws Exception {
-//
-//		log.info(
-//				mockMvc.perform(MockMvcRequestBuilders.get("/admin/artist"))
-//				.andReturn()
-//				.getModelAndView()
-//				.getModelMap());
-//	}
+	@Test
+	public void testArtisttList() throws Exception {
+
+		log.info(
+				mockMvc.perform(MockMvcRequestBuilders.get("/admin/artist"))
+				.andReturn()
+				.getModelAndView()
+				.getModelMap());
+	}
 	
 	//페이징
-//	@Test
-//	public void testListPaging() throws Exception {
-//		log.info("===================================================================");
-//		log.info(mockMvc.perform(
-//				MockMvcRequestBuilders.get("/admin/artist")
-//				.param("pageNum", "2")
-//				.param("amount", "10"))
-//				.andReturn().getModelAndView().getModelMap());
-//		log.info("==================================================================");
-//	}
+	@Test
+	public void testListPaging() throws Exception {
+		log.info("===================================================================");
+		log.info(mockMvc.perform(
+				MockMvcRequestBuilders.get("/admin/artist")
+				.param("pageNum", "2")
+				.param("amount", "10"))
+				.andReturn().getModelAndView().getModelMap());
+		log.info("==================================================================");
+	}
 	
 	//등록
-//	@Test
-//	public void testRegister() throws Exception {
-//
-//		String resultPage = mockMvc
-//				.perform(MockMvcRequestBuilders.post("/admin/artist_register")
-//				.param("artist_name", "테스트 새글 제목")
-//				.param("debut", "테스트 새글 내용")
-//				.param("type", "user00"))
-//				.andReturn().getModelAndView().getViewName();
-//
-//		log.info("resultPage: " + resultPage);
-//
-//	}
+	@Test
+	public void testRegister() throws Exception {
+
+		String resultPage = mockMvc
+				.perform(MockMvcRequestBuilders.post("/admin/artist_register")
+				.param("artist_name", "테스트 새글 제목")
+				.param("debut", "테스트 새글 내용")
+				.param("type", "user00"))
+				.andReturn().getModelAndView().getViewName();
+
+		log.info("resultPage: " + resultPage);
+
+	}
 	
 
-//	@Test
-//	public void tetGet() throws Exception {
-//
-//		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/admin/artist_get")
-//				.param("idx", "37"))
-//				.andReturn()
-//				.getModelAndView()
-//				.getModelMap());
-//	}
+	@Test
+	public void tetGet() throws Exception {
+
+		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/admin/artist_get")
+				.param("idx", "37"))
+				.andReturn()
+				.getModelAndView()
+				.getModelMap());
+	}
 	
-//	@Test
-//	public void testModify() throws Exception {
-//
-//		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/admin/artist_modify")
-//				.param("artist_idx", "35")
-//				.param("artist_name", "수정된 테스트 새글 제목")
-//				.param("artist_type", "수정된 테스트 새글 내용")
-//				.param("gender", "user00"))
-//				.andReturn()
-//				.getModelAndView()
-//				.getViewName();
-//
-//		log.info(resultPage);
-//
-//	}
+	@Test
+	public void testModify() throws Exception {
+
+		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/admin/artist_modify")
+				.param("artist_idx", "35")
+				.param("artist_name", "수정된 테스트 새글 제목")
+				.param("artist_type", "수정된 테스트 새글 내용")
+				.param("gender", "user00"))
+				.andReturn()
+				.getModelAndView()
+				.getViewName();
+
+		log.info(resultPage);
+
+	}
 
 	
 	@Test

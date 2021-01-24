@@ -9,6 +9,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 
 import lombok.extern.log4j.Log4j;
 
+// 에러 페이지 및 페이지 찾을 수 없음 
 @ControllerAdvice
 @Log4j
 public class CommonExceptionAdvice {

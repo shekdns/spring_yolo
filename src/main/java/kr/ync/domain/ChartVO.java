@@ -4,6 +4,7 @@ import java.util.Date;
 
 import lombok.Data;
 
+// 차트 VO
 @Data
 public class ChartVO {
 	
@@ -15,16 +16,6 @@ public class ChartVO {
 	public Date regdate;
 	public Date updateDate;
 	public int gnrcode;
-	
-//	public ChartVO(int rank, String name, String artist, String album, String img_path) {
-//		this.rank = rank;
-//		this.name = name;
-//		this.artist = artist;
-//		this.album = album;
-//		this.img_path = img_path;
-//	}
-	
-	
-	
+		
 	
 }

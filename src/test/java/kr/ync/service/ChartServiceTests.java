@@ -32,48 +32,48 @@ public class ChartServiceTests {
 	}
 	
 	//차트 업데이트 서비스 테스트 코드
-//	@Test
-//	public void testChartUpdate() {
-//		
-//		log.info(service);
-//		service.updateDB();
-//		
-//	}
+	@Test
+	public void testChartUpdate() {
+		
+		log.info(service);
+		service.updateDB();
+		
+	}
 	
 	
 	//차트 초기화 테스트 코드
-//	@Test
-//	public void testChartClear() {
-//		
-//		log.info(service);
-//		service.clearDB();
-//	}
+	@Test
+	public void testChartClear() {
+		
+		log.info(service);
+		service.clearDB();
+	}
 	
 	
 	//차트 리스트 전체 테스트 코드
 	
-//	@Test
-//	public void testGetChatList() {
-//		
-//		service.getList().forEach(chart -> log.info(chart));
-//		
-//	}
+	@Test
+	public void testGetChatList() {
+		
+		service.getList().forEach(chart -> log.info(chart));
+		
+	}
 	
 	//차트 리스트 페이징
-//	@Test
-//	public void testChartGetListPaging() {
-//		
-//		service.getListWithPaging(new Criteria(2, 5)).forEach(chart -> log.info(chart));
-//		
-//	}
+	@Test
+	public void testChartGetListPaging() {
+		
+		service.getListWithPaging(new Criteria(2, 5)).forEach(chart -> log.info(chart));
+		
+	}
 	
-//	@Test
-//	public void testChartGetTotal() {
-//		
-//		Criteria cri = new Criteria();
-//		
-//		log.info("total Cnt = " + service.getTotal(cri));
-//		
-//	}
+	@Test
+	public void testChartGetTotal() {
+		
+		Criteria cri = new Criteria();
+		
+		log.info("total Cnt = " + service.getTotal(cri));
+		
+	}
 	
 }

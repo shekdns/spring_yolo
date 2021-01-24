@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-
+// 기본 페이지 및 검색 관련 클래스
 @ToString
 @Getter
 @Setter

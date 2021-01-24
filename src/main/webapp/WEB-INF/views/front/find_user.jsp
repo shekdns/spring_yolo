@@ -3,15 +3,13 @@
 <!doctype html>
 <html lang="en">
 
-<!-- Mirrored from iqonic.design/themes/muzik/html/sign-in.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 05 Aug 2020 17:02:22 GMT -->
 <head>
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Yolo</title>
-<!-- Favicon -->
-<!-- <link rel="shortcut icon" href="/resources/vendor/bootstrap/images/favicon.ico" />  -->
+
 <!-- Bootstrap CSS -->
 <link href="/resources/vendor/bootstrap/front_css/bootstrap.min.css"
 	rel="stylesheet">
@@ -278,5 +276,5 @@
 
 </body>
 
-<!-- Mirrored from iqonic.design/themes/muzik/html/sign-in.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 05 Aug 2020 17:02:23 GMT -->
+
 </html>

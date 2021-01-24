@@ -2,6 +2,7 @@ package kr.ync.domain;
 
 import lombok.Data;
 
+// 마이 리스트 VO
 @Data
 public class ListVO {
 	

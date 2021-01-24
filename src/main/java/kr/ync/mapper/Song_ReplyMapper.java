@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import kr.ync.domain.Criteria;
 import kr.ync.domain.Song_ReplyVO;
 
+// 음악 댓글 Mapper
 public interface Song_ReplyMapper {
 	
 public int insert(Song_ReplyVO reply);

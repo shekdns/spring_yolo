@@ -4,6 +4,7 @@ import java.util.Date;
 
 import lombok.Data;
 
+// 앨범 VO
 @Data
 public class AlbumVO {
 	

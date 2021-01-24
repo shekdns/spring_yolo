@@ -37,6 +37,7 @@ public class AlbumController {
 	@Autowired
 	private ArtistService artist_service;
 	
+	// 1. 앨범 관리 페이지 메소드
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/album")
 	public void artist(Criteria cri, Model model) {
@@ -48,7 +49,7 @@ public class AlbumController {
 	}
 	
 	
-	
+	// 2. 앨범 등록 페이지 메소드
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/album_register")
 	public void album_register(Model model) {
@@ -56,6 +57,7 @@ public class AlbumController {
 		model.addAttribute("artist", artist_service.getList());
 	}
 	
+	// 3. 앨범 등록 메소드
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/album_register")
 	public String album_register(MultipartFile[] uploadFile, AlbumVO album, RedirectAttributes rttr, Model model) {
@@ -78,7 +80,7 @@ public class AlbumController {
 		return "redirect:/admin/album";
 	}
 	
-	
+	// 4. 앨범 조회 / 앨범 수정 페이지 메소드
 	@GetMapping({ "/album_get", "/album_modify" })
 	public void get(@RequestParam("idx") int album_idx, @ModelAttribute("cri") Criteria cri, Model model) {
 
@@ -88,6 +90,7 @@ public class AlbumController {
 		
 	}
 	
+	// 5. 앨범 수정 메소드 
 	@PostMapping("/album_modify")
 	public String modify(MultipartFile[] uploadFile, AlbumVO album, @ModelAttribute("cri") Criteria cri, RedirectAttributes rttr
 			, Model model) {
@@ -108,6 +111,7 @@ public class AlbumController {
 		return "redirect:/admin/album" + cri.getListLink();
 	}
 	
+	// 6. 앨범 삭제 메소드
 	@PostMapping("/album_remove")
 	public String remove(@RequestParam("album_idx") int album_idx, Criteria cri, RedirectAttributes rttr, String writer) {
 

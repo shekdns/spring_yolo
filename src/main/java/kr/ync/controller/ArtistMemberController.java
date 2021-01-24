@@ -39,6 +39,7 @@ public class ArtistMemberController {
 	@Autowired
 	private ArtistService artist_service;
 	
+	// 1. 가수 멤버 관리 페이지 메소드
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/artist_member")
 	public void artist_member(Criteria cri, Model model) {
@@ -50,13 +51,14 @@ public class ArtistMemberController {
 		
 	}
 
-	
+	// 2. 가수 멤버 등록 페이지 메소드
 	@GetMapping("/artist_member_register")
 	@PreAuthorize("isAuthenticated()")
 	public void artist_member_register(Model model) {
 		model.addAttribute("artist", artist_service.getList());
 	}
 	
+	// 3. 가수 멤버 등록 메소드
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/artist_member_register")
 	public String artist_member_register(MultipartFile[] uploadFile, ArtistMemberVO artist_member, RedirectAttributes rttr, Model model) {
@@ -79,7 +81,7 @@ public class ArtistMemberController {
 		return "redirect:/admin/artist_member";
 	}
 	
-	
+	// 4. 가수 멤버 조회 / 가수 멤버 수정 페이지 메소드
 	@GetMapping({ "/artist_member_get", "/artist_member_modify" })
 	public void get(@RequestParam("idx") int artist_member_idx , @ModelAttribute("cri") Criteria cri, Model model) {
 
@@ -89,6 +91,7 @@ public class ArtistMemberController {
 		
 	}
 	
+	// 5. 가수 멤버 수정 메소드
 	@PostMapping("/artist_member_modify")
 	public String modify(MultipartFile[] uploadFile, ArtistMemberVO amv, @ModelAttribute("cri") Criteria cri, RedirectAttributes rttr
 			, Model model) {
@@ -109,6 +112,7 @@ public class ArtistMemberController {
 		return "redirect:/admin/artist_member" + cri.getListLink();
 	}
 	
+	// 6. 가수 멤버 삭제 메소드
 	@PostMapping("/artist_member_remove")
 	public String remove(@RequestParam("artist_member_idx") int artist_member_idx, Criteria cri, RedirectAttributes rttr) {
 

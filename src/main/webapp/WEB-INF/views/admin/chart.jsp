@@ -28,10 +28,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				Chart List Page
-				<!--  	
-				<button id='regBtn' type="button" class="btn btn-xs pull-right">Register
-					New Board</button>
-				-->
+			
 			</div>
 			<div id="clock_time">
 				<div
@@ -190,12 +187,7 @@
 						history.replaceState({}, null, null);
 
 						function checkModal(result) {
-							// alert(history.state);
-							// 글 등록 후 리스트 화면에서 model창이 나온 뒤 새로고침을 해도 model창이 안나오도록
-							// result값 체크
-							// result값은 controller에서 넘어온 1회성 값으로 페이지를 다시 읽으면 null이된다.
-							// history.state 는 조회에서 back 했을때 history객체의 현재 정보를 읽어 값이 있다면 
-							// modal창을 띄우지 않는다.
+						
 							if (result === '' || history.state) {
 								return;
 							}
@@ -227,23 +219,7 @@
 									actionForm.submit();
 								});
 
-						// 상세보기 클릭 이벤트
-						<!--
-						$(".move")
-								.on(
-										"click",
-										function(e) {
-											e.preventDefault();
-											actionForm
-													.append("<input type='hidden' name='bno' value='"
-															+ $(this).attr(
-																	"href")
-															+ "'>");
-											actionForm.attr("action",
-													"/admin/get");
-											actionForm.submit();
-										});
-						-->
+					
 						// 검색 버튼 클릭 이벤트
 						var searchForm = $("#searchForm");
 						$("#searchForm button").on(

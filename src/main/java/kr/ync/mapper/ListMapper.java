@@ -4,6 +4,7 @@ import java.util.List;
 
 import kr.ync.domain.ListVO;
 
+// 마이 리스트 Mapper
 public interface ListMapper {
 	
 	//GET

@@ -39,20 +39,6 @@ public class UserTests {
 
 				pstmt.setString(2, pwencoder.encode("pass" + i));
 
-//				if (i < 80) {
-//
-//					pstmt.setString(1, "user" + i);
-//					pstmt.setString(3, "일반사용자" + i);
-//					pstmt.setString(4, "ROLE_USER");
-//
-//				} else if (i < 90) {
-//
-//					pstmt.setString(1, "manager" + i);
-//					pstmt.setString(3, "운영자" + i);
-//					pstmt.setString(4, "ROLE_MEMBER");
-//
-//				} else {
-
 					pstmt.setString(1, "user" + i);
 					pstmt.setString(3, "유저" + i);
 					pstmt.setString(4, "user"+i+"@naver.com");
@@ -79,7 +65,7 @@ public class UserTests {
 				}
 
 			}
-		//} // end for
+
 	}
 	
 }

@@ -4,6 +4,7 @@ import java.util.Date;
 
 import lombok.Data;
 
+// 가수 댓글 VO
 @Data
 public class Artist_ReplyVO {
 

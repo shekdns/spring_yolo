@@ -3,14 +3,12 @@
 <!doctype html>
 <html lang="en">
    
-<!-- Mirrored from iqonic.design/themes/muzik/html/sign-in.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 05 Aug 2020 17:02:22 GMT -->
 <head>
       <!-- Required meta tags -->
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <title>Yolo</title>
-     <!-- Favicon -->
-    <!-- <link rel="shortcut icon" href="/resources/vendor/bootstrap/images/favicon.ico" />  -->
+    
    <!-- Bootstrap CSS -->
    <link href="/resources/vendor/bootstrap/front_css/bootstrap.min.css" rel="stylesheet">
    <!-- Typography CSS -->
@@ -147,42 +145,7 @@
      
 	 <script>
 
-       //포스트 방식
-      //    $("#login_btn").on("click", function(e){
             
-      //       var p_id = $("#id").val();
-            
-      //       $.ajax({
-      //           url : '${pageContext.request.contextPath}/front/sign_in/authCheck',
-      //           type : 'POST',
-      //           data : {
-      //             id : $("#id").val()
-      //           },
-      //       dataType : 'JSON',
-		// 			success : function(data) {
-		// 				console.log("auth 값 : " + data);									
-		// 				if (data == "ROLE_USER" || data == "ROLE_ADMIN") {
-                     
-      //       		//이메일 인증 처리 
-      //                e.preventDefault();
-      //                 $("form").submit();
-		// 				}else{
-      //            		    alert("이메일 인증을 하셔야 이용 하실 수 있습니다.!");
-      //               		 window.history.back();
-		// 				}
-		// 			},
-		// 			 error : function() {
-		// 				 console.log("auth 값 : " + data);	
-		// 				console.log("실패");
-		// 		}
-		// 	});
-
-
-      
-         
-      //  });
-
-            //겟 방식 
        $("#login_btn").on("click", function(e){
             
             var p_id = $("#id").val();
@@ -231,5 +194,4 @@
 	
    </body>
 
-<!-- Mirrored from iqonic.design/themes/muzik/html/sign-in.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 05 Aug 2020 17:02:23 GMT -->
 </html>

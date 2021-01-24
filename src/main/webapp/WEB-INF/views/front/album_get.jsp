@@ -52,19 +52,7 @@
 												<c:out value="${album.genre}" />
 											</p>
 											<p>
-											<%-- 	<div class='like-wrapper'>
-														<a class="like-button" id="album_button"
-														data-album="<c:out value="${ablum.album_idx}" />"
-														data-id="${principal.username}"> <span class='like-icon'>
-															<div class='heart-animation-1'></div>
-															<div class='heart-animation-2'></div>
-														</span> Like
-														</a>
-													
-												</div> --%>
-												
-											
-													
+										
 											</p>
 											<div class="d-flex align-items-center">
 												<a href="javascript:void()"
@@ -196,7 +184,7 @@
 														href="<c:out value="${song.song_idx}"/>"><i
 														class="ri-eye-fill mr-2"></i>곡 정보</a>
 
-													<!-- <a class="dropdown-item" href="#"><i class="ri-file-download-fill mr-2"></i>Download</a> -->
+												
 												</div>
 											</div>
 										</div>
@@ -323,9 +311,7 @@
 	
 	
 	
-	<%-- <input type="hidden" name="${_csrf.parameterName}"
-                              value="${_csrf.token}" /> 
-	<input type="hidden" name="${_csrf.headerName}" value="${_csrf.headerName }" /> --%>
+	
 	
 
 </div>
@@ -891,32 +877,6 @@ $('.like-button liked').on('click', function(e) {
 	  
 }); 
 
-//겟 방식
-/* $('#song_like').on('click', function(e) {
-	
-	  var dataAlbum = $(this).attr('data-album');
-	  var dataSong = $(this).attr('data-song');
-	  var dataId = $(this).attr('data-id');
-	  console.log(dataId);
-	  console.log(dataAlbum);
-	  console.log(dataSong);
-	  $(this).toggleClass('liked');
-		 
-	 $.ajax({                                                            
-    		 url : '${pageContext.request.contextPath}/front/input_list?id='+dataId+'&song_idx='+dataSong+'&album_idx='+dataAlbum,
-    	     type : 'GET',
-    	      
-					success : function(data) {							
-						alert("좋아요 완료");
-					},
-					 error : function() {
-					console.log("실패");
-					}
-
-			});   
-
-	  
-}); */
 
 
 

@@ -39,7 +39,7 @@ public class MailSendServiceImpl implements MailSendService{
 	private boolean lowerCheck;
 	private int size;
 	
-	
+	//인증코드 랜덤
 	@Override
 	public String init() {
 		// TODO Auto-generated method stub
@@ -61,7 +61,7 @@ public class MailSendServiceImpl implements MailSendService{
 		}
 		return sb.toString();
 	}
-
+	//인증키
 	@Override
 	public String getKey(boolean lowerCheck, int size) {
 		// TODO Auto-generated method stub
@@ -69,7 +69,7 @@ public class MailSendServiceImpl implements MailSendService{
 		this.size = size;
 		return init();
 	}
-
+	//회원인증 메일 보내기
 	@Override
 	public void mailSendWithUserKey(String e_mail, String id, HttpServletRequest request) {
 		// TODO Auto-generated method stub
@@ -93,7 +93,7 @@ public class MailSendServiceImpl implements MailSendService{
 		}
 		
 	}
-
+	//비밀번호 찾기 , 임시 비밀번호로 변경
 	@Override
 	public int alter_userKey_serice(String id, String user_key) {
 		// TODO Auto-generated method stub
@@ -105,7 +105,7 @@ public class MailSendServiceImpl implements MailSendService{
 		
 		return resultCnt;
 	}
-
+	//임시 비밀번호 보내기
 	@Override
 	public void mailSendWithPass(String id, String email, HttpServletRequest request) {
 		// TODO Auto-generated method stub
@@ -136,7 +136,7 @@ public class MailSendServiceImpl implements MailSendService{
 		
 		mapper.searchPassword(id, email, new_pass);
 	}
-
+	//아이디 보내기
 	@Override
 	public void mailSendWithId(String name, String email, HttpServletRequest request) {
 		// TODO Auto-generated method stub

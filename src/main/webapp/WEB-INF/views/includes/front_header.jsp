@@ -6,15 +6,13 @@
 <!doctype html>
 <html lang="en">
 
-<!-- Mirrored from iqonic.design/themes/muzik/html/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 05 Aug 2020 16:59:40 GMT -->
 <head>
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>YOLO</title>
-<!-- Favicon -->
-<!-- <link rel="shortcut icon" href="/resources/vendor/bootstrap/images/favicon.ico" /> -->
+
 <!-- Bootstrap CSS -->
 <link href="/resources/vendor/bootstrap/front_css/bootstrap.min.css"
 	rel="stylesheet">
@@ -83,20 +81,7 @@
 			<div id="sidebar-scrollbar">
 				<nav class="iq-sidebar-menu">
 					<ul id="iq-sidebar-toggle" class="iq-menu">
-						<!--  
-						<li class="active active-menu"><a href="/front/index"
-							class="iq-waves-effect" data-toggle="collapse"
-							aria-expanded="true"><span class="ripple rippleEffect"></span><i
-								class="las la-home iq-arrow-left"></i><span>메인</span><i
-								class="ri-arrow-right-s-line iq-arrow-right"></i></a>
-							<ul id="dashboard" class="iq-submenu collapse show"
-								data-parent="#iq-sidebar-toggle">
-								<li class="active"><a href="/front/index"><i
-										class="las la-house-damage"></i>Home</a></li>
-								<li><a href="latest.html"><i class="las la-headphones"></i>Latest</a></li>
-								<li><a href="albums.html"><i class="lar la-file-audio"></i>Albums</a></li>
-							</ul></li>
-						-->
+
 						<li><a href="/front/index" class="iq-waves-effect collapsed"><i
 								class="las la-home iq-arrow-left"></i><span>홈</span></a></li>
 						<li><a href="/front/chart" class="iq-waves-effect collapsed"><i
@@ -143,15 +128,7 @@
 						<ul class="navbar-nav ml-auto navbar-list">
 							<li class="nav-item nav-icon">
 								
-								 <!-- <div class="iq-search-bar">
-									<form action="/front/search" class="searchbox" method="get">
-										
-										<input type="text" class="text search-input"
-											placeholder="Search Here.."> 
-
-											
-									</form>
-								</div>  -->
+						
 								
 							<div class="iq-search-bar">
 									<form id='searchForm' action="/front/search" method='get'>
@@ -207,31 +184,9 @@
 												<span class="text-white font-size-12">접속중</span>
 											</div>
 											
-										<%-- <c:if test="${principal.username ne 'admin'}"> --%>
+			
 											<sec:authorize access="hasRole('ROLE_USER')">
-									<!-- 		<a href="/front/myPage"
-												class="iq-sub-card iq-bg-primary-hover">
-												<div class="media align-items-center">
-													<div class="rounded iq-card-icon iq-bg-primary">
-														<i class="ri-file-user-line"></i>
-													</div>
-													<div class="media-body ml-3">
-														<h6 class="mb-0 ">My Profile</h6>
 
-													</div>
-												</div>
-											</a> <a href="/front/myModify"
-												class="iq-sub-card iq-bg-primary-hover">
-												<div class="media align-items-center">
-													<div class="rounded iq-card-icon iq-bg-primary">
-														<i class="ri-profile-line"></i>
-													</div>
-													<div class="media-body ml-3">
-														<h6 class="mb-0 ">Edit Profile</h6>
-
-													</div>
-												</div>
-											</a> --> 
 											<a href='<c:out value="${principal.username}"/>'
 												class="iq-sub-card iq-bg-primary-hover" id="move4">
 												<div class="media align-items-center">
@@ -259,7 +214,7 @@
 											</a>
 										</sec:authorize>
 											
-											<%-- <c:if test="${principal.username eq 'admin'}"> --%>
+										
 											<sec:authorize access="hasRole('ROLE_ADMIN')">
 											<a href="/admin/chart"
 												class="iq-sub-card iq-bg-primary-hover">

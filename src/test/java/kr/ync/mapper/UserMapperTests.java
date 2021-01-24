@@ -23,19 +23,19 @@ public class UserMapperTests {
 	@Autowired
 	private PasswordEncoder pwencoder;
 		
-//	@Test
-//	public void testInsert() {
-//
-//			UserVO user = new UserVO();
-//
-//			user.setId("test2");
-//			//user.setPass("1234");
-//			user.setPass(pwencoder.encode("1234"));
-//			user.setName("test");
-//			user.setEmail("aa@naver.com");
-//			mapper.insert(user);
-//	
-//	}
+	@Test
+	public void testInsert() {
+
+			UserVO user = new UserVO();
+
+			user.setId("test2");
+			//user.setPass("1234");
+			user.setPass(pwencoder.encode("1234"));
+			user.setName("test");
+			user.setEmail("aa@naver.com");
+			mapper.insert(user);
+	
+	}
 	
 	@Test
 	public void testRead() {

@@ -3,11 +3,10 @@ package kr.ync.mapper;
 import java.util.List;
 
 import kr.ync.domain.ArtistVO;
-import kr.ync.domain.BoardVO;
 import kr.ync.domain.ChartVO;
 import kr.ync.domain.Criteria;
 
-
+// 가수 Mapper
 public interface ArtistMapper {
 	
 	//글 넣기

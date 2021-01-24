@@ -2,6 +2,7 @@ package kr.ync.mapper;
 
 import kr.ync.domain.UserVO;
 
+// 유저(회원) Mapper
 public interface UserMapper {
 	
 	public int insert(UserVO user);

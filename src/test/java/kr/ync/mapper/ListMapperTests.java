@@ -22,34 +22,24 @@ public class ListMapperTests {
 	@Autowired
 	private ListMapper mapper;
 	
-//	@Test
-//	public void testInsert() {
-//
-//			String id = "shekdns";
-//			int song_idx = songArr[0];
-//			int album_idx = albumArr[0];
-//		
-//			mapper.insert(id, song_idx, album_idx);
-//	
-//	}
 	
-//	@Test
-//	public void testInsert() {
-//		
-//		ListVO list = new ListVO();
-//		
-//		list.setId("shekdns");
-//		list.setAlbum_idx(albumArr[0]);
-//		list.setSong_idx(songArr[5]);
-//		mapper.insert(list);
-//	}
+	@Test
+	public void testInsert() {
+		
+		ListVO list = new ListVO();
+		
+		list.setId("shekdns");
+		list.setAlbum_idx(albumArr[0]);
+		list.setSong_idx(songArr[5]);
+		mapper.insert(list);
+	}
 	
 //	@Test
 //	public void testDelete() {
-//
+//		
 //		log.info("DELETE COUNT: " + mapper.like_delete("shekdns", songArr[1]));
 //	}
-	
+//	
 //	@Test
 //	public void testListCheck() {
 //		

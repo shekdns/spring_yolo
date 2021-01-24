@@ -19,38 +19,39 @@ public class Album_ReplyServiceImpl implements Album_ReplyService{
 	@Autowired
 	private Album_ReplyMapper mapper;
 	
-	
+	//앨범 댓글 등록
 	@Override
 	public int register(Album_ReplyVO reply) {
 		// TODO Auto-generated method stub
 		log.info("register......" + reply);
 		return mapper.insert(reply);
 	}
-
+	
+	//앨범 댓글 조회
 	@Override
 	public Album_ReplyVO get(int album_reply_idx) {
 		// TODO Auto-generated method stub
 		return mapper.read(album_reply_idx);
 	}
-
+	//앨범 댓글 수정
 	@Override
 	public int modify(Album_ReplyVO reply) {
 		// TODO Auto-generated method stub
 		return mapper.update(reply);
 	}
-
+	//앨범 댓글 삭제
 	@Override
 	public int remove(int album_reply_idx) {
 		// TODO Auto-generated method stub
 		return mapper.delete(album_reply_idx);
 	}
-
+	//앨범 댓글 목록
 	@Override
 	public List<Album_ReplyVO> getList(Criteria cri, int album_idx) {
 		// TODO Auto-generated method stub
 		return mapper.getList(cri, album_idx);
 	}
-
+	//앨범 댓글 페이징
 	@Override
 	public Album_ReplyPageDTO getListWithPaging(Criteria cri, int album_idx) {
 		// TODO Auto-generated method stub

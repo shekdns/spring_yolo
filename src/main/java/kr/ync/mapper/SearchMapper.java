@@ -7,6 +7,7 @@ import kr.ync.domain.ArtistVO;
 import kr.ync.domain.Criteria;
 import kr.ync.domain.SongVO;
 
+// 검색 Mapper
 public interface SearchMapper {
 	
 	

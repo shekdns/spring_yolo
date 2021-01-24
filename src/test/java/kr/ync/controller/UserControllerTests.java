@@ -44,20 +44,20 @@ public class UserControllerTests {
 	}
 	
 	
-//	@Test
-//	public void testRegister() throws Exception {
-//
-//		String resultPage = mockMvc
-//				.perform(MockMvcRequestBuilders.post("/front/sign_in")
-//				.param("id", "test5")
-//				.param("pass", "pwencoder.encode(test5)")
-//				.param("name", "테스트")
-//				.param("eamil" , "aa@naver.com"))
-//				.andReturn().getModelAndView().getViewName();
-//
-//		log.info("resultPage: " + resultPage);
-//
-//	}
+	@Test
+	public void testRegister() throws Exception {
+
+		String resultPage = mockMvc
+				.perform(MockMvcRequestBuilders.post("/front/sign_in")
+				.param("id", "test5")
+				.param("pass", "pwencoder.encode(test5)")
+				.param("name", "테스트")
+				.param("eamil" , "aa@naver.com"))
+				.andReturn().getModelAndView().getViewName();
+
+		log.info("resultPage: " + resultPage);
+
+	}
 	
 	
 }

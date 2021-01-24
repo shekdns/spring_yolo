@@ -37,16 +37,7 @@
 								<div
 									class="d-flex align-items-top justify-content-between iq-music-play-detail">
 									<div class="music-detail">
-										<!--  좋아요 버튼 
-										<div class='like-wrapper'>
-											<a class='like-button'> <span class='like-icon'>
-													<div class='heart-animation-1'></div>
-													<div class='heart-animation-2'></div>
-											</span> Like
-											</a>
-
-										</div>
-									 -->
+										
 										<h3>
 											<c:out value="${artist.artist_name}" />
 										</h3>
@@ -266,7 +257,7 @@
 																href="<c:out value="${song.song_idx}"/>"><i
 																class="ri-eye-fill mr-2"></i>곡 정보</a>
 
-															<!-- <a class="dropdown-item" href="#"><i class="ri-file-download-fill mr-2"></i>Download</a> -->
+															
 														</div>
 													</div>
 												</div>

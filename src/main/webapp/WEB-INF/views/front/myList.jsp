@@ -108,7 +108,7 @@
 																href="<c:out value="${list.song_idx}"/>"><i
 																class="ri-eye-fill mr-2"></i>곡 정보</a>
 
-															<!-- <a class="dropdown-item" href="#"><i class="ri-file-download-fill mr-2"></i>Download</a> -->
+															
 														</div>
 													</div>
 												</div>

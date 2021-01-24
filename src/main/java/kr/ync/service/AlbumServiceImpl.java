@@ -21,6 +21,7 @@ public class AlbumServiceImpl implements AlbumService {
 	@Autowired
 	private ArtistMapper artist_mapper;
 	
+	//앨범 등록
 	@Override
 	public int album_register(AlbumVO album) {
 		// TODO Auto-generated method stub
@@ -28,35 +29,35 @@ public class AlbumServiceImpl implements AlbumService {
 		
 		return album_mapper.insertSelectKey(album);
 	}
-
+	//앨범 목록
 	@Override
 	public List<AlbumVO> getList() {
 		// TODO Auto-generated method stub
 		log.info("getAlbumList................");
 		return album_mapper.getList();
 	}
-
+	//앨범 목록 페이징
 	@Override
 	public List<AlbumVO> getListWithPaging(Criteria cri) {
 		// TODO Auto-generated method stub
 		log.info("getAlbumList................");
 		return album_mapper.getListWithPaging(cri);
 	}
-
+	//앨범 총 갯수
 	@Override
 	public int getTotal(Criteria cri) {
 		// TODO Auto-generated method stub
 		log.info("getAlbumList................");
 		return album_mapper.getTotalCount(cri);
 	}
-
+	//앨범 조회
 	@Override
 	public AlbumVO get(int album_idx) {
 		// TODO Auto-generated method stub
 		log.info("getAlbum................." + album_idx);
 		return album_mapper.read(album_idx);
 	}
-
+	//앨범 수정
 	@Override
 	public boolean album_modify(AlbumVO album) {
 		// TODO Auto-generated method stub
@@ -64,7 +65,7 @@ public class AlbumServiceImpl implements AlbumService {
 		
 		return  album_mapper.update(album) == 1;
 	}
-
+	//앨범 삭제
 	@Override
 	public boolean album_remove(int album_idx) {
 		// TODO Auto-generated method stub
@@ -72,7 +73,7 @@ public class AlbumServiceImpl implements AlbumService {
 
 		return album_mapper.delete(album_idx) == 1;
 	}
-
+	//메인 페이지 앨범 리스트
 	@Override
 	public List<AlbumVO> frontAlbum() {
 		// TODO Auto-generated method stub
@@ -81,19 +82,19 @@ public class AlbumServiceImpl implements AlbumService {
 		
 		return album_mapper.frontAlbum();
 	}
-
+	//앨범 페이지 목록 리스트
 	@Override
 	public List<AlbumVO> frontAlbum_getListWithPaging(Criteria cri) {
 		// TODO Auto-generated method stub
 		return album_mapper.frontAlbum_getListWithPaging(cri);
 	}
-
+	//앨범 상세 페이지 조회
 	@Override
 	public List<AlbumVO> frontAlbum_get(int album_idx) {
 		// TODO Auto-generated method stub
 		return album_mapper.frontAlbum_get(album_idx);
 	}
-
+	//앨범 상세 페이지 가수 조회
 	@Override
 	public List<AlbumVO> front_artist_getList(int artist_idx) {
 		// TODO Auto-generated method stub

@@ -25,6 +25,7 @@ public class ChartController {
 	@Autowired
 	private ChartService service;
 	
+	// 1. 차트 업로드 메소드
 	@GetMapping("/upload")
 	public String upload(RedirectAttributes rttr) {
 		log.info("upload success");
@@ -34,6 +35,7 @@ public class ChartController {
 		return "redirect:/admin/chart";
 	}
 	
+	// 2. 차트 업데이트 메소드
 	@GetMapping("/update")
 	public String update(RedirectAttributes rttr) {
 		log.info("update success ");
@@ -43,6 +45,7 @@ public class ChartController {
 		return "redirect:/admin/chart";
 	}
 	
+	//  3. 차트 초기화 메소드
 	@GetMapping("/clear")
 	public String clear(RedirectAttributes rttr) {
 		
@@ -53,8 +56,8 @@ public class ChartController {
 		return "redirect:/admin/chart";
 		
 	}
-	//@RequestParam(value = "gnrcode" , required = false, defaultValue = "1") int gnrcode
-	//@RequestParam("gnrcode") int gnrcode
+	
+	// 4. 차트 페이지 메소드  어드민 권한 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/chart")
 	public void chart(Criteria cri, Model model, @RequestParam(value = "gnrcode" , required = false, defaultValue = "1") int gnrcode) {
@@ -66,22 +69,7 @@ public class ChartController {
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
 		
 	}
-	
-	
-	//원래 것
-//	@PreAuthorize("hasRole('ROLE_ADMIN')")
-//	@GetMapping("/chart")
-//	public void chart(Criteria cri, Model model) {
-//		log.info("chart: " + cri);
-//		int total = service.getTotal(cri);
-//		log.info("total: " + total);
-//		model.addAttribute("chart" , service.getListWithPaging(cri));
-//		model.addAttribute("pageMaker", new PageDTO(cri, total));
-//		
-//	}
-	
-
-	
+		
 	
 	
 }

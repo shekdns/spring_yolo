@@ -5,6 +5,7 @@ import java.util.List;
 import kr.ync.domain.ArtistMemberVO;
 import kr.ync.domain.Criteria;
 
+// 가수 멤버 Mapper
 public interface ArtistMemberMapper {
 
 	//글 넣기

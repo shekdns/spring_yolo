@@ -20,7 +20,8 @@ public class ChartServiceImpl implements ChartService {
 
 	@Autowired
 	private ChartMapper mapper;
-
+	
+	//차트 업로드
 	@Override
 	public void uploadDB() {
 		// TODO Auto-generated method stub
@@ -194,7 +195,8 @@ public class ChartServiceImpl implements ChartService {
 			}
 		}
 	}
-
+	
+	//차트 업데이트
 	@Override
 	public void updateDB() {
 		// TODO Auto-generated method stub
@@ -359,13 +361,13 @@ public class ChartServiceImpl implements ChartService {
 		}
 
 	}
-
+	//차트 초기화
 	@Override
 	public void clearDB() {
 		// TODO Auto-generated method stub
 		mapper.clearDB();
 	}
-
+	//차트 리스트
 	@Override
 	public List<ChartVO> getList() {
 		// TODO Auto-generated method stub
@@ -374,7 +376,7 @@ public class ChartServiceImpl implements ChartService {
 
 		return mapper.getList();
 	}
-
+	//차트 리스트 페이징
 	@Override
 	public List<ChartVO> getListWithPaging(Criteria cri) {
 		// TODO Auto-generated method stub
@@ -383,21 +385,21 @@ public class ChartServiceImpl implements ChartService {
 
 		return mapper.getListWithPaging(cri);
 	}
-
+	//차트 총 갯수
 	@Override
 	public int getTotal(Criteria cri) {
 		// TODO Auto-generated method stub
 		log.info("get total count");
 		return mapper.getTotalCount(cri);
 	}
-
+	//메인 페이지 세미 차트 리스트
 	@Override
 	public List<ChartVO> frontMainChart() {
 		// TODO Auto-generated method stub
 
 		return mapper.frontMainChart();
 	}
-
+	//차트 페이지 차트 리스트
 	@Override
 	public List<ChartVO> front_getList(Criteria cri) {
 		// TODO Auto-generated method stub

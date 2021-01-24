@@ -14,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.ync.domain.ArtistVO;
-import kr.ync.domain.BoardVO;
 import kr.ync.domain.Criteria;
 import kr.ync.domain.PageDTO;
 import kr.ync.service.ArtistService;
@@ -33,7 +32,7 @@ public class ArtistController {
 	@Autowired
 	private ArtistService service;
 	
-	
+	// 1. 가수 관리 페이지 메소드
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/artist")
 	public void artist(Criteria cri, Model model) {
@@ -45,12 +44,14 @@ public class ArtistController {
 		
 	}
 	
+	// 2. 가수 등록 페이지 메소드
 	@GetMapping("/artist_register")
 	@PreAuthorize("isAuthenticated()")
 	public void artist_register() {
 
 	}
 	
+	// 3. 가수 등록 메소드
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/artist_register")
 	public String artist_register(MultipartFile[] uploadFile, ArtistVO artist, RedirectAttributes rttr) {
@@ -72,7 +73,7 @@ public class ArtistController {
 		return "redirect:/admin/artist";
 	}
 	
-	
+	// 4. 가수 조회 / 가수 수정 페이지 메소드
 	@GetMapping({ "/artist_get", "/artist_modify" })
 	public void get(@RequestParam("idx") int artist_idx, @ModelAttribute("cri") Criteria cri, Model model) {
 
@@ -80,6 +81,7 @@ public class ArtistController {
 		model.addAttribute("artist", service.get(artist_idx));
 	}
 	
+	// 5. 가수 수정 메소드
 	@PostMapping("/artist_modify")
 	public String modify(MultipartFile[] uploadFile, ArtistVO artist, @ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) {
 		log.info("artist_modify:" + artist);
@@ -99,6 +101,7 @@ public class ArtistController {
 		return "redirect:/admin/artist" + cri.getListLink();
 	}
 	
+	// 6. 가수 삭제 메소드
 	@PostMapping("/artist_remove")
 	public String remove(@RequestParam("artist_idx") int artist_idx, Criteria cri, RedirectAttributes rttr, String writer) {
 

@@ -75,26 +75,7 @@
 				
 				</div>
 
-				<!-- 업로드 이미지나 파일을 출력 -->
-
-				<!--  
-				<c:forEach var="i" begin="1" end="3">
-					<c:set var="t" value="file_${i}" />
-					<c:if test="${not empty board[t]}">
-						<div class="form-group">
-							<label>이미지${i}</label> <a href="/resources/upload/${board[t]}"
-								target="_blank"> <img src="/resources/upload/${board[t]}"
-								id="thumb_${i}"></a>
-						</div>
-						<script>
-							document.getElementById('thumb_${i}').src = "/resources/upload/"
-									+ getThumbFileName('${board[t]}');
-						</script>
-					</c:if>
-				</c:forEach>
-				-->
-
-			
+	
 				<button data-oper='artist_modify' class="btn btn-default">Modify</button>
 
 				<button data-oper='artist' class="btn btn-info">List</button>
@@ -132,33 +113,6 @@
 
 
 
-<!-- 댓글 Modal -->
-
-<!-- /댓글 modal -->
-
-<script type="text/javascript" src="/resources/js/reply.js"></script>
-
-<script type="text/javascript">
-	$(document).ready(function() {
-
-		var bnoValue = '<c:out value="${board.bno}"/>';
-		var replyUL = $(".chat");
-
-		showList(1);
-
-		// 댓글 목록을 출력하는 함수
-
-		// Ajax Spring Security Header
-		$(document).ajaxSend(function(e, xhr, options) {
-			xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-		});
-
-		// 댓글 등록
-
-		/* 댓글 modal 창 동작 부분*/
-
-	});
-</script>
 
 <script type="text/javascript">
 	$(document).ready(function() {

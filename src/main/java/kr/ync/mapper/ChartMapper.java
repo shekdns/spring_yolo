@@ -5,6 +5,7 @@ import java.util.List;
 import kr.ync.domain.ChartVO;
 import kr.ync.domain.Criteria;
 
+// 차트 Mapper
 public interface ChartMapper {
 	
 	// 업로드

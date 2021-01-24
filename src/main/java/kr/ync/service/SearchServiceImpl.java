@@ -18,19 +18,20 @@ public class SearchServiceImpl implements SearchService{
 	@Autowired
 	
 	private SearchMapper mapper;
-
+	
+	//검색 결과
 	@Override
 	public List<ArtistVO> search_list(Criteria cri) {
 		// TODO Auto-generated method stub
 		return mapper.search_list(cri);
 	}
-
+	//임의의 앨범 목록
 	@Override
 	public List<AlbumVO> search_AlbumRandom() {
 		// TODO Auto-generated method stub
 		return mapper.search_AlbumRandom();
 	}
-
+	//임의의 가수 목록
 	@Override
 	public List<ArtistVO> search_ArtistRandom() {
 		// TODO Auto-generated method stub

@@ -7,9 +7,12 @@ import org.apache.ibatis.annotations.Param;
 import kr.ync.domain.Album_ReplyVO;
 import kr.ync.domain.Criteria;
 
+// 앨범 댓글 관련 Mapper
 public interface Album_ReplyMapper {
 	
-public int insert(Album_ReplyVO reply);
+	
+	
+	public int insert(Album_ReplyVO reply);
 	
 	public Album_ReplyVO read(int album_reply_idx);
 	

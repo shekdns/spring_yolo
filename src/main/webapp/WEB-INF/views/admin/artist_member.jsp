@@ -190,12 +190,7 @@
 						history.replaceState({}, null, null);
 
 						function checkModal(result) {
-							// alert(history.state);
-							// 글 등록 후 리스트 화면에서 model창이 나온 뒤 새로고침을 해도 model창이 안나오도록
-							// result값 체크
-							// result값은 controller에서 넘어온 1회성 값으로 페이지를 다시 읽으면 null이된다.
-							// history.state 는 조회에서 back 했을때 history객체의 현재 정보를 읽어 값이 있다면 
-							// modal창을 띄우지 않는다.
+						
 							if (result === '' || history.state) {
 								return;
 							}

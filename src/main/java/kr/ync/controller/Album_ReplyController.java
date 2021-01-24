@@ -30,9 +30,8 @@ public class Album_ReplyController {
 	@Autowired
 	private Album_ReplyService service;
 	
-	// consumes은 호출하는쪽에서 application/json 요청만 받아들인다. 요청 컨텐트 타입 제한
-			// produces은 조건에 지정한 미디어 타입과 관련된 응답을 생성. 응답 컨텐트 타입 제한
-			// 명시적으로 consumes와 produces 조건을 각각 사용하는 것을 권장한다
+		
+			// 1. 앨범 댓글 등록 메소드
 			@PreAuthorize("isAuthenticated()")
 			@PostMapping(value = "/new", consumes = "application/json", produces = { MediaType.TEXT_PLAIN_VALUE })
 			public ResponseEntity<String> create(@RequestBody Album_ReplyVO reply) {
@@ -49,10 +48,8 @@ public class Album_ReplyController {
 				
 			}
 			
-			// 교재와 다른 부분 내용 추가!
-			// spring 5.2에서 MediaType.APPLICATION_JSON_UTF8_VALUE 는 제거됨
-			// 해당 값 없어도 현재 브라우저는 UTF-8을 제대로 처리함.
-			// spring 5.2 부터 MediaType.APPLICATION_JSON_UTF8 로 수정하면됨
+			
+			// 2. 앨범 댓글 조회 메소드
 			@GetMapping(value = "/{album_reply_idx}", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
 			public ResponseEntity<Album_ReplyVO> get(@PathVariable("album_reply_idx") int album_reply_idx) {
 
@@ -61,8 +58,7 @@ public class Album_ReplyController {
 				return new ResponseEntity<>(service.get(album_reply_idx), HttpStatus.OK);
 			}
 			
-			// PUT, PATCH method를 모두 적용시켜야 되기에 @RequestMapping을 사용
-			// 둘중 하나만 적용할려면 @PutMapping, @PatchMapping 을 사용하면 된다.
+			// 3. 앨범 댓글 수정 메소드    현재 세션인 유저 아이디와 작성자 가 같아야됨   
 			@PreAuthorize("principal.username == #reply.replyer")
 			@RequestMapping(value = "/{album_reply_idx}", method = { RequestMethod.PUT, RequestMethod.PATCH },
 							consumes = "application/json", produces = {	MediaType.TEXT_PLAIN_VALUE })
@@ -80,7 +76,8 @@ public class Album_ReplyController {
 						: new ResponseEntity<>("Fail!! 댓글 수정 중 오류 발생", HttpStatus.INTERNAL_SERVER_ERROR);
 
 			}
-
+			
+			// 4. 앨범 댓글 삭제 메소드    현재 세션인 유저 아이디와 작성자 가 같아야됨   
 			@PreAuthorize("principal.username == #reply.replyer")
 			@DeleteMapping(value = "/{album_reply_idx}", produces = { MediaType.TEXT_PLAIN_VALUE })
 			public ResponseEntity<String> remove(@RequestBody Album_ReplyVO reply, @PathVariable("album_reply_idx") int album_reply_idx) {
@@ -94,10 +91,8 @@ public class Album_ReplyController {
 
 			}
 			
-			// spring 5.2에서 MediaType.APPLICATION_JSON_UTF8_VALUE 는 제거됨
-			// 해당 값 없어도 현재 브라우저는 UTF-8을 제대로 처리함.
-			// spring 5.2 부터 MediaType.APPLICATION_JSON_UTF8 로 수정하면됨
-			// 페이징 처리된 댓글 목록을 가져오는 method
+		
+			// 5. 앨범 댓글 페이징 처리된 댓글 목록을 가져오는 method
 			@GetMapping(value = "/pages/{album_idx}/{page}", produces = { MediaType.APPLICATION_XML_VALUE,
 																	MediaType.APPLICATION_JSON_VALUE })
 			public ResponseEntity<Album_ReplyPageDTO> getList(@PathVariable("page") int page, @PathVariable("album_idx") 

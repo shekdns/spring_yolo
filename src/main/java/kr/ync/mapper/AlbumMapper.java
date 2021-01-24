@@ -6,6 +6,7 @@ import kr.ync.domain.AlbumVO;
 import kr.ync.domain.ArtistVO;
 import kr.ync.domain.Criteria;
 
+// 앨범 관련 Mapper 
 public interface AlbumMapper {
 
 	public int insert(AlbumVO album);

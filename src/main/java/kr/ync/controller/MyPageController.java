@@ -22,6 +22,7 @@ public class MyPageController {
 	@Autowired
 	private UserService service;
 	
+	// 1. 마이 페이지 메소드
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@GetMapping("/myPage")
 	public void myPage(Model model, @RequestParam("id") String id) {
@@ -29,20 +30,13 @@ public class MyPageController {
 		
 	}
 	
+	// 2. 마이 페이지 비밀번호 수정 메소드
 	@PostMapping("/myPage")
 	public String myPage(UserVO user) {
 		
 		service.pass_update(user);
 		return "redirect:/front/myPage";
 	}
-	
-//	@PostMapping("/myPage")
-//	public String myPage(@RequestParam("id") String id, @RequestParam("pass") String pass) {
-//		
-//		service.pass_update(pass, id);
-//		return "redirect:/front/myPage";
-//	}
-	
-	
+		
 	
 }

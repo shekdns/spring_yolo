@@ -34,12 +34,7 @@
 
 				<form role="form" action="/admin/song_modify" method="post"
 					enctype="multipart/form-data">
-					<!--
-       	controller에서 파라미터 수집시 upload file은 uploadFile 이름으로 server로 넘어간다.(binary data로)
-       	하지만 BoardVO에서는 file_1,file_2,file_3의 이름으로 setter를 해줘야 한다.
-       	따라서 file_1,file_2,file_3를 hidden으로 넘겨서 controller에서 file이 upload가 안됐을 경우에도
-       	파라미터 수집이 되도록(값은 null로 됨) 하기위해 hidden으로 값을 넘긴다.
-       	-->
+	
 					<c:choose>
 						<c:when test="${not empty song.song_img_path}">
 							<input type="hidden" name="song_img_path" value="${song.song_img_path}">

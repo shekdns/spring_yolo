@@ -6,7 +6,6 @@
 <!doctype html>
 <html lang="en">
 
-<!-- Mirrored from iqonic.design/themes/muzik/html/sign-up.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 05 Aug 2020 17:02:23 GMT -->
 <head>
 <!-- Required meta tags -->
 <meta charset="utf-8">
@@ -435,5 +434,4 @@
 
 </body>
 
-<!-- Mirrored from iqonic.design/themes/muzik/html/sign-up.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 05 Aug 2020 17:02:23 GMT -->
 </html>

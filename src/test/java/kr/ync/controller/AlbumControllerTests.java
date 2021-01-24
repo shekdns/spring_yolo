@@ -38,87 +38,87 @@ public class AlbumControllerTests {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
 	}
 	
-//	@Test
-//	public void testArtisttList() throws Exception {
-//
-//		log.info(
-//				mockMvc.perform(MockMvcRequestBuilders.get("/admin/album"))
-//				.andReturn()
-//				.getModelAndView()
-//				.getModelMap());
-//	}
+	@Test
+	public void testArtisttList() throws Exception {
+
+		log.info(
+				mockMvc.perform(MockMvcRequestBuilders.get("/admin/album"))
+				.andReturn()
+				.getModelAndView()
+				.getModelMap());
+	}
 	
 	//페이징
-//	@Test
-//	public void testListPaging() throws Exception {
-//		log.info("===================================================================");
-//		log.info(mockMvc.perform(
-//				MockMvcRequestBuilders.get("/admin/album")
-//				.param("pageNum", "2")
-//				.param("amount", "3"))
-//				.andReturn().getModelAndView().getModelMap());
-//		log.info("==================================================================");
-//	}
+	@Test
+	public void testListPaging() throws Exception {
+		log.info("===================================================================");
+		log.info(mockMvc.perform(
+				MockMvcRequestBuilders.get("/admin/album")
+				.param("pageNum", "2")
+				.param("amount", "3"))
+				.andReturn().getModelAndView().getModelMap());
+		log.info("==================================================================");
+	}
 	
 	//등록
-//	@Test
-//	public void testRegister() throws Exception {
-//
-//		String resultPage = mockMvc
-//				.perform(MockMvcRequestBuilders.post("/admin/album_register")
-//				.param("album_name", "테스트")
-//				.param("artist_idx", "1")
-//				.param("artist_name", "테스트")
-//				.param("img_path" , "테스트")
-//				.param("album_type", "테스트")
-//				.param("genre", "테스트"))
-//				.andReturn().getModelAndView().getViewName();
-//
-//		log.info("resultPage: " + resultPage);
-//
-//	}
+	@Test
+	public void testRegister() throws Exception {
+
+		String resultPage = mockMvc
+				.perform(MockMvcRequestBuilders.post("/admin/album_register")
+				.param("album_name", "테스트")
+				.param("artist_idx", "1")
+				.param("artist_name", "테스트")
+				.param("img_path" , "테스트")
+				.param("album_type", "테스트")
+				.param("genre", "테스트"))
+				.andReturn().getModelAndView().getViewName();
+
+		log.info("resultPage: " + resultPage);
+
+	}
 	
 
-//	@Test
-//	public void tetGet() throws Exception {
-//
-//		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/admin/album_get")
-//				.param("album_idx", "23"))
-//				.andReturn()
-//				.getModelAndView()
-//				.getModelMap());
-//	}
+	@Test
+	public void tetGet() throws Exception {
+
+		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/admin/album_get")
+				.param("album_idx", "23"))
+				.andReturn()
+				.getModelAndView()
+				.getModelMap());
+	}
 	
-//	@Test
-//	public void testModify() throws Exception {
-//
-//		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/admin/album_modify")
-//				.param("album_idx", "23")
-//				.param("album_name", "테스트")
-//				.param("artist_idx", "1")
-//				.param("artist_name", "테스트")
-//				.param("img_path" , "테스트")
-//				.param("album_type", "테스트")
-//				.param("genre", "테스트"))
-//				.andReturn()
-//				.getModelAndView()
-//				.getViewName();
-//
-//		log.info(resultPage);
-//
-//	}
+	@Test
+	public void testModify() throws Exception {
+
+		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/admin/album_modify")
+				.param("album_idx", "23")
+				.param("album_name", "테스트")
+				.param("artist_idx", "1")
+				.param("artist_name", "테스트")
+				.param("img_path" , "테스트")
+				.param("album_type", "테스트")
+				.param("genre", "테스트"))
+				.andReturn()
+				.getModelAndView()
+				.getViewName();
+
+		log.info(resultPage);
+
+	}
 	
-//	@Test
-//	public void testRemove() throws Exception {
-//		// 삭제전 데이터베이스에 게시물 번호 확인할 것
-//		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/admin/album_remove")
-//				.param("album_idx", "20"))
-//				.andReturn()
-//				.getModelAndView()
-//				.getViewName();
-//
-//		log.info(resultPage);
-//	}
+	@Test
+	public void testRemove() throws Exception {
+		
+		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/admin/album_remove")
+				.param("album_idx", "20"))
+				.andReturn()
+				.getModelAndView()
+				.getViewName();
+
+		log.info(resultPage);
+	}
 	
 	
 }

@@ -1,11 +1,10 @@
 package kr.ync.domain;
 
 import lombok.Data;
-
+// 음악 VO
 @Data
 public class SongVO {
 	
-	//g3 
 	
 	public int song_idx;
 	public String song_name;

@@ -2,6 +2,7 @@ package kr.ync.domain;
 
 import lombok.Data;
 
+// 가수멤버 VO
 @Data
 public class ArtistMemberVO {
 	

@@ -3,7 +3,6 @@ package kr.ync.service;
 import java.util.List;
 
 import kr.ync.domain.ArtistVO;
-import kr.ync.domain.BoardVO;
 import kr.ync.domain.Criteria;
 
 public interface ArtistService {

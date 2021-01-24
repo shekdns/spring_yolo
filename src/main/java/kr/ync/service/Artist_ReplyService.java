@@ -5,7 +5,7 @@ import java.util.List;
 import kr.ync.domain.Artist_ReplyPageDTO;
 import kr.ync.domain.Artist_ReplyVO;
 import kr.ync.domain.Criteria;
-import kr.ync.domain.ReplyPageDTO;
+
 
 
 public interface Artist_ReplyService {
